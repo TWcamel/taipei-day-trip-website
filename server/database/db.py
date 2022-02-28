@@ -1,12 +1,9 @@
-import mysql.connecto
+import mysql.connector
 import configparser
 
 config = configparser.ConfigParser()
 config.read('config/mysql.ini')
 CONFIG = config['mysql']
-
-print(**CONFIG)
-
 
 class DB:
     def __init__(self):

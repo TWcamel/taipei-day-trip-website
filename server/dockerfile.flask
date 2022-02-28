@@ -8,4 +8,4 @@ RUN pip install -r /app/server/requirements.txt
 
 COPY . /app/server
 
-CMD ["uwsgi", '--init', './config/uwsgi.ini']
+ENTRYPOINT ["sh", "-c", "uwsgi --ini /app/server/config/uwsgi.ini"]

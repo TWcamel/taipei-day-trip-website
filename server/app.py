@@ -4,6 +4,7 @@ from controllers.home import day_trip_home
 from controllers.attractions import day_trip_attractions
 from controllers.booking import day_trip_booking
 from controllers.error import day_trip_error
+from data import insert_db
 
 config = configparser.ConfigParser()
 config.read('config/flask.ini')

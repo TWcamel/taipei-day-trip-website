@@ -7,6 +7,7 @@ from controllers.error import day_trip_error
 
 config = configparser.ConfigParser()
 config.read('config/flask.ini')
+config = config['flask']
 
 app = Flask(__name__, static_folder="../client", static_url_path="/")
 app.config["JSON_AS_ASCII"] = False
@@ -19,4 +20,4 @@ app.register_blueprint(day_trip_error)
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=int(config['flask']['port']))
+    app.run(debug=True, port=int(config['port']), host=config['host'])

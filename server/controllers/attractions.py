@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 day_trip_attractions = Blueprint(
     "day_trip_attractions", __name__, template_folder="../client")

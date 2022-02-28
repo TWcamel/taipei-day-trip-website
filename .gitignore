@@ -139,3 +139,4 @@ cython_debug/
 
 # custom cfg files
 server/config/mysql.ini
+pdf

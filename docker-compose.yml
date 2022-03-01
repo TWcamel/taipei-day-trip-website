@@ -8,6 +8,13 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+            LANG: C.UTF-8
+        command:
+            [
+                'mysqld',
+                '--character-set-server=utf8mb4',
+                '--collation-server=utf8mb4_unicode_ci',
+            ]
         volumes:
             - MYSQL_DATA_DIR:/var/lib/mysql
         ports:

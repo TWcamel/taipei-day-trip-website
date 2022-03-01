@@ -39,10 +39,50 @@ def from_json_file_insert_attractions_to_db() -> int:
         return affected_rows
 
 
-def get_max_id() -> int:
+def get_max_attraction_id() -> int:
     with db.DB() as _db:
         sql_cmd = '''
         SELECT MAX(id) FROM attractions
         '''
-        _db.fetch_db(sql_cmd=sql_cmd, is_fetch_one=True)
-        return _db._cursor.fetchone()[0]
+        res = _db.fetch_db(sql_cmd=sql_cmd, is_fetch_one=True)
+        return int(next(iter(tuple(next(iter(res))))))
+
+
+def get_attraction_by_range(start: int, end: int) -> list:
+
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT T.id, T.name, T.category, T.description, T.address, T.transport, T.mrt, T.latitude, T.longitude 
+        FROM attractions T
+        WHERE T.id >= %(_start)s
+        and T.id <= %(_end)s
+        '''
+
+        sql_params = {
+            '_start': start,
+            '_end': end
+        }
+
+        res = _db.fetch_db_response_column_name(
+            sql_cmd=sql_cmd, params=sql_params, is_fetch_one=False)
+
+    return res
+
+
+def get_attraction_by_id(id: int) -> dict:
+
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT T.id, T.name, T.category, T.description, T.address, T.transport, T.mrt, T.latitude, T.longitude 
+        FROM attractions T
+        WHERE T.id = %(_id)s
+        '''
+
+        sql_params = {
+            '_id': id,
+        }
+
+        res = _db.fetch_db_response_column_name(
+            sql_cmd=sql_cmd, params=sql_params, is_fetch_one=True)
+
+    return res

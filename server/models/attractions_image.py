@@ -30,3 +30,68 @@ def from_json_file_insert_into_attractions_image() -> int:
                 affected_rows += _db.crud(sql_cmd=sql_cmd, params=sql_params)
 
     return affected_rows
+
+
+def get_max_image_id() -> int:
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT MAX(id) FROM attractions_image
+        '''
+        res = _db.fetch_db(sql_cmd=sql_cmd, is_fetch_one=True)
+        return int(next(iter(tuple(next(iter(res))))))
+
+
+def get_image_by_range(start: int, end: int) -> list:
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT * FROM attractions_image T
+        WHERE T.attractions_id >= %(_start)s
+        and T.attractions_id <= %(_end)s
+        '''
+
+        sql_param = {
+            '_start': start,
+            '_end': end
+        }
+
+        res = _db.fetch_db(
+            sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False)
+
+    return res
+
+
+def get_image_by_id(id: int) -> list:
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT T.image FROM attractions_image T
+        WHERE T.attractions_id = %(_id)s
+        '''
+
+        sql_param = {
+            '_id': id,
+        }
+
+        res = _db.fetch_db(
+            sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False)
+
+    return res
+
+
+def get_attraction_with_image_by_range(start: int, end: int) -> list:
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT T.id, T.name, T.category, T.description, T.address, T.transport, T.mrt, T.latitude, T.longitude, I.image FROM attractions T
+        INNER JOIN attractions_image I ON T.id = I.attractions_id
+        WHERE T.id >= %(_start)s
+        and T.id <= %(_end)s
+        '''
+
+        sql_param = {
+            '_start': start,
+            '_end': end
+        }
+
+        res = _db.fetch_db(
+            sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False)
+
+    return res

@@ -5,6 +5,7 @@ config = configparser.ConfigParser()
 config.read('config/mysql.ini')
 CONFIG = config['mysql']
 
+
 class DB:
     def __init__(self):
         """Connect to database
@@ -61,3 +62,21 @@ class DB:
         affected_rows = self._cursor.rowcount
         self._cnx.commit()
         return affected_rows
+
+    def fetch_db_response_column_name(self, sql_cmd: str, params: dict = None, is_fetch_one: bool = True) -> list:
+        """Database query operation
+
+            Args:
+                sql_cmd (str): SQL command
+                params (dict): Parameters
+                is_fetch_one (bool): Whether to fetch one or all (default: True)
+
+            Returns:
+                dict: Result
+        """
+
+        self._cursor.execute(sql_cmd, params)
+        columns = self._cursor.description
+        result = [{columns[index][0]:column for index,
+                   column in enumerate(value)} for value in self._cursor.fetchall()]
+        return result

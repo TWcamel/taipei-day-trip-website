@@ -2,7 +2,7 @@ import database.db as db
 from utils.read_json_file import read_attractions_json_file 
 
 
-def insert_attractions_to_db() -> int:
+def from_json_file_insert_attractions_to_db() -> int:
     attractions = read_attractions_json_file('taipei-attractions.json')
     with db.DB() as _db:
         sql_cmd = '''

@@ -1,5 +1,5 @@
 import database.db as db
-from utils.read_json_file import read_attractions_json_file 
+from utils.read_json_file import read_attractions_json_file
 
 
 def from_json_file_insert_attractions_to_db() -> int:
@@ -32,7 +32,8 @@ def from_json_file_insert_attractions_to_db() -> int:
                 '_mrt': attraction['MRT'],
                 '_latitude': attraction['latitude'],
                 '_longitude': attraction['longitude'],
-                '_images': attraction['file']
+                '_images': " ".join(list(filter(lambda x: x != None, [f"https{s}" if s.find('jpg') > 0 or s.find('JPG') > 0 or s.find('png') > 0 or s.find(
+                    'PNG') > 0 else None for idx, s in enumerate(attraction['file'].split('http'))])))
             }
 
             # should be 319 row counts # test OK

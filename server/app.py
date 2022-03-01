@@ -4,7 +4,7 @@ from controllers.home import day_trip_home
 from controllers.attractions import day_trip_attractions
 from controllers.booking import day_trip_booking
 from controllers.error import day_trip_error
-from models import insert_db
+from models import attractions
 
 config = configparser.ConfigParser()
 config.read('config/flask.ini')
@@ -18,7 +18,6 @@ app.register_blueprint(day_trip_home)
 app.register_blueprint(day_trip_attractions)
 app.register_blueprint(day_trip_booking)
 app.register_blueprint(day_trip_error)
-
 
 if __name__ == "__main__":
     app.run(debug=True, port=int(config['port']), host=config['host'])

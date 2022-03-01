@@ -3,7 +3,7 @@ import configparser
 from api.home import day_trip_home
 from api.attractions import day_trip_attractions
 from api.booking import day_trip_booking
-from models import attractions
+from models import attractions_image, attractions
 
 config = configparser.ConfigParser()
 config.read('config/flask.ini')

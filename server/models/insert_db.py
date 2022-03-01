@@ -1,19 +1,9 @@
 import database.db as db
-import json
-import os
+from utils.read_json_file import read_attractions_json_file 
 
 
-def read_attractions_json_file():
-    file = 'taipei-attractions.json'
-    json_file = os.path.join(os.path.dirname(__file__), file)
-    with open(json_file, mode='r') as f:
-        attractions = json.load(f)
-        res = [attraction for attraction in attractions['result']['results']]
-    return res
-
-
-def insert_attractions_to_db():
-    attractions = read_attractions_json_file()
+def insert_attractions_to_db() -> int:
+    attractions = read_attractions_json_file('taipei-attractions.json')
     with db.DB() as _db:
         sql_cmd = '''
         INSERT INTO attractions (

@@ -15,7 +15,7 @@ def attraction(id):
     return render_template("attraction.html")
 
 
-@response.json_response
+@response.json_response_with_cors
 @day_trip_attractions.route("/api/attractions", methods=["GET"])
 def get_attraction_by_page():
     params = request.args.to_dict()
@@ -53,7 +53,7 @@ def get_attraction_by_page():
     return res
 
 
-@response.json_response
+@response.json_response_with_cors
 @day_trip_attractions.route("/api/attraction/<attractionId>", methods=["GET"])
 def get_attraction_by_attraction_id(attractionId):
     res = {}

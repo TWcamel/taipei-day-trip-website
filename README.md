@@ -8,7 +8,8 @@
 
 # ER Model
 
-![picture 1](images/4038780a7b17bb6b0a28690efdbd498c0a1b7333ffc851ccfc00952c87e90fac.png)
+![picture 2](images/b72deb5aae8410975d9a828281b236c72e1be04e2951bdb5cf0ba838589b53a5.png)  
+
 
 # ref
 

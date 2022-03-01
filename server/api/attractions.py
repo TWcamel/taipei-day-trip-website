@@ -26,14 +26,14 @@ def get_attraction_by_page():
         return res
 
     page = int(params['page'])
-    keyword = params['keyword'] if 'keyword' in params else ''
+    keyword = params['keyword'] if 'keyword' in params else '%'
 
     max_attractions_id, max_page = attractions.get_max_attraction_id(), - \
         sys.maxsize - 1
 
     try:
-        attractions_list = attractions.get_attraction_by_range(
-            start=page*12, end=page*12+11)
+        attractions_list = attractions.get_attraction_by_range_and_keyword(
+            start=page*12, end=page*12+11, keyword=keyword)
 
         res['data'] = attractions_list
 

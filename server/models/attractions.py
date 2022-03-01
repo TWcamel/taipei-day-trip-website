@@ -48,7 +48,7 @@ def get_max_attraction_id() -> int:
         return int(next(iter(tuple(next(iter(res))))))
 
 
-def get_attraction_by_range(start: int, end: int) -> list:
+def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> list:
 
     with db.DB() as _db:
         sql_cmd = '''
@@ -56,11 +56,13 @@ def get_attraction_by_range(start: int, end: int) -> list:
         FROM attractions T
         WHERE T.id >= %(_start)s
         and T.id <= %(_end)s
+        and T.name LIKE %(_keyword)s
         '''
 
         sql_params = {
             '_start': start,
-            '_end': end
+            '_end': end,
+            '_keyword': '%' + keyword + '%'
         }
 
         res = _db.fetch_db_response_column_name(

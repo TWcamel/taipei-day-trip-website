@@ -4,6 +4,8 @@ import utils.response as response
 import models.attractions as attractions
 import models.attractions_image as attractions_image
 import sys
+import logging
+import traceback
 
 
 day_trip_attractions = Blueprint(
@@ -44,8 +46,8 @@ def get_attraction_by_page():
         res['nextPage'] = page + \
             1 if len(res['data']) > 0 and page < max_attractions_id else None
 
-    except Exception:
-        logging.err(traceback.format_exc())
+    except:
+        logging.error(traceback.format_exc())
         return {'error': True, 'message': '伺服器內部錯誤'}
 
     return res
@@ -63,7 +65,7 @@ def get_attraction_by_attraction_id(attractionId):
         attraction['images'] = [next(iter(tuple(image))) for image in images]
     except IndexError:
         return {'error': True, 'message': '景點編號不正確'}
-    except Exception as e:
+    except:
         logging.error(traceback.format_exc())
         return {'error': True, 'message': '伺服器內部錯誤'}
 

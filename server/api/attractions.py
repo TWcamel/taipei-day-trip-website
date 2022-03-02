@@ -22,14 +22,10 @@ def get_attraction_by_page():
 
     res = {}
 
-    if 'page' not in params or int(params['page']) < 0:
-        return res
-
-    page = int(params['page'])
+    page = int(params['page']) if 'page' in params else 0
     keyword = params['keyword'] if 'keyword' in params else '%'
 
-    max_attractions_id, max_page = attractions.get_max_attraction_id(), - \
-        sys.maxsize - 1
+    max_attractions_id = attractions.get_max_attraction_id()
 
     try:
         attractions_list = attractions.get_attraction_by_range_and_keyword(
@@ -46,8 +42,10 @@ def get_attraction_by_page():
                                     for image in images]
 
         res['nextPage'] = page + \
-            1 if max_attractions_id > int(page) else max_attractions_id
-    except:
+            1 if len(res['data']) > 0 and page < max_attractions_id else None
+
+    except Exception:
+        logging.err(traceback.format_exc())
         return {'error': True, 'message': '伺服器內部錯誤'}
 
     return res
@@ -59,16 +57,14 @@ def get_attraction_by_attraction_id(attractionId):
     res = {}
     attractionId = int(attractionId)
 
-    max_attractions_id, max_page = attractions.get_max_attraction_id(), - \
-        sys.maxsize - 1
-
     try:
         attraction = attractions.get_attraction_by_id(id=attractionId)[0]
         images = attractions_image.get_image_by_id(id=attractionId)
         attraction['images'] = [next(iter(tuple(image))) for image in images]
     except IndexError:
         return {'error': True, 'message': '景點編號不正確'}
-    except:
+    except Exception as e:
+        logging.error(traceback.format_exc())
         return {'error': True, 'message': '伺服器內部錯誤'}
 
     res['data'] = attraction

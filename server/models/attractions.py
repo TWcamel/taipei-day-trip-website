@@ -54,17 +54,16 @@ def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> l
         sql_cmd = '''
         SELECT T.id, T.name, T.category, T.description, T.address, T.transport, T.mrt, T.latitude, T.longitude 
         FROM attractions T
-        WHERE T.id >= %(_start)s
-        and T.id <= %(_end)s
+        WHERE 1 = 1
         and T.name LIKE %(_keyword)s
+        LIMIT %(_limit_row_numbers)s OFFSET %(_start)s
         '''
 
         sql_params = {
+            '_keyword': '%' + keyword + '%',
+            '_limit_row_numbers': end - start + 1,
             '_start': start,
-            '_end': end,
-            '_keyword': '%' + keyword + '%'
         }
-
         res = _db.fetch_db_response_column_name(
             sql_cmd=sql_cmd, params=sql_params, is_fetch_one=False)
 

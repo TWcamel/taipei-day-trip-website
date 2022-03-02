@@ -74,7 +74,6 @@ class DB:
             Returns:
                 dict: Result
         """
-
         self._cursor.execute(sql_cmd, params)
         columns = self._cursor.description
         result = [{columns[index][0]:column for index,

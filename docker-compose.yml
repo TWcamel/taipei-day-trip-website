@@ -1,0 +1,59 @@
+version: '3.9'
+services:
+    mysql:
+        image: mysql
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+            LANG: C.UTF-8
+        command:
+            [
+                'mysqld',
+                '--character-set-server=utf8mb4',
+                '--collation-server=utf8mb4_unicode_ci',
+            ]
+        volumes:
+            - MYSQL_DATA_DIR:/var/lib/mysql
+        ports:
+            - ${MSQL_PORT}:${MSQL_PORT}
+        expose:
+            - ${MSQL_PORT}
+        networks:
+            - ${DAY_TRIP_NETWORK}
+        restart: always
+    flask:
+        image: day-trip-flask
+        build:
+            context: ./server
+            dockerfile: dockerfile.flask
+        volumes:
+            - "./server:/app/server"
+            - ".server/client/:/app/client"
+        networks:
+            - ${DAY_TRIP_NETWORK}
+        restart: always
+    nginx:
+        image: day-trip-nginx
+        build:
+            context: ./server
+            dockerfile: dockerfile.nginx
+        environment:
+            FLASK_PORT: ${FLASK_PORT}
+            NGINX_EXPOSE_PORT: ${NGINX_EXPOSE_PORT}
+        ports:
+            - "${FLASK_PORT}:${NGINX_EXPOSE_PORT}"
+        networks:
+            - ${DAY_TRIP_NETWORK}
+        restart: always
+        depends_on:
+            - flask
+
+volumes:
+    MYSQL_DATA_DIR:
+
+networks:
+    day-trip-network:
+

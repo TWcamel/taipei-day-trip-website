@@ -60,12 +60,12 @@ def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> l
         '''
 
         sql_params = {
-            '_keyword': '%' + keyword + '%',
+            '_keyword': f"{keyword}",
             '_limit_row_numbers': end - start + 1,
             '_start': start,
         }
         res = _db.fetch_db_response_column_name(
-            sql_cmd=sql_cmd, params=sql_params, is_fetch_one=False)
+            sql_cmd=sql_cmd, params=sql_params, is_fetch_one=False) 
 
     return res
 

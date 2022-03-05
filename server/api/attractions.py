@@ -48,9 +48,9 @@ def get_attraction_by_page():
 
     except:
         logging.error(traceback.format_exc())
-        return {'error': True, 'message': '伺服器內部錯誤'}
+        return {'error': True, 'message': '伺服器內部錯誤'}, 500
 
-    return res
+    return res, 200
 
 
 @response.json_response_with_cors
@@ -64,11 +64,13 @@ def get_attraction_by_attraction_id(attractionId):
         images = attractions_image.get_image_by_id(id=attractionId)
         attraction['images'] = [next(iter(tuple(image))) for image in images]
     except IndexError:
-        return {'error': True, 'message': '景點編號不正確'}
+        return {'error': True, 'message': '景點編號不正確'}, 400
     except:
         logging.error(traceback.format_exc())
-        return {'error': True, 'message': '伺服器內部錯誤'}
+        return {'error': True, 'message': '伺服器內部錯誤'}, 500
 
     res['data'] = attraction
 
-    return res
+    return res, 200
+
+

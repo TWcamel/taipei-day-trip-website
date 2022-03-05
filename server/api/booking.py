@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+import utils.response as response
 
 day_trip_booking = Blueprint(
     "day_trip_booking", __name__, template_folder="../client")

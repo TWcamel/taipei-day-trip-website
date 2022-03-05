@@ -3,9 +3,7 @@ import database.db as db
 import utils.response as response
 import models.attractions as attractions
 import models.attractions_image as attractions_image
-import sys
-import logging
-import traceback
+import sys, logging, traceback
 
 
 day_trip_attractions = Blueprint(
@@ -48,7 +46,7 @@ def get_attraction_by_page():
 
     except:
         logging.error(traceback.format_exc())
-        return {'error': True, 'message': '伺服器內部錯誤'}, 500
+        return {'error': True, 'message': 'Internal Server Error'}, 500
 
     return res, 200
 
@@ -64,13 +62,11 @@ def get_attraction_by_attraction_id(attractionId):
         images = attractions_image.get_image_by_id(id=attractionId)
         attraction['images'] = [next(iter(tuple(image))) for image in images]
     except IndexError:
-        return {'error': True, 'message': '景點編號不正確'}, 400
+        return {'error': True, 'message': 'Not an valid attraction id, please correct it and try it again'}, 400
     except:
         logging.error(traceback.format_exc())
-        return {'error': True, 'message': '伺服器內部錯誤'}, 500
+        return {'error': True, 'message': 'Internal Server Error'}, 500
 
     res['data'] = attraction
 
     return res, 200
-
-

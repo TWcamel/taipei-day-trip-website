@@ -63,7 +63,7 @@ class DB:
         self._cnx.commit()
         return affected_rows
 
-    def fetch_db_response_column_name(self, sql_cmd: str, params: dict = None, is_fetch_one: bool = True) -> list:
+    def fetch_db_response_column_name(self, sql_cmd: str, params: dict = None, is_fetch_one: bool = True) -> list[dict]:
         """Database query operation
 
             Args:
@@ -72,7 +72,7 @@ class DB:
                 is_fetch_one (bool): Whether to fetch one or all (default: True)
 
             Returns:
-                dict: Result
+                list[dict]: Result
         """
         self._cursor.execute(sql_cmd, params)
         columns = self._cursor.description

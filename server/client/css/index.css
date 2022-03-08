@@ -1,0 +1,301 @@
+:root {
+    --normal-font-size: 20px;
+    --big-font-size: 40px;
+    --first-color: rgba(255, 255, 255, 0.9);
+    --second-color: rgba(170, 221, 238, 1);
+    --cyan-gradient-light: linear-gradient(135deg, #aaddee 0%, #66aabb 100%);
+    --cyan-main: rgba(68, 136, 153, 1);
+    --cyan-color-dark: rgba(61, 122, 139, 1);
+    --cyan-color-main: rgba(68, 136, 153, 1);
+    --cyan-color-normal: rgba(102, 170, 187, 1);
+    --grey-50-color: rgba(248, 248, 248, 1);
+    --block-gap-size: 18px;
+    --nav-bar-height: 66px;
+}
+
+body {
+    font-family: Noto Sans TC;
+    font-size: var(--normal-font-size);
+    color: black;
+    background-color: var(--first-color);
+}
+
+#header-section {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 5;
+    background-color: var(--first-color);
+    height: var(--nav-bar-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#nav-bar {
+    /* background-color: var(--first-color); */
+    top: 0;
+    position: fixed;
+    max-width: 1200px;
+    width: 100%;
+    z-index: 3;
+    height: var(--nav-bar-height);
+}
+
+#nav-bar .nav-bar-btn {
+    display: none;
+}
+
+#nav-bar #nav-bar-title {
+    display: block;
+    padding: 20px 20px;
+    float: left;
+}
+
+#nav-bar #nav-bar-item {
+    clear: both;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+}
+
+#nav-bar ul {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+    /* background-color: var(--first-color); */
+}
+
+#nav-bar-item a {
+    display: block;
+    padding: 20px 20px;
+    /* border-right: 1px solid #f4f4f4; */
+    text-decoration: none;
+}
+
+#nav-bar .nav-bar-icon {
+    cursor: pointer;
+    float: right;
+    padding: 28px 23px;
+    position: relative;
+    user-select: none;
+}
+
+#nav-bar .nav-bar-icon #navicon {
+    background: #333;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background 0.2s ease-out;
+    width: 18px;
+}
+
+#nav-bar .nav-bar-icon #navicon:before,
+#nav-bar .nav-bar-icon #navicon:after {
+    background: #333;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    width: 100%;
+}
+
+#nav-bar .nav-bar-icon #navicon:before {
+    top: 5px;
+}
+
+#nav-bar .nav-bar-icon #navicon:after {
+    top: -5px;
+}
+
+#nav-bar .nav-bar-btn:checked ~ #nav-bar-item {
+    max-height: 240px;
+}
+
+#nav-bar .nav-bar-btn:checked ~ .nav-bar-icon #navicon {
+    background: transparent;
+}
+
+#nav-bar .nav-bar-btn:checked ~ .nav-bar-icon #navicon:before {
+    transform: rotate(-45deg);
+}
+
+#nav-bar .nav-bar-btn:checked ~ .nav-bar-icon #navicon:after {
+    transform: rotate(45deg);
+}
+
+#nav-bar .nav-bar-btn:checked ~ .nav-bar-icon:not(.steps) #navicon:before,
+#nav-bar .nav-bar-btn:checked ~ .nav-bar-icon:not(.steps) #navicon:after {
+    top: 0;
+}
+
+#welcome-home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: var(--cyan-gradient-light);
+}
+
+#welcome-home-container #welcome-home {
+    margin-top: var(--nav-bar-height);
+    /* padding-top: var(--block-gap-size); */
+    height: 300px;
+    position: relative;
+    /* text-align: center; */
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#welcome-home-container #welcome-home #welcome-img {
+    min-width: 25%;
+    height: 80%;
+    object-fit: cover;
+    bottom: 0;
+    right: -10%;
+    position: absolute;
+}
+
+#welcome-home-container #welcome-home #welcome-form {
+    position: absolute;
+    color: var(--grey-50-color);
+    letter-spacing: 0.5rem;
+}
+
+#welcome-home-container #welcome-home #welcome-form #search-attractions-block {
+    display: flex;
+}
+
+#welcome-home-container
+    #welcome-home
+    #welcome-form
+    #search-attractions-block
+    .input-keyword {
+    min-width: 40em;
+    padding: 0 2em 0 2em;
+    border: none;
+    border-radius: 4px 0 0 4px;
+}
+
+#welcome-home-container
+    #welcome-home
+    #welcome-form
+    #search-attractions-block
+    .btn-search-attractions {
+    box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
+    background-color: var(--cyan-color-dark);
+    color: var(--grey-50-color);
+    border: 1px solid var(--cyan-color-dark);
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    width: 5em;
+    height: 3em;
+}
+
+/* #welcome-home-container #welcome-home div {
+    font-size: var(--big-font-size);
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
+.gallery {
+    display: grid;
+    width: 1200px;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 40px;
+    justify-content: center;
+    margin: auto;
+    padding: 0;
+    padding-top: var(--block-gap-size);
+}
+
+.gallery-items {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+}
+
+.gallery-items img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.gallery-items-title {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    background-color: var(--cyan-main);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+    #nav-bar li {
+        float: left;
+    }
+    #nav-bar #nav-bar-item li a {
+        padding: 20px 30px;
+        text-decoration: none;
+    }
+    #nav-bar #nav-bar-item {
+        clear: none;
+        float: right;
+        max-height: none;
+    }
+    #nav-bar .nav-bar-icon {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    #welcome-home-container #welcome-home #welcome-img {
+        min-width: 25%;
+        height: 70%;
+        right: 0%;
+    }
+
+    #welcome-home-container
+        #welcome-home
+        #welcome-form
+        #search-attractions-block
+        .input-keyword {
+        min-width: 30em;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 600px) {
+    .gallery {
+        grid-template-columns: auto auto;
+        width: 90%;
+    }
+
+    #welcome-home-container
+        #welcome-home
+        #welcome-form
+        #search-attractions-block
+        .input-keyword {
+        min-width: 25em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .gallery {
+        width: 90%;
+        grid-template-columns: auto;
+    }
+
+    #welcome-home-container
+        #welcome-home
+        #welcome-form
+        #search-attractions-block
+        .input-keyword {
+        min-width: 15em;
+    }
+}

@@ -6,9 +6,10 @@
     --cyan-gradient-light: linear-gradient(135deg, #aaddee 0%, #66aabb 100%);
     --cyan-main: rgba(68, 136, 153, 1);
     --cyan-color-dark: rgba(61, 122, 139, 1);
-    --cyan-color-main: rgba(68, 136, 153, 1);
+    --cyan-800-color: rgba(68, 136, 153, 1);
     --cyan-color-normal: rgba(102, 170, 187, 1);
     --grey-50-color: rgba(248, 248, 248, 1);
+    --grey-800-color: rgba(102, 102, 102, 1);
     --block-gap-size: 18px;
     --nav-bar-height: 66px;
 }
@@ -16,7 +17,8 @@
 body {
     font-family: Noto Sans TC;
     font-size: var(--normal-font-size);
-    color: black;
+    color: var(--grey-800-color);
+    margin: 0 auto;
     background-color: var(--first-color);
 }
 
@@ -48,14 +50,18 @@ body {
 
 #nav-bar #nav-bar-title {
     display: block;
-    padding: 20px 20px;
+    padding: 10px 10px;
     float: left;
+    color: var(--cyan-800-color);
+    font-weight: bold;
+    font-size: 2rem;
 }
 
 #nav-bar #nav-bar-item {
     clear: both;
     max-height: 0;
     transition: max-height 0.2s ease-out;
+    text-align: right;
 }
 
 #nav-bar ul {
@@ -71,6 +77,11 @@ body {
     padding: 20px 20px;
     /* border-right: 1px solid #f4f4f4; */
     text-decoration: none;
+}
+
+#nav-bar-item a:visited {
+    text-decoration: none;
+    color: var(--grey-800-color);
 }
 
 #nav-bar .nav-bar-icon {
@@ -194,15 +205,6 @@ body {
     height: 3em;
 }
 
-/* #welcome-home-container #welcome-home div {
-    font-size: var(--big-font-size);
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
-
 .gallery {
     display: grid;
     width: 1200px;
@@ -275,7 +277,6 @@ body {
         grid-template-columns: auto auto;
         width: 90%;
     }
-
     #welcome-home-container
         #welcome-home
         #welcome-form
@@ -297,5 +298,9 @@ body {
         #search-attractions-block
         .input-keyword {
         min-width: 15em;
+    }
+
+    #nav-bar #nav-bar-item {
+        background-color: var(--first-color);
     }
 }

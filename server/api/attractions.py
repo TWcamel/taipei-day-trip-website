@@ -3,7 +3,9 @@ import database.db as db
 import utils.response as response
 import models.attractions as attractions
 import models.attractions_image as attractions_image
-import sys, logging, traceback
+import sys
+import logging
+import traceback
 
 
 day_trip_attractions = Blueprint(
@@ -25,7 +27,7 @@ def get_attraction_by_page():
     page = int(params['page']) if 'page' in params else 0
     keyword = params['keyword'] if 'keyword' in params else '%'
 
-    max_attractions_id = attractions.get_max_attraction_id()
+    max_page = attractions.get_attraction_counts()//12
 
     try:
         attractions_list = attractions.get_attraction_by_range_and_keyword(
@@ -42,7 +44,8 @@ def get_attraction_by_page():
                                     for image in images]
 
         res['nextPage'] = page + \
-            1 if len(res['data']) > 0 and page < max_attractions_id else None
+            1 if len(
+                res['data']) > 0 and page < max_page else None
 
     except:
         logging.error(traceback.format_exc())
@@ -70,3 +73,10 @@ def get_attraction_by_attraction_id(attractionId):
     res['data'] = attraction
 
     return res, 200
+
+
+@response.json_response_with_cors
+@day_trip_attractions.route("/api/attractions/test", methods=["GET"])
+def get_attraction_by_keyword():
+    image = attractions_image.get_image_by_id(id=1)
+    return {'image': image}

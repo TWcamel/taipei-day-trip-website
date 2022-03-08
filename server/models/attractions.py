@@ -48,6 +48,15 @@ def get_max_attraction_id() -> int:
         return int(next(iter(tuple(next(iter(res))))))
 
 
+def get_attraction_counts() -> int:
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT COUNT(1) FROM attractions
+        '''
+        res = _db.fetch_db(sql_cmd=sql_cmd, is_fetch_one=True)
+        return int(next(iter(tuple(next(iter(res))))))
+
+
 def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> list:
 
     with db.DB() as _db:
@@ -65,7 +74,7 @@ def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> l
             '_start': start,
         }
         res = _db.fetch_db_response_column_name(
-            sql_cmd=sql_cmd, params=sql_params, is_fetch_one=False) 
+            sql_cmd=sql_cmd, params=sql_params, is_fetch_one=False)
 
     return res
 

@@ -93,7 +93,7 @@ def user_signup():
         elif err.errno == mysql.errorcode.ER_PARSE_ERROR:
             return {"error": True, "message": "Invalid SQL syntax"}, 500
 
-        return {"error": True, "message": f"MySql error code: {mysql.errorcode.ER_PARSE_ERROR}"}, 500
+        return {"error": True, "message": f"MySql error code: {mysql.errorcode}"}, 500
     except:
         logging.error(traceback.format_exc())
         return {"error": True, "message": "Internal Server Error"}, 500
@@ -106,9 +106,8 @@ def sign_out():
     session.pop("id", None)
     return {"ok": True}, 200
 
-
 @response.json_response
-@day_trip_user.route('/api/delete/user', methods=["DELETE"])
+@day_trip_user.route('/api/user/delete', methods=["DELETE"])
 def user_delete_account():
     if 'id' in session and session.get("user_status", "not_yet_log_in") == "already_logged_in":
         try:
@@ -126,7 +125,7 @@ def user_delete_account():
             if err.errno == mysql.errorcode.ER_PARSE_ERROR:
                 return {"error": True, "message": "Invalid SQL syntax"}, 500
 
-            return {"error": True, "message": f"MySql error code: {mysql.errorcode.ER_PARSE_ERROR}"}, 500
+            return {"error": True, "message": f"MySql error code: {mysql.errorcode}"}, 500
 
         except TypeError:
             logging.error(traceback.format_exc())

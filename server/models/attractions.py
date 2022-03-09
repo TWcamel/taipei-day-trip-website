@@ -96,3 +96,12 @@ def get_attraction_by_id(id: int) -> dict:
             sql_cmd=sql_cmd, params=sql_params, is_fetch_one=True)
 
     return res
+
+def delete_attractions() -> int:
+    with db.DB() as _db:
+        sql_cmd = '''
+        DELETE FROM attractions
+        '''
+        affected_rows = _db.crud(sql_cmd=sql_cmd)
+
+    return affected_rows

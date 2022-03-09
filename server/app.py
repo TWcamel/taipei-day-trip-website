@@ -21,5 +21,6 @@ app.register_blueprint(day_trip_attractions)
 app.register_blueprint(day_trip_booking)
 app.register_blueprint(day_trip_user)
 
+
 if __name__ == "__main__":
     app.run(debug=True, port=int(config['port']), host=config['host'])

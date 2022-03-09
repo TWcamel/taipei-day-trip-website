@@ -2,15 +2,21 @@ let infiniteScrolling = {
     autoAddAttractions: () => {
         let page = 0
 
+        const loadingObserver = document.querySelector('.gallery-observer')
+
         const callback = ([entry]) => {
             if (entry && entry.isIntersecting) {
-                attractions.getAttractions('%', page)
+                ;(async () => {
+                    let nextPage = await attractions.getAttractions('%', page)
+                    if (nextPage === undefined || nextPage === null)
+                        observer.unobserve(loadingObserver)
+                })()
                 page += 1
             }
         }
 
         let observer = new IntersectionObserver(callback, { threshold: 0 })
 
-        observer.observe(document.querySelector('.gallery-observer'))
+        observer.observe(loadingObserver)
     },
 }

@@ -22,7 +22,10 @@ let attractions = {
                         category: attraction.category,
                     })
                 })
+                page = attractions.nextPage
             })
         })
+
+        return page
     },
 }

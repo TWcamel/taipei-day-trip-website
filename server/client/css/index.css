@@ -239,7 +239,6 @@ body {
     /* position: absolute; */
     margin: 0.4em;
     text-align: start;
-    width: 100%;
 }
 
 .gallery-items-sub-title {
@@ -247,6 +246,20 @@ body {
     grid-template-columns: auto auto;
     margin: 0.4em;
     justify-content: space-between;
+}
+
+footer {
+    text-align: center;
+    background-color: var(--grey-800-color);
+    color: var(--grey-50-color);
+    display: block;
+    width: 100%;
+    line-height: 5em;
+    margin-top: var(--block-gap-size);
+}
+
+footer p {
+    margin: 0;
 }
 
 @media screen and (min-width: 600px) {

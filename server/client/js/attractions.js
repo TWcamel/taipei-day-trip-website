@@ -1,10 +1,16 @@
 let attractions = {
-    getAttractions: async () => {
+    getAttractions: async (keyword, page) => {
         const currentUrl = window.location
-        const baseUrl = currentUrl.protocol + '//' + currentUrl.host + '/'
+        const baseUrl = currentUrl.protocol + '//' + currentUrl.host
 
-        const req = `${baseUrl}/api/attractions`
-        const data = requests(req, 'GET')
+        const url = new URL(`${baseUrl}/api/attractions`)
+        let params = { page: page, keyword: keyword }
+        url.search =
+            page !== undefined && keyword !== undefined
+                ? new URLSearchParams(params).toString()
+                : ''
+
+        const data = requests(url, 'GET')
 
         const promise = new Promise((resolve, reject) => {
             data.then((attractions) => {

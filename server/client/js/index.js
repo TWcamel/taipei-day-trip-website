@@ -1,4 +1,4 @@
 let app
 ;(app = () => {
-    attractions.getAttractions()
+    infiniteScrolling.autoAddAttractions()
 })()

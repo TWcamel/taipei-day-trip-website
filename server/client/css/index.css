@@ -51,11 +51,11 @@ body {
 
 #nav-bar #nav-bar-title {
     display: block;
-    padding: 10px 10px;
+    padding: 13px 13px;
     float: left;
     color: var(--cyan-800-color);
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 #nav-bar #nav-bar-item {
@@ -267,7 +267,7 @@ footer p {
         float: left;
     }
     #nav-bar #nav-bar-item li a {
-        padding: 20px 30px;
+        /* padding: 20px 30px; */
         text-decoration: none;
     }
     #nav-bar #nav-bar-item {

@@ -21,10 +21,5 @@ app.register_blueprint(day_trip_attractions)
 app.register_blueprint(day_trip_booking)
 app.register_blueprint(day_trip_user)
 
-# attractions_image.delete_attraction_images()
-# attractions.delete_attractions()
-attractions.from_json_file_insert_attractions_to_db()
-attractions_image.from_json_file_insert_into_attractions_image()
-
 if __name__ == "__main__":
     app.run(debug=True, port=int(config['port']), host=config['host'])

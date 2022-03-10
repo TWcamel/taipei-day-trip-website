@@ -3,6 +3,12 @@ let infiniteScrolling = {
     setObserver: (observer) => {
         infiniteScrolling.observer = observer
     },
+    startObserver: (loadingObserver) => {
+        infiniteScrolling.observer.observe(loadingObserver)
+    },
+    stopObserver: (loadingObserver) => {
+        infiniteScrolling.observer.unobserve(loadingObserver)
+    },
     autoAddAttractions: (keyword) => {
         let page = 0
         keyword = keyword || '%'
@@ -33,11 +39,5 @@ let infiniteScrolling = {
         )
 
         infiniteScrolling.startObserver(loadingObserver)
-    },
-    startObserver: (loadingObserver) => {
-        infiniteScrolling.observer.observe(loadingObserver)
-    },
-    stopObserver: (loadingObserver) => {
-        infiniteScrolling.observer.unobserve(loadingObserver)
     },
 }

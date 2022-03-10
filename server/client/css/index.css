@@ -248,6 +248,13 @@ body {
     justify-content: space-between;
 }
 
+#gallery-empty {
+    line-height: 500px;
+    padding-left: 4em;
+    margin: auto;
+    text-align: center;
+}
+
 footer {
     text-align: center;
     background-color: var(--grey-800-color);
@@ -308,6 +315,10 @@ footer p {
         .input-keyword {
         min-width: 25em;
     }
+
+    #gallery-empty {
+        padding-left: 0;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -326,5 +337,9 @@ footer p {
 
     #nav-bar #nav-bar-item {
         background-color: var(--first-color);
+    }
+
+    #gallery-empty {
+        padding-left: 0;
     }
 }

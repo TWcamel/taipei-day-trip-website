@@ -69,7 +69,7 @@ def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> l
         '''
 
         sql_params = {
-            '_keyword': f"{keyword}",
+            '_keyword': f"%{keyword}%",
             '_limit_row_numbers': end - start + 1,
             '_start': start,
         }
@@ -96,6 +96,7 @@ def get_attraction_by_id(id: int) -> dict:
             sql_cmd=sql_cmd, params=sql_params, is_fetch_one=True)
 
     return res
+
 
 def delete_attractions() -> int:
     with db.DB() as _db:

@@ -1,22 +1,43 @@
 let infiniteScrolling = {
-    autoAddAttractions: () => {
+    observer: null,
+    setObserver: (observer) => {
+        infiniteScrolling.observer = observer
+    },
+    autoAddAttractions: (keyword) => {
         let page = 0
+        keyword = keyword || '%'
 
         const loadingObserver = document.querySelector('.gallery-observer')
 
         const callback = ([entry]) => {
             if (entry && entry.isIntersecting) {
                 ;(async () => {
-                    let nextPage = await attractions.getAttractions('%', page)
+                    let nextPage =
+                        await attractions.getAttractionsAndCreateGallery(
+                            keyword,
+                            page
+                        )
                     if (nextPage === undefined || nextPage === null)
-                        observer.unobserve(loadingObserver)
+                        infiniteScrolling.observer.unobserve(loadingObserver)
                 })()
                 page += 1
             }
         }
 
-        let observer = new IntersectionObserver(callback, { threshold: 0 })
+        infiniteScrolling.setObserver(
+            new IntersectionObserver(callback, {
+                root: null,
+                rootMargin: '0px 0px 500px 0px',
+                threshold: 0,
+            })
+        )
 
-        observer.observe(loadingObserver)
+        infiniteScrolling.startObserver(loadingObserver)
+    },
+    startObserver: (loadingObserver) => {
+        infiniteScrolling.observer.observe(loadingObserver)
+    },
+    stopObserver: (loadingObserver) => {
+        infiniteScrolling.observer.unobserve(loadingObserver)
     },
 }

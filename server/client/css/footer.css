@@ -1,0 +1,13 @@
+footer {
+    text-align: center;
+    background-color: var(--grey-800-color);
+    color: var(--grey-50-color);
+    display: block;
+    width: 100%;
+    line-height: 5em;
+    margin-top: var(--block-gap-size);
+}
+
+footer p {
+    margin: 0;
+}

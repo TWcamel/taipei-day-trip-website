@@ -2,3 +2,4 @@ flask
 uwsgi
 mysql-connector-python
 flask[async]
+requests

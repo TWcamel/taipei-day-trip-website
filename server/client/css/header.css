@@ -1,0 +1,105 @@
+#welcome-home-container {
+    background-image: var(--cyan-gradient-light);
+    text-align: center;
+}
+
+#welcome-home-container #welcome-home {
+    display: inline-block;
+    margin-top: calc(var(--nav-bar-height)+6rem);
+    height: 300px;
+    max-width: 1200px;
+    text-align: left;
+    margin-bottom: 0;
+    position: relative;
+    width: 100%;
+    vertical-align: middle;
+}
+
+#welcome-home-container #welcome-home #welcome-img {
+    min-width: 35%;
+    height: 95%;
+    object-fit: cover;
+    bottom: 0;
+    right: -10%;
+    position: absolute;
+}
+
+#welcome-home-container #welcome-home #welcome-form {
+    color: var(--grey-50-color);
+    letter-spacing: 0.5rem;
+    position: absolute;
+}
+
+#welcome-home-container #welcome-home #welcome-form #search-attractions-block {
+    display: flex;
+}
+
+#welcome-home-container
+    #welcome-home
+    #welcome-form
+    #search-attractions-block
+    .input-keyword {
+    min-width: 73%;
+    padding: 0 2rem 0 2rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+}
+
+#welcome-home-container
+    #welcome-home
+    #welcome-form
+    #search-attractions-block
+    .btn-search-attractions {
+    box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
+    background-color: var(--cyan-color-dark);
+    color: var(--grey-50-color);
+    border: 1px solid var(--cyan-color-dark);
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    width: 5em;
+    height: 3em;
+}
+
+@media screen and (max-width: 1500px) {
+    #welcome-home-container #welcome-home #welcome-img {
+        right: -5%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    #welcome-home-container #welcome-home #welcome-img {
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #welcome-home-container #welcome-home {
+        width: 95%;
+    }
+
+    #welcome-home-container #welcome-home #welcome-img {
+        height: 80%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #welcome-home-container #welcome-home #welcome-img {
+        height: 65%;
+        min-width: 40%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #welcome-home-container
+        #welcome-home
+        #welcome-form
+        #search-attractions-block
+        .input-keyword {
+        min-width: 30%;
+    }
+
+    #welcome-home-container #welcome-home #welcome-img {
+        height: 45%;
+        min-width: 20%;
+    }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/index.css" />
+        <link rel="stylesheet" href="./css/nav-bar.css" />
+        <link rel="stylesheet" href="./css/header.css" />
+        <link rel="stylesheet" href="./css/gallery.css" />
+        <link rel="stylesheet" href="./css/footer.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="header-section">
+            <nav id="nav-bar">
+                <a id="nav-bar-title">台北一日遊</a>
+                <input
+                    class="nav-bar-btn"
+                    type="checkbox"
+                    id="nav-bar-icon-fn"
+                />
+                <label class="nav-bar-icon" for="nav-bar-icon-fn">
+                    <span id="navicon"></span
+                ></label>
+                <ul id="nav-bar-item">
+                    <li><a href="">預定行程</a></li>
+                    <li><a href="">登入/註冊</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div id="welcome-home-container">
+            <div id="welcome-home">
+                <img id="welcome-img" src="./image/welcome.png" alt="" />
+                <div id="welcome-form">
+                    <h2>輕鬆享受台北一日悠閒</h2>
+                    <p>探索每個角落，體驗城市的深度旅遊行程</p>
+                    <div id="search-attractions-block">
+                        <input
+                            class="input-keyword"
+                            type="text"
+                            id="attractoin-keyword"
+                            placeholder="輸入景點名稱查詢"
+                        />
+                        <button
+                            type="submit"
+                            id="get-attractions-keyword"
+                            class="btn-search-attractions"
+                        >
+                            <img
+                                class="icon-search"
+                                src="./image/icon-search.png"
+                                alt=""
+                            />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-container">
+            <div class="gallery"></div>
+            <div class="gallery-observer"></div>
+        </div>
+        <script type="module" src="./js/index.js"></script>
+        <script src="./js/attractions.js"></script>
+        <script src="./js/requists.js"></script>
+        <script src="./js/infiniteScrolling.js"></script>
+        <script src="./js/gallery.js"></script>
+    </body>
+    <footer>
+        <p>© 2022 COPYRIGHT 台北一日遊</p>
+    </footer>
+</html>

@@ -27,7 +27,7 @@ def get_attraction_by_page():
     page = int(params['page']) if 'page' in params else 0
     keyword = params['keyword'] if 'keyword' in params else '%'
 
-    max_attractions_id = attractions.get_max_attraction_id()
+    max_page = attractions.get_attraction_counts()//12
 
     try:
         attractions_list = attractions.get_attraction_by_range_and_keyword(
@@ -44,13 +44,14 @@ def get_attraction_by_page():
                                     for image in images]
 
         res['nextPage'] = page + \
-            1 if len(res['data']) > 0 and page < max_attractions_id else None
+            1 if len(
+                res['data']) > 0 and page < max_page else None
 
     except:
         logging.error(traceback.format_exc())
-        return {'error': True, 'message': '伺服器內部錯誤'}
+        return {'error': True, 'message': 'Internal Server Error'}, 500
 
-    return res
+    return res, 200
 
 
 @response.json_response_with_cors
@@ -64,11 +65,18 @@ def get_attraction_by_attraction_id(attractionId):
         images = attractions_image.get_image_by_id(id=attractionId)
         attraction['images'] = [next(iter(tuple(image))) for image in images]
     except IndexError:
-        return {'error': True, 'message': '景點編號不正確'}
+        return {'error': True, 'message': 'Not an valid attraction id, please correct it and try it again'}, 400
     except:
         logging.error(traceback.format_exc())
-        return {'error': True, 'message': '伺服器內部錯誤'}
+        return {'error': True, 'message': 'Internal Server Error'}, 500
 
     res['data'] = attraction
 
-    return res
+    return res, 200
+
+
+@response.json_response_with_cors
+@day_trip_attractions.route("/api/attractions/test", methods=["GET"])
+def get_attraction_by_keyword():
+    image = attractions_image.get_image_by_id(id=1)
+    return {'image': image}

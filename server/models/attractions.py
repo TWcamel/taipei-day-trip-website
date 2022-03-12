@@ -48,6 +48,15 @@ def get_max_attraction_id() -> int:
         return int(next(iter(tuple(next(iter(res))))))
 
 
+def get_attraction_counts() -> int:
+    with db.DB() as _db:
+        sql_cmd = '''
+        SELECT COUNT(1) FROM attractions
+        '''
+        res = _db.fetch_db(sql_cmd=sql_cmd, is_fetch_one=True)
+        return int(next(iter(tuple(next(iter(res))))))
+
+
 def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> list:
 
     with db.DB() as _db:
@@ -60,7 +69,7 @@ def get_attraction_by_range_and_keyword(start: int, end: int, keyword: str) -> l
         '''
 
         sql_params = {
-            '_keyword': '%' + keyword + '%',
+            '_keyword': f"%{keyword}%",
             '_limit_row_numbers': end - start + 1,
             '_start': start,
         }
@@ -87,3 +96,13 @@ def get_attraction_by_id(id: int) -> dict:
             sql_cmd=sql_cmd, params=sql_params, is_fetch_one=True)
 
     return res
+
+
+def delete_attractions() -> int:
+    with db.DB() as _db:
+        sql_cmd = '''
+        DELETE FROM attractions
+        '''
+        affected_rows = _db.crud(sql_cmd=sql_cmd)
+
+    return affected_rows

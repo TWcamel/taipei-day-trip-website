@@ -1,0 +1,25 @@
+:root {
+    --normal-font-size: 20px;
+    --big-font-size: 40px;
+    --first-color: rgba(255, 255, 255, 0.9);
+    --second-color: rgba(170, 221, 238, 1);
+    --cyan-gradient-light: linear-gradient( to bottom, #aaddee 0%, #66aabb 100%);
+    --cyan-main: rgba(68, 136, 153, 1);
+    --cyan-color-dark: rgba(61, 122, 139, 1);
+    --cyan-800-color: rgba(68, 136, 153, 1);
+    --cyan-color-normal: rgba(102, 170, 187, 1);
+    --grey-50-color: rgba(248, 248, 248, 1);
+    --grey-800-color: rgba(102, 102, 102, 1);
+    --grey-200-color: rgba(204, 204, 204, 1);
+    --block-gap-size: 18px;
+    --nav-bar-height: 66px;
+    --white-color: rgba(255, 255, 255, 1);
+}
+
+body {
+    font-family: Noto Sans TC;
+    font-size: var(--normal-font-size);
+    color: var(--grey-800-color);
+    margin: 0 auto;
+    background-color: var(--first-color);
+}

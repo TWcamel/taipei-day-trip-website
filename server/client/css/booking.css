@@ -24,3 +24,19 @@
     display: block;
     transition: all 0.2s ease;
 }
+
+@media screen and (max-width: 1200px) {
+    .booking {
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+        width: 90%;
+        margin: 2rem auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .btn-booking-place-order {
+        width: 100%;
+    }
+}

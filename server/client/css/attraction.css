@@ -72,11 +72,41 @@
 
 #attraction-divider {
     margin: 3.3rem 0;
-    border-top: 0.1px solid var(--grey-50-color);
+    border-top: 0.1px solid var(--grey-500-color);
 }
 
 #attraction-info-container {
     line-height: 2;
     max-width: 1200px;
     padding-bottom: calc(6 * var(--block-gap-size));
+}
+
+@media screen and (max-width: 1200px) {
+    #attraction {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #attraction {
+        width: 100%;
+    }
+
+    #attraction-container {
+        grid-template-columns: 100%;
+    }
+
+    #attraction-carousel-imgs {
+        margin: 0;
+    }
+
+    #attraction-divider {
+        width: 90%;
+        margin: 3.3rem auto;
+    }
+
+    #attraction-info-container {
+        width: 90%;
+        margin: 2rem auto;
+    }
 }

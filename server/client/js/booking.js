@@ -24,9 +24,9 @@ let booking = {
                         </div>
                         <div class="vc-two-ele mt-mi-2" id="booking-time-period">
                             <h4>選擇時間</h4>
-                            <input class="ml-2" type="radio" name="time-period" id="booking-morning" checked></input>
+                            <input class="ml-2" type="radio" name="time-period" id="booking-morning" checked onclick="booking.timePeriodChangedThenUpdatePrice()"></input>
                             <label for="booking-morning">上半天</label>
-                            <input type="radio" name="time-period" id="booking-afternoon"></input>
+                            <input type="radio" name="time-period" id="booking-afternoon" onclick="booking.timePeriodChangedThenUpdatePrice()"></input>
                                 <label for="booking-afternonn">下半天</label>
                         </div>
                         <div class="vc-two-ele mt-mi-2" id="booking-price">
@@ -42,5 +42,13 @@ let booking = {
         `
 
         return bookingInfo
+    },
+
+    timePeriodChangedThenUpdatePrice: () => {
+        const timePeriod = document.querySelector(
+            'input[name="time-period"]:checked'
+        )
+        const price = document.querySelector('#price')
+        price.innerHTML = timePeriod.id === 'booking-morning' ? 2000 : 2500
     },
 }

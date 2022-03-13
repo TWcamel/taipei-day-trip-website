@@ -161,19 +161,29 @@ let afterInitAttractionApp = {
         const firstDot = dots[0]
         const lastDot = dots[dots.length - 1]
 
-        afterInitAttractionApp.targetDomAddEventListener(prev, 'click', () => {
-            const dotActive = document.querySelector('.carousel-dot-active')
-            const id = dotActive.getAttribute('id').split('-')[3]
-            if (id === '0') lastDot.click()
-            else dotActive.previousElementSibling.onclick()
-        })
+        afterInitAttractionApp.targetDomAddEventListener(
+            prev,
+            'click',
+            (event) => {
+                event.stopPropagation()
+                const dotActive = document.querySelector('.carousel-dot-active')
+                const id = dotActive.getAttribute('id').split('-')[3]
+                if (String(id) === '0') lastDot.click()
+                else dotActive.previousElementSibling.onclick()
+            }
+        )
 
-        afterInitAttractionApp.targetDomAddEventListener(next, 'click', () => {
-            const dotActive = document.querySelector('.carousel-dot-active')
-            const id = dotActive.getAttribute('id').split('-')[3]
-            if (id === `${dots.length - 1}`) firstDot.click()
-            else dotActive.nextElementSibling.onclick()
-        })
+        afterInitAttractionApp.targetDomAddEventListener(
+            next,
+            'click',
+            (event) => {
+                event.stopPropagation()
+                const dotActive = document.querySelector('.carousel-dot-active')
+                const id = dotActive.getAttribute('id').split('-')[3]
+                if (String(id) === `${dots.length - 1}`) firstDot.click()
+                else dotActive.nextElementSibling.onclick()
+            }
+        )
     },
 
     targetDomAddEventListener: (targetDom, eventType, eventHandler) => {

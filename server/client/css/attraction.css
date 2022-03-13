@@ -76,6 +76,7 @@
 }
 
 #attraction-info-container {
+    line-height: 2;
     max-width: 1200px;
-    padding-bottom: calc(6*var(--block-gap-size));
+    padding-bottom: calc(6 * var(--block-gap-size));
 }

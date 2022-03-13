@@ -21,6 +21,7 @@ let initAttractionApp
                     attraction.insertBookingInfoWithInAttractionContainer(
                         _attraction
                     )
+                    attraction.insertAttractionInfoContainer(_attraction)
                 })
             })
         },
@@ -73,6 +74,34 @@ let initAttractionApp
             afterInitAttractionApp.carouselPrevNextBtn()
 
             return imgContaienr
+        },
+
+        insertAttractionInfoContainer: ({
+            description,
+            address,
+            transport,
+        }) => {
+            const intro = `
+            <p class="attraction-description">
+                ${description}
+            </p>
+            <h3>景點地址：</h3>
+            <p class="address">
+                ${address}
+            </p>
+            <h3>交通方式：</h3>
+            <p class="transport">
+                ${transport}
+            </p>
+            `
+
+            const introContainer = document.querySelector(
+                '#attraction-info-container'
+            )
+
+            introContainer.insertAdjacentHTML('beforeend', intro)
+
+            return introContainer
         },
 
         insertImgCarouselWithInAttractionContainer: (_images) => {

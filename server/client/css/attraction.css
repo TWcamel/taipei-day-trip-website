@@ -1,7 +1,11 @@
+#attraction {
+    max-width: 1200px;
+    margin: auto;
+}
 #attraction-container {
-    margin-top: var(--nav-bar-height) ;
+    margin-top: var(--nav-bar-height);
     display: grid;
-    grid-template-columns: 40% 50%;
+    grid-template-columns: 45% 55%;
     justify-content: center;
     align-items: center;
 }
@@ -64,4 +68,14 @@
     height: 25rem;
     object-fit: cover;
     border-radius: 5px;
+}
+
+#attraction-divider {
+    margin: 3.3rem 0;
+    border-top: 0.1px solid var(--grey-50-color);
+}
+
+#attraction-info-container {
+    max-width: 1200px;
+    padding-bottom: calc(6*var(--block-gap-size));
 }

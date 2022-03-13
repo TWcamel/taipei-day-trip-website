@@ -3,7 +3,7 @@
     --big-font-size: 40px;
     --first-color: rgba(255, 255, 255, 0.9);
     --second-color: rgba(170, 221, 238, 1);
-    --cyan-gradient-light: linear-gradient( to bottom, #aaddee 0%, #66aabb 100%);
+    --cyan-gradient-light: linear-gradient(to bottom, #aaddee 0%, #66aabb 100%);
     --cyan-main: rgba(68, 136, 153, 1);
     --cyan-color-dark: rgba(61, 122, 139, 1);
     --cyan-800-color: rgba(68, 136, 153, 1);
@@ -11,9 +11,12 @@
     --grey-50-color: rgba(248, 248, 248, 1);
     --grey-800-color: rgba(102, 102, 102, 1);
     --grey-200-color: rgba(204, 204, 204, 1);
+    --grey-300-color: rgba(232, 232, 232, 1);
     --block-gap-size: 18px;
     --nav-bar-height: 66px;
     --white-color: rgba(255, 255, 255, 1);
+    --white-color-transperent-4: rgba(255, 255, 255, 0.4);
+    --white-color-transperent-9: rgba(255, 255, 255, 0.9);
 }
 
 body {
@@ -22,4 +25,13 @@ body {
     color: var(--grey-800-color);
     margin: 0 auto;
     background-color: var(--first-color);
+}
+
+.vc-two-ele {
+    display: flex;
+    align-items: center;
+}
+
+.ml-2 {
+    margin-left: 2rem;
 }

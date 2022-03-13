@@ -1,0 +1,28 @@
+#booking-info {
+    flex-direction: column;
+    display: flex;
+    width: 50%;
+}
+
+#booking-info-content {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--grey-300-color);
+}
+
+#booking-choose-order-date {
+    height: 2rem;
+}
+
+.btn-booking-place-order {
+    box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
+    background-color: var(--cyan-color-dark);
+    color: var(--white-color);
+    border: 1px solid var(--cyan-color-dark);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 1.5rem 4rem;
+    display: block;
+    transition: all 0.2s ease;
+}

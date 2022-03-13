@@ -10,19 +10,20 @@ let attractions = {
                 ? new URLSearchParams(params).toString()
                 : ''
 
-        const data = requests(url, 'GET')
+        const attractions = requests(url, 'GET')
 
         const promise = new Promise((resolve, reject) => {
-            data.then((attractions) => {
-                attractions.data.forEach((attraction) => {
+            attractions.then((_attractions) => {
+                _attractions.data.forEach((attraction) => {
                     gallery.createGalleryItem({
+                        id: attraction.id,
                         images: attraction.images,
                         name: attraction.name,
                         mrt: attraction.mrt,
                         category: attraction.category,
                     })
                 })
-                page = attractions.nextPage
+                page = _attractions.nextPage
             })
         })
 

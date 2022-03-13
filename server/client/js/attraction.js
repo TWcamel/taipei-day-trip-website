@@ -82,7 +82,7 @@ let initAttractionApp
         insertBookingInfoWithInAttractionContainer: (_attraction) => {
             const attractionContainer = attraction.getAttractionContainer()
             attractionContainer.insertAdjacentHTML(
-                'afterbegin',
+                'beforeend',
                 booking.createBookingInfo(_attraction)
             )
         },

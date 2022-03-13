@@ -14,10 +14,10 @@
 #nav-bar {
     top: 0;
     position: fixed;
-    max-width: 1200px;
     width: 100%;
     z-index: 3;
     height: var(--nav-bar-height);
+    box-shadow: 0 0.5rem 1rem var(--grey-150-color);
 }
 
 #nav-bar .nav-bar-btn {

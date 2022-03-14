@@ -134,11 +134,11 @@ let afterInitAttractionApp = {
     },
 
     disableActiveCarouselDotAndEnableTargetDot: (dotIdx) => {
+        const activeDot = document.querySelector('.carousel-dot-active')
+
         const dots = document.querySelectorAll('.carousel-dot')
 
-        dots.forEach((dot) => {
-            dot.classList.remove('carousel-dot-active')
-        })
+        activeDot.classList.remove('carousel-dot-active')
 
         dots[dotIdx].classList.add('carousel-dot-active')
     },

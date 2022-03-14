@@ -56,14 +56,15 @@
     height: 1rem;
     width: 1rem;
     margin: 0 0.4rem;
-    background-color: var(--black-color-transperent-6);
+    background-color: var(--white-color-transperent-4); 
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
 }
 
 .carousel-dot-active {
-    background-color: var(--white-color-transperent-9);
+    border: 1px solid var(--white-color);
+    background-color: var(--black-color-transperent-9);
 }
 
 .carousel-img-flashlight img {

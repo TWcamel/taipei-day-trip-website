@@ -114,6 +114,8 @@ let initAttractionApp
                 'beforeend',
                 booking.createBookingInfo(_attraction)
             )
+            const bookingChooseDate = document.querySelector('input[name="order-date"]')
+            bookingChooseDate.setAttribute("min", booking.getToday())
         },
     }
     navbar.insertHeaderAtFirstDomInBody()

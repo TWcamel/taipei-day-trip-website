@@ -20,9 +20,23 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: 700;
-    padding: 1.5rem 4rem;
+    padding: 0.4rem 1.2rem;
     display: block;
     transition: all 0.2s ease;
+}
+
+#booking-time-period input[type='radio'] {
+    background: var(--white-color);
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    outline: none;
+}
+
+#booking-time-period input[type='radio']:checked {
+    background: var(--cyan-color-dark);
+    border: 2.3px solid var(--white-color);
 }
 
 @media screen and (max-width: 1200px) {
@@ -34,9 +48,5 @@
         margin: 2rem auto;
         flex-direction: row;
         flex-wrap: wrap;
-    }
-
-    .btn-booking-place-order {
-        width: 100%;
     }
 }

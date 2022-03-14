@@ -2,7 +2,7 @@ let gallery = {
     createGalleryItem: ({ id, images, name, mrt, category }) => {
         const galleryLists = document.querySelector('.gallery')
         const galleryItem = `
-        <div class="gallery-items" id="gallery-items-id-${id}" onclick="window.open('/attraction/${id}'); return false;">
+        <div class="gallery-items" id="gallery-items-id-${id}" onclick="window.location.href='/attraction/${id}'">
             <img src="${images[0]}" alt="" />
             <div class="gallery-items-title">${name}</div>
             <div class="gallery-items-sub-title">

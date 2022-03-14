@@ -5,6 +5,7 @@
 
 #attraction-container {
     margin-top: var(--nav-bar-height);
+    padding-top: calc(var(--nav-bar-height) * 0.8);
     display: grid;
     grid-template-columns: 45% 55%;
     justify-content: center;

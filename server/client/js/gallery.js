@@ -1,8 +1,8 @@
 let gallery = {
-    createGalleryItem: ({ images, name, mrt, category }) => {
+    createGalleryItem: ({ id, images, name, mrt, category }) => {
         const galleryLists = document.querySelector('.gallery')
         const galleryItem = `
-        <div class="gallery-items">
+        <div class="gallery-items" id="gallery-items-id-${id}" onclick="window.location.href='/attraction/${id}'">
             <img src="${images[0]}" alt="" />
             <div class="gallery-items-title">${name}</div>
             <div class="gallery-items-sub-title">
@@ -39,5 +39,9 @@ let gallery = {
     removeGelleryEmptyIfExists: (gallery) => {
         if (document.querySelector('#gallery-empty'))
             gallery.removeChild(document.querySelector('#gallery-empty'))
+    },
+
+    getGalleryItem: (id) => {
+        return document.querySelector(`#gallery-items-id-${id}`)
     },
 }

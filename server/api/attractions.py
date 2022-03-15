@@ -73,10 +73,3 @@ def get_attraction_by_attraction_id(attractionId):
     res['data'] = attraction
 
     return res, 200
-
-
-@response.json_response_with_cors
-@day_trip_attractions.route("/api/attractions/test", methods=["GET"])
-def get_attraction_by_keyword():
-    image = attractions_image.get_image_by_id(id=1)
-    return {'image': image}

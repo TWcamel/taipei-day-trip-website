@@ -9,15 +9,16 @@
     justify-content: center;
     align-items: center;
     margin: auto;
+    box-shadow: 0 0.5rem 1rem var(--grey-150-color);
 }
 
 #nav-bar {
     top: 0;
     position: fixed;
-    max-width: 1200px;
     width: 100%;
     z-index: 3;
     height: var(--nav-bar-height);
+    max-width: 1200px;
 }
 
 #nav-bar .nav-bar-btn {

@@ -1,3 +1,14 @@
+let initBookingApp
+;(initBookingApp = () => {
+    bookingApp = {
+        init: () => {
+            navbar.insertHeaderAtFirstDomInBody()
+            footer.insertFooterAtLastDomInBody()
+        },
+    }
+    bookingApp.init()
+})()
+
 let booking = {
     getToday: () => {
         let today = new Date()
@@ -35,7 +46,7 @@ let booking = {
                             <h4>導覽費用：</h4>
                             <p class="price ml-dot-5">新台幣 <span id="price">2000</span> 元</p>
                         </div>
-                        <button type="submit" id="booking-place-order" class="btn-booking-place-order">
+                        <button type="submit" id="booking-place-order" class="btn-booking-place-order" onclick="window.location.href='/booking'">
                                 開始預定行程
                         </button>
                     </div>

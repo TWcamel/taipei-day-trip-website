@@ -6,6 +6,7 @@ footer {
     width: 100%;
     line-height: 5em;
     margin-top: var(--block-gap-size);
+    box-shadow: 0 50vh 0 50vh var(--grey-800-color);
 }
 
 footer p {

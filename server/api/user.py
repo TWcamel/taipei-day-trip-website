@@ -6,9 +6,7 @@ import logging
 import traceback
 import mysql.connector as mysql
 
-day_trip_user = Blueprint("day_trip_user", __name__,
-                          template_folder="../client")
-
+day_trip_user = Blueprint("day_trip_user", __name__, template_folder="../client")
 
 @response.json_response
 @day_trip_user.route("/api/user", methods=["GET"])

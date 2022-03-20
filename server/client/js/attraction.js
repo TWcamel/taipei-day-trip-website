@@ -3,7 +3,6 @@ let initAttractionApp
     let attraction = {
         init: () => {
             navbar.insertHeaderAtFirstDomInBody()
-            footer.insertFooterAtLastDomInBody()
             attraction.createAttractionPage()
         },
         getAttractionContainer: () => {

@@ -26,6 +26,7 @@
 }
 
 #nav-bar #nav-bar-title {
+    text-decoration: none;
     display: block;
     padding: 13px 13px;
     float: left;
@@ -123,6 +124,7 @@
     #nav-bar #nav-bar-item li a {
         padding: 20px 30px;
         text-decoration: none;
+        color: var(--grey-800-color);
     }
     #nav-bar #nav-bar-item {
         clear: none;

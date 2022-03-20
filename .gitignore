@@ -141,3 +141,4 @@ cython_debug/
 server/config/mysql.ini
 pdf
 .vscode
+node_modules

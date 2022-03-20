@@ -1,0 +1,104 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    min-width: 100%;
+    min-height: 100%;
+    backdrop-filter: blur(3px);
+    background: var(--black-color-transperent-4);
+    z-index: 9;
+    display: none;
+}
+
+.modal-content {
+    position: relative;
+    margin: calc(var(--nav-bar-height) * 2) auto 0 auto;
+    width: 100%;
+    height: 100%;
+    max-height: 20rem;
+    max-width: 22rem;
+    background: var(--white-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--black-color-transperent-9);
+    z-index: 10;
+    border-radius: 0 0 5px 5px;
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1rem;
+    width: 100%;
+    height: 1rem;
+    border-radius: 5px 5px 0 0;
+    background-image: linear-gradient(var(--cyan-main), var(--cyan-color-dark));
+}
+
+.modal-close-btn {
+    position: absolute;
+    right: calc(var(--block-gap-size) * 0.5);
+    border: none;
+    background: none;
+    color: var(--grey-color-transperent-3);
+    font-size: 2rem;
+    z-index: 11;
+    cursor: pointer;
+}
+
+.modal-login-form {
+    display: grid;
+    text-align: center;
+    margin: auto 2rem;
+}
+
+.modal-signup-form {
+    display: grid;
+    text-align: center;
+    margin: auto 2rem;
+    grid-template-rows: repeat(6, 0.6fr);
+}
+
+.modal-signup-form {
+    display: none;
+}
+
+#user-login-email,
+#user-login-password,
+.modal-login-form .modal-form-submmit-btn {
+    margin: 0.2rem 0rem;
+    padding: 1rem;
+    border: 1px solid var(--grey-color-transperent-3);
+    border-radius: 5px;
+}
+
+.modal-signup-form input,
+.modal-signup-from button {
+    margin: 0.2rem 0rem;
+    padding: 0.5rem;
+    border: 1px solid var(--grey-color-transperent-3);
+    background-color: var(--grey-color-transperent-05);
+    border-radius: 5px;
+}
+
+.modal-login-form button {
+    box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
+    background-color: var(--cyan-color-dark);
+    color: var(--white-color);
+}
+
+.modal-signup-form .modal-form-submmit-btn {
+    box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
+    background-color: var(--cyan-color-dark);
+    color: var(--white-color);
+    border-radius: 3px;
+    border: none;
+}
+
+.modal-login-form a {
+    text-decoration: none;
+    background: none;
+}

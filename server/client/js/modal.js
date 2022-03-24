@@ -74,7 +74,6 @@ let modal = {
         const form = document.createElement('form');
         form.classList.add('modal-login-form');
         form.setAttribute('id', 'user-login-form');
-        form.setAttribute('action', '/api/user');
         modal.createFormTitle(form, '登入會員帳號');
         const emailInput = {
             form: form,
@@ -92,12 +91,18 @@ let modal = {
             inputRequired: true,
             inputId: 'user-login-password',
         };
+        const submitBtn = {
+            form: form,
+            btnMessage: '登入帳戶',
+            onclick: 'modal.loginFormSubmit()',
+            id: 'user-login-submit-btn',
+        };
         modal.createFormInput(emailInput);
         modal.createFormInput(passwordInput);
-        modal.createFormSubmitBtn(form, '登入帳戶');
+        modal.createFormSubmitBtn(submitBtn);
         const linkMessage = {
             link: '#',
-            linkMsg: '點此註冊新帳戶',
+            linkMsg: '點此註冊會員帳號',
             onclick: 'modal.switchToSignupFrom()',
         };
         modal.createFormHelpMessageWithLink(form, '還沒有帳戶？', linkMessage);
@@ -108,9 +113,7 @@ let modal = {
         const form = document.createElement('form');
         form.classList.add('modal-signup-form');
         form.setAttribute('id', 'user-signup-form');
-        form.setAttribute('action', '/api/user');
-        form.setAttribute('method', 'post');
-        modal.createFormTitle(form, '註冊新帳戶');
+        modal.createFormTitle(form, '註冊會員帳號');
         const nameInput = {
             form: form,
             inputType: 'text',
@@ -135,11 +138,19 @@ let modal = {
             inputRequired: true,
             inputId: 'user-signup-password',
         };
+
+        const submitBtn = {
+            form: form,
+            btnMessage: '註冊帳戶',
+            onclick: 'modal.signupFormSubmit()',
+            id: 'user-signup-submit-btn',
+        };
+
         modal.createFormInput(nameInput);
         modal.createFormInput(emailInput);
         modal.createFormInput(passwordInput);
+        modal.createFormSubmitBtn(submitBtn);
 
-        modal.createFormSubmitBtn(form, '註冊帳戶');
         const linkMessage = {
             link: '#',
             linkMsg: '點此登入',
@@ -177,11 +188,16 @@ let modal = {
         form.appendChild(formInput);
     },
 
-    createFormSubmitBtn: (form, btnName) => {
+    createFormSubmitBtn: ({ form, btnMessage, onclick, id }) => {
         const formSubmmitBtn = document.createElement('button');
         formSubmmitBtn.classList.add('modal-form-submmit-btn');
-        formSubmmitBtn.innerHTML = btnName;
+        formSubmmitBtn.setAttribute('onclick', onclick);
+        formSubmmitBtn.setAttribute('id', id);
+        formSubmmitBtn.innerHTML = btnMessage;
         form.appendChild(formSubmmitBtn);
+        form.onsubmit = () => {
+            return false;
+        };
     },
 
     createFormHelpMessageWithLink: (
@@ -197,9 +213,8 @@ let modal = {
     },
 
     createFormHelpMessageLink: (dom, { link, linkMsg, onclick }) => {
-        const formHelpMessageLink = document.createElement('a');
+        const formHelpMessageLink = document.createElement('span');
         formHelpMessageLink.classList.add('modal-form-help-message-link');
-        formHelpMessageLink.href = link;
         formHelpMessageLink.innerHTML = linkMsg;
         formHelpMessageLink.setAttribute('onclick', onclick);
         dom.appendChild(formHelpMessageLink);
@@ -229,5 +244,109 @@ let modal = {
         const loginForm = document.querySelector('.modal-login-form');
         signupForm.style.display = 'grid';
         loginForm.style.display = 'none';
+    },
+
+    loginFormSubmit: () => {
+        const loginForm = document.querySelector('#user-login-form');
+        const loginFormData = new FormData(loginForm);
+        const loginFormDataObj = {};
+        for (const [key, value] of loginFormData.entries())
+            loginFormDataObj[key] = value;
+
+        //if (loginFormDataObj.email.indexOf('@') === -1) return;
+        const loginFormDataJson = JSON.stringify(loginFormDataObj);
+
+        (async () => {
+            try {
+                const res = await jsonRequests(
+                    (url = '/api/user'),
+                    (method = 'PATCH'),
+                    (body = JSON.parse(loginFormDataJson))
+                );
+                if (res.ok) {
+                    navbar.changeNavItem(true); 
+
+                    //TODO:
+                    //2. 顯示登入成功視窗,新增飛入效果, 過兩秒後自動關閉
+                }
+                if (!res.ok) {
+                    modal.appendSiblingAfterDom(
+                        '<p class="modal-form-btn-message">您輸入的信箱或密碼不正確</p>',
+                        '#user-login-submit-btn'
+                    ); 
+
+                    //TODO:
+                    //2. 「登入失敗」新增一個顏色為紅色的提示文字，並新增抖動效果
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        })();
+    },
+
+    signupFormSubmit: () => {
+        const signupForm = document.querySelector('#user-signup-form');
+        const signupFormData = new FormData(signupForm);
+        const signupFormDataObj = {};
+        for (const [key, value] of signupFormData.entries())
+            signupFormDataObj[key] = value;
+
+        if (signupFormDataJson.email.indexOf('@') < 1) return;
+
+        const signupFormDataJson = JSON.stringify(signupFormDataObj);
+
+        (async () => {
+            try {
+                const res = await jsonRequests(
+                    (url = '/api/user'),
+                    (method = 'POST'),
+                    (body = JSON.parse(signupFormDataJson))
+                );
+                if (res.ok) {
+                    //TODO:
+                    //1. 顯示註冊成功視窗,新增飛入效果, 過一秒後自動關閉
+                    //2. 將畫面轉為登入畫面
+                    console.log(res);
+                }
+                if (!res.ok) {
+                    //TODO:
+                    //1. 按鈕下方的訊息改成「電子郵件已經被註冊過了」
+                    //2. 失敗訊息新增一個顏色為紅色的提示文字，並新增抖動效果
+                    console.log(res);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        })();
+    },
+
+    logOut: async () => {
+        try {
+            const res = await jsonRequests(
+                (url = '/api/user'),
+                (method = 'DELETE')
+            );
+            return res.ok ? true : false;
+        } catch (e) {
+            console.error(e);
+        }
+    },
+
+    checkUserLoggedIn: async () => {
+        try {
+            const res = await jsonRequests(
+                (url = '/api/user'),
+                (method = 'PATCH'),
+                (body = { email: 'check', password: 'check' })
+            );
+            return res.ok ? true : false;
+        } catch (e) {
+            console.error(e);
+        }
+    },
+
+    appendSiblingAfterDom: (msg, targetDom) => {
+        const targetDomEle = document.querySelector(targetDom);
+        targetDomEle.insertAdjacentHTML('afterEnd', msg);
     },
 };

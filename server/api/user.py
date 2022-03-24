@@ -16,7 +16,6 @@ day_trip_user = Blueprint("day_trip_user",
 def get_user():
     if 'id' in session and session.get(
             "user_status", "not_yet_log_in") == "already_logged_in":
-
         user_info = user.get_user_info(session['id'])
         if user_info:
             return {'data': user_info}, 200
@@ -27,6 +26,8 @@ def get_user():
 @response.json_response
 @day_trip_user.route('/api/user', methods=["PATCH"])
 def user_login():
+    #TODO: change session to JWT
+
     header_content_type = request.headers.get("Content-Type", None)
 
     if 'id' in session and session.get(
@@ -42,21 +43,21 @@ def user_login():
 
     try:
         body_info = request.get_json()
-        email, password = body_info['email'], body_info['password']
+        email, password = body_info['email'], body_info['password'] 
 
         if email and password:
 
             user_id = user.get_user_id(email, password)
 
             if not user_id:
-                return {"error": True, "message": "User not found"}, 400
+                return {"error": True, "message": "User not found"}, 401
 
             session['id'], session[
                 'user_status'] = user_id, "already_logged_in"
             return {"ok": True}, 200
 
         elif not email or not password:
-            {"error": True, "message": "Missing credentials"}, 400
+            {"error": True, "message": "Missing credentials"}, 401
 
     except:
         logging.error(traceback.format_exc())

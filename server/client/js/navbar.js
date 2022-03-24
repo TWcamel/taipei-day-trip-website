@@ -1,5 +1,8 @@
 let navbar = {
-    headSection: () => {
+    headSection: async () => {
+        const isLoggedIn = await modal.checkUserLoggedIn();
+        const navBarItem =
+            navbar.changeNavItemsBaseOnUserLoggedInStatus(isLoggedIn);
         const header = `<div id="header-section">
             <nav id="nav-bar">
                 <a id="nav-bar-title" href='/'>台北一日遊</a>
@@ -12,12 +15,7 @@ let navbar = {
                     <span id="navicon"></span>
                 </label>
                 <ul id="nav-bar-item">
-                    <li>
-                        <a href="">預定行程</a>
-                    </li>
-                    <li>
-                        <a class="modal-btn" href="javascript:;" onclick="modal.modalPopUp()">登入/註冊</a>
-                    </li>
+                    ${navBarItem}
                 </ul>
             </nav>
         </div>
@@ -27,6 +25,30 @@ let navbar = {
 
     insertHeaderAtFirstDomInBody: () => {
         const body = document.querySelector('body');
-        body.insertAdjacentHTML('afterbegin', navbar.headSection());
+        (async () => {
+            const header = await navbar.headSection();
+            body.insertAdjacentHTML('afterbegin', header);
+        })();
+    },
+
+    changeNavItem: (isUserLoggedIn) => {
+        const navItem = document.querySelector('#nav-bar-item');
+        const userLoggedIn = isUserLoggedIn;
+        navItem.innerHTML =
+            navbar.changeNavItemsBaseOnUserLoggedInStatus(userLoggedIn);
+    },
+
+    changeNavItemsBaseOnUserLoggedInStatus: (isLoggedIn) => {
+        return ` ${
+            isLoggedIn === true
+                ? '<li><a href="javascript:;" onclick="">預定行程</a></li><li><a href="javascript:;" onclick="">會員頁面</a></li>'
+                : '<li><a href="javascript:;" onclick="">預定行程</a></li>'
+        } <li> ${
+            isLoggedIn === true
+                ? `<a href="javascript:;" onclick="modal.logOut()">登出</a>`
+                : '<a href="javascript:;" onclick="modal.modalPopUp()">登入/註冊</a>'
+        }
+          </li>
+        `;
     },
 };

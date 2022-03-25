@@ -5,11 +5,6 @@ let modal = {
         return modalContainer;
     },
 
-    createModal: () => {
-        const body = document.querySelector('body');
-        body.insertAdjacentElement('afterbegin', modal.modalContainer());
-    },
-
     checkModalIfExists: () => {
         const modal = document.querySelector('.modal-container');
         return modal !== null;
@@ -67,6 +62,11 @@ let modal = {
             modal.showModal();
         } else if (modal.checkModalIsHiding()) modal.showModal();
         else if (modal.checkModalIfExists()) modal.hideModal();
+    },
+
+    createModal: () => {
+        const body = document.querySelector('body');
+        body.insertAdjacentElement('afterbegin', modal.modalContainer());
     },
 
     createModalCloseBtn: () => {
@@ -358,17 +358,10 @@ let modal = {
                 (url = '/api/user'),
                 (method = 'DELETE')
             );
-            console.log(res);
             if (res.ok) {
-                modal.hideOrShowTargetDom('.modal-container', true);
-                modal.hideOrShowTargetDom(
-                    '.modal-successfully-logged-in-message',
-                    false
-                );
-                modal.hideOrShowTargetDom(
-                    '.modal-successfully-logged-out-message',
-                    true
-                );
+                if (!modal.checkIfTargetDomExists('.modal-container'))
+                    modal.modalPopUp();
+                modal.jumpToLogOutMsg();
                 modal.reloadPageAfterDelay(2000);
             }
         } catch (e) {
@@ -463,5 +456,32 @@ let modal = {
             modal.hideOrShowTargetDom('#user-signup-form', false);
             modal.hideOrShowTargetDom('#user-login-form', true);
         }, delay);
+    },
+
+    jumpToLogOutMsg: () => {
+        modal.hideOrShowTargetDom('.modal-container', true);
+        modal.hideOrShowTargetDom(
+            '.modal-successfully-logged-in-message',
+            false
+        );
+        modal.hideOrShowTargetDom(
+            '.modal-successfully-logged-out-message',
+            false
+        );
+        modal.hideOrShowTargetDom('.modal-successfully-signup-message', false);
+        if (modal.checkIfTargetDomExists('.modal-signup-form-btn-message'))
+            modal.hideOrShowTargetDom('.modal-signup-form-btn-message', false);
+        if (modal.checkIfTargetDomExists('.modal-form-btn-message'))
+            modal.hideOrShowTargetDom('.modal-form-btn-message', false);
+        modal.hideOrShowTargetDom('#user-signup-form', false);
+        modal.hideOrShowTargetDom('#user-login-form', false);
+        modal.hideOrShowTargetDom(
+            '.modal-successfully-logged-in-message',
+            false
+        );
+        modal.hideOrShowTargetDom(
+            '.modal-successfully-logged-out-message',
+            true
+        );
     },
 };

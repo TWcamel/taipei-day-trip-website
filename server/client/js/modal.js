@@ -51,6 +51,18 @@ let modal = {
                 modal.createSignupForm(),
                 '.modal-content'
             );
+            modal.createEleInsideTargetDom(
+                modal.createSuccessfullyLoggedInMessage(),
+                '.modal-content'
+            );
+            modal.createEleInsideTargetDom(
+                modal.createSuccessfullyLoggedOutMessage(),
+                '.modal-content'
+            );
+            modal.createEleInsideTargetDom(
+                modal.createSuccessfullySignupMessage(),
+                '.modal-content'
+            );
 
             modal.showModal();
         } else if (modal.checkModalIsHiding()) modal.showModal();
@@ -264,19 +276,26 @@ let modal = {
                     (body = JSON.parse(loginFormDataJson))
                 );
                 if (res.ok) {
-                    navbar.changeNavItem(true); 
+                    navbar.changeNavItem(true);
 
-                    //TODO:
-                    //2. 顯示登入成功視窗,新增飛入效果, 過兩秒後自動關閉
+                    modal.hideOrShowTargetDom('#user-login-form', false);
+                    modal.hideOrShowTargetDom(
+                        '.modal-successfully-logged-in-message',
+                        true
+                    );
+                    modal.reloadPageAfterDelay(2000);
                 }
-                if (!res.ok) {
-                    modal.appendSiblingAfterDom(
-                        '<p class="modal-form-btn-message">您輸入的信箱或密碼不正確</p>',
-                        '#user-login-submit-btn'
-                    ); 
-
-                    //TODO:
-                    //2. 「登入失敗」新增一個顏色為紅色的提示文字，並新增抖動效果
+                if (res.error) {
+                    if (modal.checkIfTargetDomExists('.modal-form-btn-message'))
+                        modal.hideOrShowTargetDom(
+                            '.modal-form-btn-message',
+                            true
+                        );
+                    else
+                        modal.appendSiblingAfterDom(
+                            '<p class="modal-form-btn-message">您輸入的信箱或密碼不正確</p>',
+                            '#user-login-submit-btn'
+                        );
                 }
             } catch (e) {
                 console.error(e);
@@ -291,7 +310,7 @@ let modal = {
         for (const [key, value] of signupFormData.entries())
             signupFormDataObj[key] = value;
 
-        if (signupFormDataJson.email.indexOf('@') < 1) return;
+        if (signupFormDataObj.email.indexOf('@') < 1) return;
 
         const signupFormDataJson = JSON.stringify(signupFormDataObj);
 
@@ -303,16 +322,29 @@ let modal = {
                     (body = JSON.parse(signupFormDataJson))
                 );
                 if (res.ok) {
-                    //TODO:
-                    //1. 顯示註冊成功視窗,新增飛入效果, 過一秒後自動關閉
-                    //2. 將畫面轉為登入畫面
-                    console.log(res);
+                    modal.hideOrShowTargetDom('#user-signup-form', false);
+                    modal.hideOrShowTargetDom(
+                        '.modal-successfully-signup-message',
+                        true
+                    );
+
+                    modal.jumpToLoginFormAferDelay(2000);
                 }
-                if (!res.ok) {
-                    //TODO:
-                    //1. 按鈕下方的訊息改成「電子郵件已經被註冊過了」
-                    //2. 失敗訊息新增一個顏色為紅色的提示文字，並新增抖動效果
-                    console.log(res);
+                if (res.error) {
+                    if (
+                        modal.checkIfTargetDomExists(
+                            '.modal-signup-form-btn-message'
+                        )
+                    )
+                        modal.hideOrShowTargetDom(
+                            '.modal-signup-form-btn-message',
+                            true
+                        );
+                    else
+                        modal.appendSiblingAfterDom(
+                            '<p class="modal-signup-form-btn-message">電子郵件已經被註冊過了</p>',
+                            '#user-signup-submit-btn'
+                        );
                 }
             } catch (e) {
                 console.error(e);
@@ -326,7 +358,19 @@ let modal = {
                 (url = '/api/user'),
                 (method = 'DELETE')
             );
-            return res.ok ? true : false;
+            console.log(res);
+            if (res.ok) {
+                modal.hideOrShowTargetDom('.modal-container', true);
+                modal.hideOrShowTargetDom(
+                    '.modal-successfully-logged-in-message',
+                    false
+                );
+                modal.hideOrShowTargetDom(
+                    '.modal-successfully-logged-out-message',
+                    true
+                );
+                modal.reloadPageAfterDelay(2000);
+            }
         } catch (e) {
             console.error(e);
         }
@@ -348,5 +392,76 @@ let modal = {
     appendSiblingAfterDom: (msg, targetDom) => {
         const targetDomEle = document.querySelector(targetDom);
         targetDomEle.insertAdjacentHTML('afterEnd', msg);
+    },
+
+    checkIfTargetDomExists: (dom) => {
+        const modalFormBtnMessage = document.querySelector(`${dom}`) || false;
+        return modalFormBtnMessage ? true : false;
+    },
+
+    createSuccessfullyLoggedInMessage: () => {
+        const div = document.createElement('div');
+        div.classList.add('modal-successfully-logged-in-message');
+        div.innerHTML = '<h3>登入成功</h3>';
+        return div;
+    },
+
+    createSuccessfullyLoggedOutMessage: () => {
+        const div = document.createElement('div');
+        div.classList.add('modal-successfully-logged-out-message');
+        div.innerHTML = '<h3>登出成功</h3>';
+        return div;
+    },
+
+    createSuccessfullySignupMessage: () => {
+        const div = document.createElement('div');
+        div.classList.add('modal-successfully-signup-message');
+        div.innerHTML = '<h3>成功註冊會員</h3>';
+        return div;
+    },
+
+    hideOrShowTargetDom: (targetDom, show = true) => {
+        const targetDomEle = document.querySelector(targetDom);
+        if (show) targetDomEle.style.display = 'grid';
+        else targetDomEle.style.display = 'none';
+    },
+
+    closeModalAfterDelay: (delay = 2000) => {
+        setTimeout(() => {
+            modal.hideOrShowTargetDom('.modal-container', false);
+        }, delay);
+    },
+
+    reloadPageAfterDelay: (delay = 2000) => {
+        setTimeout(() => {
+            window.location.reload();
+        }, delay);
+    },
+
+    jumpToLoginFormAferDelay: (delay = 2000) => {
+        setTimeout(() => {
+            modal.hideOrShowTargetDom('.modal-container', true);
+            modal.hideOrShowTargetDom(
+                '.modal-successfully-logged-in-message',
+                false
+            );
+            modal.hideOrShowTargetDom(
+                '.modal-successfully-logged-out-message',
+                false
+            );
+            modal.hideOrShowTargetDom(
+                '.modal-successfully-signup-message',
+                false
+            );
+            if (modal.checkIfTargetDomExists('.modal-signup-form-btn-message'))
+                modal.hideOrShowTargetDom(
+                    '.modal-signup-form-btn-message',
+                    false
+                );
+            if (modal.checkIfTargetDomExists('.modal-form-btn-message'))
+                modal.hideOrShowTargetDom('.modal-form-btn-message', false);
+            modal.hideOrShowTargetDom('#user-signup-form', false);
+            modal.hideOrShowTargetDom('#user-login-form', true);
+        }, delay);
     },
 };

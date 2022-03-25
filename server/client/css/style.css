@@ -27,6 +27,11 @@
     --black-color-transperent-4: rgba(0, 0, 0, 0.4);
     --black-color-transperent-6: rgba(0, 0, 0, 0.6);
     --black-color-transperent-9: rgba(0, 0, 0, 0.9);
+    --shaking-animation-duration: 0.2s;
+    --shaking-animation-timing-function: ease-in-out;
+    --shaking-animation-iteration-count: infinite;
+    --shaking-animation-direction: alternate;
+    --shaking-animation-name: shaking;
 }
 
 body {
@@ -61,3 +66,5 @@ body {
 .ml-dot-5 {
     margin-left: 0.5rem;
 }
+
+

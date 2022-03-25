@@ -63,7 +63,6 @@
     display: grid;
     text-align: center;
     margin: auto 2rem;
-    grid-template-rows: repeat(6, 0.6fr);
 }
 
 .modal-signup-form {
@@ -97,6 +96,7 @@
     box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
     background-color: var(--cyan-color-dark);
     color: var(--white-color);
+    padding: 1rem;
     border-radius: 3px;
     border: none;
 }
@@ -113,11 +113,57 @@
     cursor: pointer;
 }
 
-.modal-form-btn-message {
+.modal-form-btn-message, .modal-signup-form-btn-message {
     color: red;
     font-size: 0.7rem;
     margin-top: 0.5rem;
     margin-bottom: -0.3rem;
+    animation: 1s shake alternate infinite ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: skewX(-15deg);
+    }
+    5% {
+        transform: skewX(15deg);
+    }
+    10% {
+        transform: skewX(-15deg);
+    }
+    15% {
+        transform: skewX(15deg);
+    }
+    20% {
+        transform: skewX(0deg);
+    }
+    100% {
+        transform: skewX(0deg);
+    }
+}
+
+.modal-successfully-logged-in-message,
+.modal-successfully-logged-out-message,
+.modal-successfully-signup-message {
+    display: none;
+    color: var(--cyan-color-dark);
+    font-size: 1.2rem;
+    position: inherit;
+    top: 40%;
+    text-align: center;
+    justify-content: center;
+    animation: 1s fade-in-and-move-down linear;
+}
+
+@keyframes fade-in-and-move-down {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }
 
 @media (max-width: 800px) {

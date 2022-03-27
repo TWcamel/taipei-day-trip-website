@@ -265,8 +265,7 @@ let modal = {
         for (const [key, value] of loginFormData.entries())
             loginFormDataObj[key] = value;
 
-        // TODO: 若email 格式不符合，則顯示錯誤訊息
-        //if (loginFormDataObj.email.indexOf('@') === -1) return;
+        if (loginFormDataObj.email.indexOf('@') === -1) return;
 
         const loginFormDataJson = JSON.stringify(loginFormDataObj);
 

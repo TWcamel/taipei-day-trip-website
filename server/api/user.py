@@ -27,7 +27,6 @@ def get_user():
 @day_trip_user.route('/api/user', methods=["PATCH"])
 def user_login():
     # TODO: change session to JWT
-    # TODO: add hashed password
 
     header_content_type = request.headers.get("Content-Type", None)
 

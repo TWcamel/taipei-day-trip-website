@@ -11,7 +11,6 @@ def get_user_info(id) -> dict or None:
 
     with db.DB() as _db:
         res = _db.fetch_db_response_column_name(sql_cmd, sql_params)
-        print(res)
 
     return next(iter(res)) if len(res) > 0 else None
 
@@ -29,6 +28,20 @@ def get_user_id(email, password) -> tuple or None:
         res = _db.fetch_db(sql_cmd, sql_params)
 
     return tuple(next(iter(res))) if next(iter(res)) else None
+
+def get_user_info_by_email(email) -> dict or None:
+    sql_cmd = '''
+        SELECT id, name, email, password
+        FROM user
+        WHERE email = %(_email)s
+    '''
+
+    sql_params = {"_email": email}
+
+    with db.DB() as _db:
+        res = _db.fetch_db_response_column_name(sql_cmd, sql_params)
+
+    return next(iter(res)) if len(res) > 0 else None
 
 
 def add_user(kwargs) -> int:

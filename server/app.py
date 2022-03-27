@@ -7,6 +7,7 @@ from api.user import day_trip_user
 from models import attractions_image, attractions
 from time import time
 
+
 config = configparser.ConfigParser()
 config.read('config/flask.ini')
 config = config['flask']
@@ -20,6 +21,7 @@ app.register_blueprint(day_trip_home)
 app.register_blueprint(day_trip_attractions)
 app.register_blueprint(day_trip_booking)
 app.register_blueprint(day_trip_user)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=int(config['port']), host=config['host'])

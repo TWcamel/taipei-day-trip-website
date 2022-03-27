@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, request, session
 import utils.response as response
 from models import user
-import sys
 import logging
 import traceback
 import mysql.connector as mysql
+import utils.hash_utils as hu
 
 day_trip_user = Blueprint("day_trip_user",
                           __name__,
@@ -26,7 +26,8 @@ def get_user():
 @response.json_response
 @day_trip_user.route('/api/user', methods=["PATCH"])
 def user_login():
-    #TODO: change session to JWT
+    # TODO: change session to JWT
+    # TODO: add hashed password
 
     header_content_type = request.headers.get("Content-Type", None)
 
@@ -47,14 +48,20 @@ def user_login():
 
         if email and password:
 
-            user_id = user.get_user_id(email, password)
+            user_info = user.get_user_info_by_email(email)
 
-            if not user_id:
-                return {"error": True, "message": "User not found"}, 401
+            if user_info:
 
-            session['id'], session[
-                'user_status'] = user_id, "already_logged_in"
-            return {"ok": True}, 200
+                is_valid_password = hu.check_data(password, user_info['password'])
+
+                if is_valid_password:
+                    user_id = user_info['id']
+                    session['id'], session['user_status'] = user_id, "already_logged_in"
+                    return {"ok": True}, 200
+                else:
+                    return {"error": True, "message": "User not found"}, 401
+            else:
+                return {"ok": False}, 401
 
         elif not email or not password:
             {"error": True, "message": "Missing credentials"}, 401
@@ -83,6 +90,8 @@ def user_signup():
 
         if name and email and password:
 
+            password = hu.hash_data(password)
+
             affected_rows = user.add_user({
                 "name": name,
                 "email": email,
@@ -96,14 +105,14 @@ def user_signup():
                 f"Duplicate entry '{email}' for key 'email'")
 
         elif not name or not email or not password:
-            {"error": True, "message": "Missing credentials"}, 400
+            {"error": True, "message": "Missing credentials"}, 401
 
     except mysql.errors.Error as err:
         logging.error(traceback.format_exc())
 
         if err.errno == mysql.errorcode.ER_DUP_ENTRY:
             session["user_status"] = "Not_yet_log_in"
-            return {"error": True, "message": "Email has already exists"}, 400
+            return {"error": True, "message": "Email has already exists"}, 401
 
         elif err.errno == mysql.errorcode.ER_PARSE_ERROR:
             return {"error": True, "message": "Invalid SQL syntax"}, 500
@@ -156,10 +165,10 @@ def user_delete_account():
         except TypeError:
             logging.error(traceback.format_exc())
             session["user_status"] = "Not_yet_log_in"
-            return {"error": True, "message": "User not found"}, 400
+            return {"error": True, "message": "User not found"}, 401
 
         except:
             logging.error(traceback.format_exc())
             return {"error": True, "message": "Internal Server Error"}, 500
 
-    return {"error": True, "message": "User not found"}, 400
+    return {"error": True, "message": "User not found"}, 401

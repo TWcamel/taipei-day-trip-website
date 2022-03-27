@@ -4,7 +4,7 @@ let modal = {
         modalContainer.classList.add('modal-container');
         return modalContainer;
     },
-
+    
     checkModalIfExists: () => {
         const modal = document.querySelector('.modal-container');
         return modal !== null;
@@ -265,7 +265,9 @@ let modal = {
         for (const [key, value] of loginFormData.entries())
             loginFormDataObj[key] = value;
 
+        // TODO: 若email 格式不符合，則顯示錯誤訊息
         //if (loginFormDataObj.email.indexOf('@') === -1) return;
+
         const loginFormDataJson = JSON.stringify(loginFormDataObj);
 
         (async () => {
@@ -475,8 +477,7 @@ let modal = {
             modal.hideOrShowTargetDom('.modal-form-btn-message', false);
         modal.hideOrShowTargetDom('#user-signup-form', false);
         modal.hideOrShowTargetDom('#user-login-form', false);
-        modal.hideOrShowTargetDom(
-            '.modal-successfully-logged-in-message',
+        modal.hideOrShowTargetDom('.modal-successfully-logged-in-message',
             false
         );
         modal.hideOrShowTargetDom(

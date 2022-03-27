@@ -15,6 +15,10 @@
     --grey-200-color: rgba(204, 204, 204, 1);
     --grey-300-color: rgba(232, 232, 232, 1);
     --grey-500-color: rgba(153, 153, 153, 1);
+    --grey-color-transperent-3: rgba(153, 153, 153, 0.3);
+    --grey-color-transperent-1: rgba(153, 153, 153, 0.1);
+    --grey-color-transperent-01: rgba(153, 153, 153, 0.01);
+    --grey-color-transperent-05: rgba(153, 153, 153, 0.05);
     --block-gap-size: 18px;
     --nav-bar-height: 66px;
     --white-color: rgba(255, 255, 255, 1);
@@ -23,6 +27,11 @@
     --black-color-transperent-4: rgba(0, 0, 0, 0.4);
     --black-color-transperent-6: rgba(0, 0, 0, 0.6);
     --black-color-transperent-9: rgba(0, 0, 0, 0.9);
+    --shaking-animation-duration: 0.2s;
+    --shaking-animation-timing-function: ease-in-out;
+    --shaking-animation-iteration-count: infinite;
+    --shaking-animation-direction: alternate;
+    --shaking-animation-name: shaking;
 }
 
 body {
@@ -56,5 +65,6 @@ body {
 
 .ml-dot-5 {
     margin-left: 0.5rem;
-
 }
+
+

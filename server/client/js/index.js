@@ -4,5 +4,4 @@ let app
     footer.insertFooterAtLastDomInBody()
     infiniteScrolling.autoAddAttractions()
     attractions.searchAttractionByKeyword()
-
 })()

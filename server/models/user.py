@@ -1,19 +1,19 @@
 import database.db as db
 
+
 def get_user_info(id) -> dict or None:
     sql_cmd = '''
     SELECT id, name, email 
     FROM user WHERE id = %(_id)s
     '''
 
-    sql_params = {
-        "_id": id
-    }
+    sql_params = {"_id": id}
 
     with db.DB() as _db:
         res = _db.fetch_db_response_column_name(sql_cmd, sql_params)
-        
+
     return next(iter(res)) if len(res) > 0 else None
+
 
 def get_user_id(email, password) -> tuple or None:
 
@@ -22,15 +22,26 @@ def get_user_id(email, password) -> tuple or None:
         FROM user 
         WHERE email=%(_email)s and password=%(_password)s;
     '''
-    sql_params = {
-        "_email": email,
-        "_password": password
-    }
+    sql_params = {"_email": email, "_password": password}
 
     with db.DB() as _db:
         res = _db.fetch_db(sql_cmd, sql_params)
 
     return tuple(next(iter(res))) if next(iter(res)) else None
+
+def get_user_info_by_email(email) -> dict or None:
+    sql_cmd = '''
+        SELECT id, name, email, password
+        FROM user
+        WHERE email = %(_email)s
+    '''
+
+    sql_params = {"_email": email}
+
+    with db.DB() as _db:
+        res = _db.fetch_db_response_column_name(sql_cmd, sql_params)
+
+    return next(iter(res)) if len(res) > 0 else None
 
 
 def add_user(kwargs) -> int:
@@ -47,7 +58,7 @@ def add_user(kwargs) -> int:
     affected_rows = 0
 
     with db.DB() as _db:
-        _db.crud(sql_cmd, sql_params)
+        affected_rows += _db.crud(sql_cmd, sql_params)
 
     return affected_rows
 
@@ -57,13 +68,11 @@ def delete_user(id) -> int:
         DELETE FROM user WHERE id=%(_id)s;
     '''
 
-    sql_params = {
-        "_id": id
-    }
+    sql_params = {"_id": id}
 
     affected_rows = 0
 
     with db.DB() as _db:
-        _db.crud(sql_cmd, sql_params)
+        affected_rows += _db.crud(sql_cmd, sql_params)
 
     return affected_rows

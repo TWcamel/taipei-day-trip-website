@@ -1,6 +1,10 @@
 let initAttractionApp
 ;(initAttractionApp = () => {
     let attraction = {
+        init: () => {
+            navbar.insertHeaderAtFirstDomInBody()
+            attraction.createAttractionPage()
+        },
         getAttractionContainer: () => {
             return document.querySelector('#attraction-container')
         },
@@ -22,6 +26,7 @@ let initAttractionApp
                         _attraction
                     )
                     attraction.insertAttractionInfoContainer(_attraction)
+                    afterInitAttractionApp.storeAttractionInfo(_attraction)
                 })
             })
         },
@@ -114,16 +119,22 @@ let initAttractionApp
                 'beforeend',
                 booking.createBookingInfo(_attraction)
             )
-            const bookingChooseDate = document.querySelector('input[name="order-date"]')
-            bookingChooseDate.setAttribute("min", booking.getToday())
+            const bookingChooseDate = document.querySelector(
+                'input[name="order-date"]'
+            )
+            bookingChooseDate.setAttribute('min', booking.getToday())
+
+            const attractionTitle = _attraction?.name ?? '台北一日遊'
+            afterInitAttractionApp.replaceDocumentTile(attractionTitle)
         },
     }
-    navbar.insertHeaderAtFirstDomInBody()
-    footer.insertFooterAtLastDomInBody()
-    attraction.createAttractionPage()
+    attraction.init()
 })()
 
 let afterInitAttractionApp = {
+    replaceDocumentTile: (title) => {
+        document.title = title || '台北一日遊'
+    },
     jumpToImg: (imgIdx) => {
         afterInitAttractionApp.disableActiveCarouselDotAndEnableTargetDot(
             imgIdx
@@ -190,5 +201,13 @@ let afterInitAttractionApp = {
 
     targetDomAddEventListener: (targetDom, eventType, eventHandler) => {
         targetDom.addEventListener(eventType, eventHandler)
+    },
+
+    storeAttractionInfo: (attraction) => {
+        localStorage.setItem('attraction', JSON.stringify(attraction))
+    },
+
+    getAttractionInfo: () => {
+        return JSON.parse(localStorage.getItem('attraction'))
     },
 }

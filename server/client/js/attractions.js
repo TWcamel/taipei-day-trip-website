@@ -16,8 +16,7 @@ let attractions = {
             attractions.then((_attractions) => {
                 _attractions.data.forEach((attraction) => {
                     gallery.createGalleryItem({
-                        id: attraction.id,
-                        images: attraction.images,
+                        id: attraction.id, images: attraction.images,
                         name: attraction.name,
                         mrt: attraction.mrt,
                         category: attraction.category,

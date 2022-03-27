@@ -3,7 +3,7 @@ let footer = {
         const date = new Date()
         const year = date.getFullYear()
         const footSection = `<footer>
-            <p>© ${year} COPYRIGHT 台北一日遊</p>
+            <p>COPYRIGHT © ${year} 台北一日遊</p>
         </footer>`
 
         return footSection

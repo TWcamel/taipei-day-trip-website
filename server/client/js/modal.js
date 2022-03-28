@@ -4,7 +4,7 @@ let modal = {
         modalContainer.classList.add('modal-container');
         return modalContainer;
     },
-    
+
     checkModalIfExists: () => {
         const modal = document.querySelector('.modal-container');
         return modal !== null;
@@ -31,32 +31,32 @@ let modal = {
             modal.createModalContent();
             modal.createEleInsideTargetDom(
                 modal.createModalContent(),
-                '.modal-container'
+                '.modal-container',
             );
             modal.createEleInsideTargetDom(
                 modal.createModalCloseBtn(),
-                '.modal-content'
+                '.modal-content',
             );
             modal.createCloseBtnEvent();
             modal.createEleInsideTargetDom(
                 modal.createLoginForm(),
-                '.modal-content'
+                '.modal-content',
             );
             modal.createEleInsideTargetDom(
                 modal.createSignupForm(),
-                '.modal-content'
+                '.modal-content',
             );
             modal.createEleInsideTargetDom(
                 modal.createSuccessfullyLoggedInMessage(),
-                '.modal-content'
+                '.modal-content',
             );
             modal.createEleInsideTargetDom(
                 modal.createSuccessfullyLoggedOutMessage(),
-                '.modal-content'
+                '.modal-content',
             );
             modal.createEleInsideTargetDom(
                 modal.createSuccessfullySignupMessage(),
-                '.modal-content'
+                '.modal-content',
             );
 
             modal.showModal();
@@ -171,7 +171,7 @@ let modal = {
         modal.createFormHelpMessageWithLink(
             form,
             '已經有帳戶了？',
-            linkMessage
+            linkMessage,
         );
 
         return form;
@@ -215,7 +215,7 @@ let modal = {
     createFormHelpMessageWithLink: (
         form,
         message,
-        linkMessage = { link, linkMsg, onclick }
+        linkMessage = { link, linkMsg, onclick },
     ) => {
         const formHelpMessage = document.createElement('p');
         formHelpMessage.classList.add('modal-form-help-message');
@@ -274,7 +274,7 @@ let modal = {
                 const res = await jsonRequests(
                     (url = '/api/user'),
                     (method = 'PATCH'),
-                    (body = JSON.parse(loginFormDataJson))
+                    (body = JSON.parse(loginFormDataJson)),
                 );
                 if (res.ok) {
                     navbar.changeNavItem(true);
@@ -282,7 +282,7 @@ let modal = {
                     modal.hideOrShowTargetDom('#user-login-form', false);
                     modal.hideOrShowTargetDom(
                         '.modal-successfully-logged-in-message',
-                        true
+                        true,
                     );
                     modal.reloadPageAfterDelay(2000);
                 }
@@ -290,12 +290,12 @@ let modal = {
                     if (modal.checkIfTargetDomExists('.modal-form-btn-message'))
                         modal.hideOrShowTargetDom(
                             '.modal-form-btn-message',
-                            true
+                            true,
                         );
                     else
                         modal.appendSiblingAfterDom(
                             '<p class="modal-form-btn-message">您輸入的信箱或密碼不正確</p>',
-                            '#user-login-submit-btn'
+                            '#user-login-submit-btn',
                         );
                 }
             } catch (e) {
@@ -320,13 +320,13 @@ let modal = {
                 const res = await jsonRequests(
                     (url = '/api/user'),
                     (method = 'POST'),
-                    (body = JSON.parse(signupFormDataJson))
+                    (body = JSON.parse(signupFormDataJson)),
                 );
                 if (res.ok) {
                     modal.hideOrShowTargetDom('#user-signup-form', false);
                     modal.hideOrShowTargetDom(
                         '.modal-successfully-signup-message',
-                        true
+                        true,
                     );
 
                     modal.jumpToLoginFormAferDelay(2000);
@@ -334,17 +334,17 @@ let modal = {
                 if (res.error) {
                     if (
                         modal.checkIfTargetDomExists(
-                            '.modal-signup-form-btn-message'
+                            '.modal-signup-form-btn-message',
                         )
                     )
                         modal.hideOrShowTargetDom(
                             '.modal-signup-form-btn-message',
-                            true
+                            true,
                         );
                     else
                         modal.appendSiblingAfterDom(
                             '<p class="modal-signup-form-btn-message">電子郵件已經被註冊過了</p>',
-                            '#user-signup-submit-btn'
+                            '#user-signup-submit-btn',
                         );
                 }
             } catch (e) {
@@ -357,7 +357,7 @@ let modal = {
         try {
             const res = await jsonRequests(
                 (url = '/api/user'),
-                (method = 'DELETE')
+                (method = 'DELETE'),
             );
             if (res.ok) {
                 if (!modal.checkIfTargetDomExists('.modal-container'))
@@ -375,7 +375,7 @@ let modal = {
             const res = await jsonRequests(
                 (url = '/api/user'),
                 (method = 'PATCH'),
-                (body = { email: 'check', password: 'check' })
+                (body = { email: 'check', password: 'check' }),
             );
             return res.ok ? true : false;
         } catch (e) {
@@ -437,20 +437,20 @@ let modal = {
             modal.hideOrShowTargetDom('.modal-container', true);
             modal.hideOrShowTargetDom(
                 '.modal-successfully-logged-in-message',
-                false
+                false,
             );
             modal.hideOrShowTargetDom(
                 '.modal-successfully-logged-out-message',
-                false
+                false,
             );
             modal.hideOrShowTargetDom(
                 '.modal-successfully-signup-message',
-                false
+                false,
             );
             if (modal.checkIfTargetDomExists('.modal-signup-form-btn-message'))
                 modal.hideOrShowTargetDom(
                     '.modal-signup-form-btn-message',
-                    false
+                    false,
                 );
             if (modal.checkIfTargetDomExists('.modal-form-btn-message'))
                 modal.hideOrShowTargetDom('.modal-form-btn-message', false);
@@ -463,11 +463,11 @@ let modal = {
         modal.hideOrShowTargetDom('.modal-container', true);
         modal.hideOrShowTargetDom(
             '.modal-successfully-logged-in-message',
-            false
+            false,
         );
         modal.hideOrShowTargetDom(
             '.modal-successfully-logged-out-message',
-            false
+            false,
         );
         modal.hideOrShowTargetDom('.modal-successfully-signup-message', false);
         if (modal.checkIfTargetDomExists('.modal-signup-form-btn-message'))
@@ -476,12 +476,13 @@ let modal = {
             modal.hideOrShowTargetDom('.modal-form-btn-message', false);
         modal.hideOrShowTargetDom('#user-signup-form', false);
         modal.hideOrShowTargetDom('#user-login-form', false);
-        modal.hideOrShowTargetDom('.modal-successfully-logged-in-message',
-            false
+        modal.hideOrShowTargetDom(
+            '.modal-successfully-logged-in-message',
+            false,
         );
         modal.hideOrShowTargetDom(
             '.modal-successfully-logged-out-message',
-            true
+            true,
         );
     },
 };

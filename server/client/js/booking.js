@@ -1,23 +1,23 @@
-let initBookingApp
-;(initBookingApp = () => {
+let initBookingApp;
+(initBookingApp = () => {
     bookingApp = {
         init: () => {
-            navbar.insertHeaderAtFirstDomInBody()
-            footer.insertFooterAtLastDomInBody()
+            navbar.insertHeaderAtFirstDomInBody();
+            footer.insertFooterAtLastDomInBody();
         },
-    }
-    bookingApp.init()
-})()
+    };
+    bookingApp.init();
+})();
 
 let booking = {
     getToday: () => {
-        let today = new Date()
-        let dd = today.getDate()
-        let mm = today.getMonth() + 1
-        let yyyy = today.getFullYear()
-        if (dd < 10) dd = '0' + dd
-        if (mm < 10) mm = '0' + mm
-        return yyyy + '-' + mm + '-' + dd
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1;
+        let yyyy = today.getFullYear();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        return yyyy + '-' + mm + '-' + dd;
     },
 
     createBookingInfo: ({ id, name, category, mrt }) => {
@@ -52,15 +52,15 @@ let booking = {
                     </div>
                 </div>
             </div>
-        `
-        return bookingInfo
+        `;
+        return bookingInfo;
     },
 
     timePeriodChangedThenUpdatePrice: () => {
         const timePeriod = document.querySelector(
-            'input[name="time-period"]:checked'
-        )
-        const price = document.querySelector('#price')
-        price.innerHTML = timePeriod.id === 'booking-morning' ? 2000 : 2500
+            'input[name="time-period"]:checked',
+        );
+        const price = document.querySelector('#price');
+        price.innerHTML = timePeriod.id === 'booking-morning' ? 2000 : 2500;
     },
-}
+};

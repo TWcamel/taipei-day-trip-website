@@ -20,5 +20,7 @@ module.exports = {
                 SwitchCase: 0,
             },
         ],
+        'linebreak-style': ['error', 'unix'],
+        semi: ['error', 'always'],
     },
-}
+};

@@ -8,7 +8,6 @@ import utils.hash_utils as hu
 
 day_trip_user = Blueprint("day_trip_user", __name__, template_folder="../client")
 
-
 @response.json_response
 @day_trip_user.route("/api/user", methods=["GET"])
 def get_user():
@@ -45,21 +44,17 @@ def user_login():
         email, password = body_info["email"], body_info["password"]
 
         if email and password:
-
             user_info = user.get_user_info_by_email(email)
-
             if user_info:
-
                 is_valid_password = hu.check_data(password, user_info["password"])
-
                 if is_valid_password:
-                    user_id = user_info["id"]
-                    session["id"], session["user_status"] = user_id, "already_logged_in"
+                    session["id"], session["user_status"] = (
+                        user_info["id"],
+                        "already_logged_in",
+                    )
                     return {"ok": True}, 200
-                else:
-                    return {"error": True, "message": "User not found"}, 401
             else:
-                return {"ok": False}, 401
+                return {"error": True, "message": "User not found"}, 401
 
         elif not email or not password:
             {"error": True, "message": "Missing credentials"}, 401

@@ -2,7 +2,7 @@ import database.db as db
 from utils.read_json_file import read_attractions_json_file
 
 
-def create_booking_table(): -> int or None:
+def create_booking_table() -> int or None:
     affected_rows = 0
     with db.DB() as _db:
         sql_cmd = """

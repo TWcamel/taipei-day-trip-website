@@ -2,7 +2,8 @@ import database.db as db
 from utils.read_json_file import read_attractions_json_file
 
 
-def create_booking_table():
+def create_booking_table(): -> int or None:
+    affected_rows = 0
     with db.DB() as _db:
         sql_cmd = """
             CREATE TABLE IF NOT EXISTS booking (
@@ -16,4 +17,5 @@ def create_booking_table():
                 FOREIGN KEY (ATTRACTION_ID) REFERENCES ATTRACTION(ID)
             )
         """
-        _db.crud(sql_cmd=sql_cmd)
+        affected_rows += _db.crud(sql_cmd=sql_cmd)
+    return affected_rows

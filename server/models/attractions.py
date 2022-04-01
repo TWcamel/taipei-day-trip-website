@@ -57,7 +57,7 @@ def from_json_file_insert_attractions_to_db() -> int:
                 "_longitude": attraction["longitude"],
             }
 
-            # should be 319 row counts # test OK
+            # should be 1519 row counts # test OK
             affected_rows += _db.crud(sql_cmd=sql_cmd, params=sql_params)
 
         return affected_rows

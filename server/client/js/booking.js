@@ -46,14 +46,14 @@ let booking = {
                             <h4>導覽費用：</h4>
                             <p class="price ml-dot-5">新台幣 <span id="price">2000</span> 元</p>
                         </div>
-                        <button type="submit" id="booking-place-order" class="btn-booking-place-order" onclick="window.location.href='/booking'">
+                        <button type="submit" id="booking-place-order" class="btn-booking-place-order" onclick="booking.checkIfOrderDateIsChoose()">
                                 開始預定行程
                         </button>
                     </div>
                 </div>
             </div>
         `;
-        return bookingInfo; 
+        return bookingInfo;
     },
 
     timePeriodChangedThenUpdatePrice: () => {
@@ -62,5 +62,21 @@ let booking = {
         );
         const price = document.querySelector('#price');
         price.innerHTML = timePeriod.id === 'booking-morning' ? 2000 : 2500;
+    },
+
+    checkIfOrderDateIsChoose: () => {
+        const orderDate = document.querySelector('#booking-choose-order-date');
+        if (orderDate.value === '') {
+            booking.invalidOrderDate(orderDate);
+            return false;
+        }
+        return true;
+    },
+
+    invalidOrderDate: (dom) => {
+        dom.classList.add('invalid-order-date');
+        setTimeout(() => {
+            dom.classList.remove('invalid-order-date');
+        }, 3000);
     },
 };

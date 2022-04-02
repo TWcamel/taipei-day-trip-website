@@ -32,6 +32,8 @@
     --shaking-animation-iteration-count: infinite;
     --shaking-animation-direction: alternate;
     --shaking-animation-name: shaking;
+    --warning-color-red: rgba(255, 0, 0, 1);
+    --warning-color-pink: rgba(255, 0, 255, 1);
 }
 
 body {

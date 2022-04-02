@@ -21,11 +21,11 @@ def thankyou():
 @response.json_response
 @day_trip_booking.route("/api/booking", methods=["GET"])
 def get_booking_from_attraction():
-    # if not (
-    #    "id" in session
-    #    and session.get("user_status", "not_yet_log_in") == "already_logged_in"
-    # ):
-    #    return {"error": True, "message": "You need to log in first"}, 403
+    if not (
+        "id" in session
+        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    ):
+        return {"error": True, "message": "You need to log in first"}, 403
 
     # TODO: change this to booking page info
     user_id = 32
@@ -49,9 +49,9 @@ def get_booking_from_attraction():
                 "time": booking_info["type"],
             }
             for booking_info in booking_info
-        ] 
-        
-        if len(res) == 1: 
+        ]
+
+        if len(res) == 1:
             res = res[0]
 
     except Exception as e:
@@ -64,11 +64,11 @@ def get_booking_from_attraction():
 @response.json_response
 @day_trip_booking.route("/api/booking", methods=["POST"])
 def new_booking():
-    # if not (
-    #    "id" in session
-    #    and session.get("user_status", "not_yet_log_in") == "already_logged_in"
-    # ):
-    #    return {"error": True, "message": "You need to log in first"}, 403
+    if not (
+        "id" in session
+        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    ):
+        return {"error": True, "message": "You need to log in first"}, 403
 
     # TODO: change this to request body
     attraction_id = request.json["attractionId"]

@@ -53,7 +53,7 @@ let booking = {
                 </div>
             </div>
         `;
-        return bookingInfo;
+        return bookingInfo; 
     },
 
     timePeriodChangedThenUpdatePrice: () => {

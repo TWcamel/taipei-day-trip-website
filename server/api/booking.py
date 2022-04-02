@@ -21,11 +21,11 @@ def thankyou():
 @response.json_response
 @day_trip_booking.route("/api/booking", methods=["GET"])
 def get_booking_from_attraction():
-    if not (
-        "id" in session
-        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
-    ):
-        return {"error": True, "message": "You need to log in first"}, 403
+    # if not (
+    #    "id" in session
+    #    and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    # ):
+    #    return {"error": True, "message": "You need to log in first"}, 403
 
     # TODO: change this to booking page info
     user_id = 32
@@ -36,17 +36,23 @@ def get_booking_from_attraction():
         if not booking_info:
             return {"erorr": True, "message": "No booking found"}, 400
 
-        res = {
-            "attraction": {
-                "id": booking_info["attraction_id"],
-                "name": booking_info["NAME"],
-                "address": booking_info["ADDRESS"],
-                "image": booking_info["IMAGE"],
-            },
-            "date": booking_info["date"],
-            "price": booking_info["price"],
-            "time": booking_info["type"],
-        }
+        res = [
+            {
+                "attraction": {
+                    "id": booking_info["attraction_id"],
+                    "name": booking_info["NAME"],
+                    "address": booking_info["ADDRESS"],
+                    "image": booking_info["IMAGE"],
+                },
+                "date": booking_info["date"],
+                "price": booking_info["price"],
+                "time": booking_info["type"],
+            }
+            for booking_info in booking_info
+        ] 
+        
+        if len(res) == 1: 
+            res = res[0]
 
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -58,21 +64,23 @@ def get_booking_from_attraction():
 @response.json_response
 @day_trip_booking.route("/api/booking", methods=["POST"])
 def new_booking():
-    if not (
-        "id" in session
-        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
-    ):
-        return {"error": True, "message": "You need to log in first"}, 403
+    # if not (
+    #    "id" in session
+    #    and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    # ):
+    #    return {"error": True, "message": "You need to log in first"}, 403
 
     # TODO: change this to request body
     attraction_id = request.json["attractionId"]
     booking_type = request.json["time"]
     booking_price = request.json["price"]
+    booking_date = request.json["date"]
 
     booking_info = {
         "attraction_id": attraction_id,
         "type": booking_type,
         "price": booking_price,
+        "date": booking_date,
         "user_id": 32,
     }
 
@@ -85,6 +93,7 @@ def new_booking():
         not booking_info["attraction_id"]
         or not booking_info["type"]
         or not booking_info["price"]
+        or not booking_info["date"]
     ):
         return {"error": True, "message": "Missing required fields"}, 400
 
@@ -117,7 +126,7 @@ def delete_booking():
     # TODO: change this to booking page info
     booking_id = request.json["bookingId"]
 
-    try: 
+    try:
         affected_rows = booking_model.delete_a_booking(booking_id=1)
         if affected_rows > 0:
             return {"ok": True}, 200

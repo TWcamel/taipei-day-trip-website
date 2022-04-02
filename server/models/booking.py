@@ -57,7 +57,7 @@ def get_user_bookings(user_id) -> list[dict] or None:
                     WHERE T.ATTRACTION_ID = I.ID 
                     LIMIT 1) AS IMAGE
             FROM (
-                SELECT attraction_id, date, type, price, create_time
+                SELECT attraction_id, date, type, price, create_time, id as booking_id
                 FROM booking 
                 WHERE USER_ID = %(_USER_ID)s
             ) T, attractions Q

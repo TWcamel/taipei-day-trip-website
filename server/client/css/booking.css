@@ -49,6 +49,64 @@
     animation-iteration-count: infinite;
 }
 
+#booking-section {
+    margin-top: calc(var(--nav-bar-height) + 1rem);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+}
+
+#booking-container {
+    padding: 1.2rem 0rem 1.2rem 15rem;
+}
+
+.booking-info-container {
+    padding: 1.2rem 0rem 1.2rem 15rem;
+    display: grid;
+    grid-template: auto;
+}
+
+.booking-info-attractoin-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.booking-info-img {
+    width: 29%;
+    height: 9 rem;
+    object-fit: cover;
+    background-color: var(--grey-150-color);
+    border-radius: 0.3rem;
+}
+
+.booking-info-detail {
+    min-width: 60%;
+    line-height: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+}
+
+.booking-text-block h4,
+.booking-text-block p {
+    display: inline;
+    vertical-align: top;
+    line-height: 2;
+}
+
+.emphasize-font {
+    font-weight: 800;
+    color: var(--cyan-color-dark);
+}
+
+.booking-info-delete {
+    color: var(--red-color);
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1200px) {
     .booking {
         justify-content: space-between;

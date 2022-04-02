@@ -2,7 +2,7 @@ let initAttractionApp;
 (initAttractionApp = () => {
     let attraction = {
         init: () => {
-            navbar.insertHeaderAtFirstDomInBody();
+            !navbar.checkIfNavbarExist() && navbar.insertHeaderAtFirstDomInBody();
             attraction.createAttractionPage();
         },
         getAttractionContainer: () => {

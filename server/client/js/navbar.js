@@ -41,8 +41,8 @@ let navbar = {
     changeNavItemsBaseOnUserLoggedInStatus: (isLoggedIn) => {
         return ` ${
             isLoggedIn === true
-                ? '<li><a href="javascript:;" onclick="">預定行程</a></li><li><a href="javascript:;" onclick="">會員頁面</a></li>'
-                : '<li><a href="javascript:;" onclick="">預定行程</a></li>'
+                ? '<li><a href="javascript:;" onclick="navbar.navToBookingPage()">預定行程</a></li><li><a href="javascript:;" onclick="">會員頁面</a></li>'
+                : '<li><a href="javascript:;" onclick="modal.modalPopUp()">預定行程</a></li>'
         } <li> ${
             isLoggedIn === true
                 ? `<a href="javascript:;" onclick="modal.logOut()">登出</a>`
@@ -50,5 +50,14 @@ let navbar = {
         }
           </li>
         `;
+    },
+
+    checkIfNavbarExist: () => {
+        const navbar = document.querySelector('#nav-bar');
+        return navbar !== null;
+    },
+
+    navToBookingPage: () => {
+        window.location.href = '/booking';
     },
 };

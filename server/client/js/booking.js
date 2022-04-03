@@ -44,6 +44,12 @@ let booking = {
         container.remove();
     },
 
+    createHorizontalLine: (container, position) => {
+        let line = document.createElement('hr');
+        line.classList.add('horizontal-line');
+        container.insertAdjacentElement(position, line);
+    },
+
     createBookingInfo: ({ id, name, category, mrt }) => {
         const bookingInfo = `
             <div class="booking">
@@ -92,45 +98,46 @@ let booking = {
         headerSec.insertAdjacentElement('afterend', bookingSection);
     },
 
-    createTapPayForm: (totalPrice) => {
-        const form = document.createElement('form');
-        form.setAttribute('id', 'booking-tap-pay-form');
-        form.innerHTML += `
-        <div class="booking-section-user-contact-info">
-          <h5>您的聯絡資訊</h5>
-          <div class="booking-text-block">
-            <p>聯絡姓名：</p>
-            <input class="booking-input-style user-contact-name contact" type="ame" placeholder="yourEmail@example.com" required="">
-          </div>
-          <div class="booking-text-block">
-            <p>聯絡信箱：</p>
-            <input class="booking-input-style user-contact-email contact" type="email" placeholder="yourEmail@example.com" required="">
-          </div>
-          <div class="booking-text-block">
-            <p>手機號碼：</p>
-            <input class="booking-input-style user-contact-phone contact" type="tel" placeholder="09xx-xxx-xxx" maxlength="10" required="">
-          </div>
-          <p class="booking-notice">
-            請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
-          </p>
-        </div>
-
-        <div class="booking-section-pay">
+    createUserContactInfo: () => {
+        const userInfoContainer = `
+          <div class="booking-user-contact-info">
+            <h5>您的聯絡資訊</h5>
+            <div class="booking-text-block">
+              <p>聯絡姓名：</p>
+              <input class="booking-input-style user-contact-name contact" type="ame" placeholder="yourEmail@example.com" required="">
+            </div>
+            <div class="booking-text-block">
+              <p>聯絡信箱：</p>
+              <input class="booking-input-style user-contact-email contact" type="email" placeholder="yourEmail@example.com" required="">
+            </div>
+            <div class="booking-text-block">
+              <p>手機號碼：</p>
+              <input class="booking-input-style user-contact-phone contact" type="tel" placeholder="09xx-xxx-xxx" maxlength="10" required="">
+            </div>
+            <p class="booking-notice">
+              請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+            </p>
+          </div>`;
+        return userInfoContainer;
+    },
+    createBookingPay: (totalPrice) => {
+        const bookingPayContainer = `
+        <div class="booking-pay">
           <h5>信用卡付款資訊</h5>
-          <div class="booking-text-block card-number-group">
+          <div class="booking-text-block">
             <label for="card-number">卡號號碼：</label>
             <div name="card-number" class="booking-input-style tpfield contact" id="card-number"><iframe frameborder="0" allowtransparency="true" scrolling="no" style="border: none; width: 100%; height: 100%; float: left;" src="https://js.tappaysdk.com/tpdirect/v5.7.0/tappay-field/html?%7B%22origin%22%3A%22http%3A%2F%2F3.141.125.128%3A3000%22%2C%22type%22%3A%22card-number%22%2C%22placeholder%22%3A%22****%20****%20****%20****%22%2C%22styles%22%3A%7B%22input%22%3A%7B%22color%22%3A%22gray%22%7D%2C%22%3Afocus%22%3A%7B%22color%22%3A%22black%22%7D%2C%22.valid%22%3A%7B%22color%22%3A%22%23448899%22%7D%2C%22.invalid%22%3A%7B%22color%22%3A%22%23d65350%22%7D%7D%2C%22field_type%22%3A%22tappay-field%22%7D"></iframe></div>
           </div>
-          <div class="booking-text-block card-expiration-date-group">
+          <div class="booking-text-block">
             <label for="card-expiration-date">過期時間：</label>
             <div class="booking-input-style tpfield contact" id="card-expiration-date" name="card-expiration-date"><iframe frameborder="0" allowtransparency="true" scrolling="no" style="border: none; width: 100%; height: 100%; float: left;" src="https://js.tappaysdk.com/tpdirect/v5.7.0/tappay-field/html?%7B%22origin%22%3A%22http%3A%2F%2F3.141.125.128%3A3000%22%2C%22type%22%3A%22expiration-date%22%2C%22placeholder%22%3A%22MM%20%2F%20YY%22%2C%22styles%22%3A%7B%22input%22%3A%7B%22color%22%3A%22gray%22%7D%2C%22%3Afocus%22%3A%7B%22color%22%3A%22black%22%7D%2C%22.valid%22%3A%7B%22color%22%3A%22%23448899%22%7D%2C%22.invalid%22%3A%7B%22color%22%3A%22%23d65350%22%7D%7D%2C%22field_type%22%3A%22tappay-field%22%7D"></iframe></div>
           </div>
-          <div class="booking-text-block card-ccv-group">
+          <div class="booking-text-block>
             <label for="card-ccv">驗證密碼：</label>
             <div class="booking-input-style tpfield contact" id="card-ccv" name="card-ccv"><iframe frameborder="0" allowtransparency="true" scrolling="no" style="border: none; width: 100%; height: 100%; float: left;" src="https://js.tappaysdk.com/tpdirect/v5.7.0/tappay-field/html?%7B%22origin%22%3A%22http%3A%2F%2F3.141.125.128%3A3000%22%2C%22type%22%3A%22ccv%22%2C%22placeholder%22%3A%22CCV%22%2C%22styles%22%3A%7B%22input%22%3A%7B%22color%22%3A%22gray%22%7D%2C%22%3Afocus%22%3A%7B%22color%22%3A%22black%22%7D%2C%22.valid%22%3A%7B%22color%22%3A%22%23448899%22%7D%2C%22.invalid%22%3A%7B%22color%22%3A%22%23d65350%22%7D%7D%2C%22field_type%22%3A%22tappay-field%22%7D"></iframe></div>
           </div>
         </div>
-        <div class="booking-section-confirm-order">
+        <div class="booking-confirm-order">
           <h4>
             總價：新台幣<span class="booking-confirm-total">${totalPrice}</span>元
             <p class="error-msg"></p>
@@ -138,9 +145,22 @@ let booking = {
           <button type="submit" disabled="disabled" class="submit-booking-btn">
             確認訂購並付款
           </button>
-        </div>`;
+        </div>
+        `;
+        return bookingPayContainer;
+    },
+
+    createTapPayForm: (totalPrice) => {
+        const form = document.createElement('form');
+        form.setAttribute('id', 'booking-tap-pay-form');
+        form.innerHTML += `
+            ${booking.createUserContactInfo()} 
+            <hr/>
+            ${booking.createBookingPay(totalPrice)};
+        `;
         const bookingInfoSec = document.querySelector('#booking-info-section');
         bookingInfoSec.insertAdjacentElement('beforeend', form);
+        booking.createHorizontalLine(form, 'afterbegin');
     },
 
     createBookingInfoSection: (bookingInfo) => {
@@ -326,7 +346,7 @@ let booking = {
                 booking.createBookingSection(userInfo.data.name);
                 booking.createBookingInfoSection(userBookingInfo.data);
             }
-            booking.createTapPayForm(totalPrice);
+            //booking.createTapPayForm(totalPrice);
         }
     },
 };

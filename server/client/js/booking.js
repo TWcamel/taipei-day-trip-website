@@ -25,6 +25,12 @@ let booking = {
         return [year, month, day].join('-');
     },
 
+    dateToLocalTime: (date) => {
+        let d = new Date(date);
+        let localTime = d.toLocaleTimeString();
+        return localTime;
+    },
+
     deleteBookingInfo: async (bookingId) => {
         try {
             const res = await fetch('/api/booking', {
@@ -182,7 +188,9 @@ let booking = {
                 : '下午五點到晚上十點';
         const date = booking.formatDate(bookingInfo.date);
         container.innerHTML += `
-          <div class="booking-info-attractoin-container mt-2" id="booking-info-attraction-container-id-${bookingInfo.booking_id}">
+          <div class="booking-info-attractoin-container mt-2" id="booking-info-attraction-container-id-${
+              bookingInfo.booking_id
+          }">
             <img class="booking-info-img" src="${bookingInfo.attraction.image}">
             <div class="booking-info-detail">
               <div class="booking-text-block">
@@ -201,14 +209,26 @@ let booking = {
               </div>
               <div class="booking-text-block">
                 <h4>費用：</h4>
-                <p>新台幣 <span id="booking-info-price">${bookingInfo.price}</span> 元</p>
+                <p>新台幣 <span id="booking-info-price">${
+                    bookingInfo.price
+                }</span> 元</p>
               </div>
               <div class="booking-text-block">
                 <h4>地點：</h4>
-                <p class="booking-info-address">${bookingInfo.attraction.address}</p>
+                <p class="booking-info-address">${
+                    bookingInfo.attraction.address
+                }</p>
+              </div>
+              <div class="booking-text-block">
+                <h4>下單日期：</h4>
+                <p class="booking-info-order">${booking.formatDate(
+                    bookingInfo.claimTime,
+                )} ${booking.dateToLocalTime(bookingInfo.claimTime)}</p>
               </div>
             </div>
-            <img class="booking-info-delete" src="/image/icon_delete.svg" alt="" onclick="booking.deleteBookingInfo(${bookingInfo.booking_id})">
+            <img class="booking-info-delete" src="/image/icon_delete.svg" alt="" onclick="booking.deleteBookingInfo(${
+                bookingInfo.booking_id
+            })">
           </div>
         `;
     },
@@ -337,6 +357,7 @@ let booking = {
             if (userBookingInfo.error === true) {
             }
             if (userBookingInfo.data.length > 1) {
+                console.log(userBookingInfo.data);
                 booking.createBookingSection(userInfo.data.name);
                 userBookingInfo.data.forEach((item, idx) => {
                     totalPrice += item.data.price;

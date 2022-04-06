@@ -2,8 +2,8 @@ import mysql.connector
 import configparser
 
 config = configparser.ConfigParser()
-config.read('config/mysql.ini')
-CONFIG = config['mysql']
+config.read("config/mysql.ini")
+CONFIG = config["mysql"]
 
 
 class DB:
@@ -16,8 +16,9 @@ class DB:
         """
         self._cnx = mysql.connector.connect(
             pool_size=5,  # maximum -> pooling.CNX_POOL_MAXSIZE
-            pool_name='web_app_db_pool',
-            **CONFIG)
+            pool_name="web_app_db_pool",
+            **CONFIG
+        )
         self._cursor = self._cnx.cursor()
 
     def __enter__(self):
@@ -34,7 +35,9 @@ class DB:
         self._cursor.close()
         self._cnx.close()
 
-    def fetch_db(self, sql_cmd: str, params: dict = None, is_fetch_one: bool = True) -> list:
+    def fetch_db(
+        self, sql_cmd: str, params: dict = {None: None}, is_fetch_one: bool = True
+    ) -> list:
         """Database query operation
 
         Args:
@@ -46,7 +49,11 @@ class DB:
             list: Result
         """
         self._cursor.execute(sql_cmd, params)
-        return [self._cursor.fetchone()] if is_fetch_one is True else self._cursor.fetchall()
+        return (
+            [self._cursor.fetchone()]
+            if is_fetch_one is True
+            else self._cursor.fetchall()
+        )
 
     def crud(self, sql_cmd, params=None) -> int:
         """CRUD operation
@@ -63,19 +70,23 @@ class DB:
         self._cnx.commit()
         return affected_rows
 
-    def fetch_db_response_column_name(self, sql_cmd: str, params: dict = None, is_fetch_one: bool = True) -> list[dict]:
+    def fetch_db_response_column_name(
+        self, sql_cmd: str, params: dict = {1: 1}, is_fetch_one: bool = True
+    ) -> list[dict]:
         """Database query operation
 
-            Args:
-                sql_cmd (str): SQL command
-                params (dict): Parameters
-                is_fetch_one (bool): Whether to fetch one or all (default: True)
+        Args:
+            sql_cmd (str): SQL command
+            params (dict): Parameters
+            is_fetch_one (bool): Whether to fetch one or all (default: True)
 
-            Returns:
-                list[dict]: Result
+        Returns:
+            list[dict]: Result
         """
         self._cursor.execute(sql_cmd, params)
         columns = self._cursor.description
-        result = [{columns[index][0]:column for index,
-                   column in enumerate(value)} for value in self._cursor.fetchall()]
+        result = [
+            {columns[index][0]: column for index, column in enumerate(value)}
+            for value in self._cursor.fetchall()
+        ]
         return result

@@ -32,6 +32,8 @@
     --shaking-animation-iteration-count: infinite;
     --shaking-animation-direction: alternate;
     --shaking-animation-name: shaking;
+    --warning-color-red: rgba(255, 0, 0, 1);
+    --warning-color-pink: rgba(255, 0, 255, 1);
 }
 
 body {
@@ -67,4 +69,11 @@ body {
     margin-left: 0.5rem;
 }
 
+.mt-5 {
+    margin-top: 5rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
 

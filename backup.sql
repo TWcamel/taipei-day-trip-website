@@ -76,6 +76,39 @@ INSERT INTO `attractions_image` VALUES (1,'https://www.travel.taipei/d_upload_tt
 UNLOCK TABLES;
 
 --
+-- Table structure for table `booking`
+--
+
+DROP TABLE IF EXISTS `booking`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `booking` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `USER_ID` bigint NOT NULL,
+  `CREATE_TIME` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `PRICE` bigint NOT NULL,
+  `ATTRACTION_ID` bigint NOT NULL,
+  `TYPE` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DATE` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `USER_ID` (`USER_ID`),
+  KEY `ATTRACTION_ID` (`ATTRACTION_ID`),
+  CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`id`),
+  CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`ATTRACTION_ID`) REFERENCES `attractions` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `booking`
+--
+
+LOCK TABLES `booking` WRITE;
+/*!40000 ALTER TABLE `booking` DISABLE KEYS */;
+INSERT INTO `booking` VALUES (1,32,'2022-04-02 15:42:35',2000,11,'booking-morning','2022-04-08'),(12,64,'2022-04-02 20:02:25',2000,6,'booking-morning','2022-04-18'),(13,64,'2022-04-02 20:31:14',2000,3,'booking-morning','2022-04-19');
+/*!40000 ALTER TABLE `booking` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -91,7 +124,7 @@ CREATE TABLE `user` (
   `phone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +133,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (20,'彭彭彭','ply5@ply.com','12345678','2022-03-20 09:51:40',NULL),(24,'sad','123','231','2022-03-24 15:40:10',NULL),(28,'test','j0930495159@gmail.com','test','2022-03-24 17:24:42',NULL),(29,'test','test@test','test','2022-03-24 17:25:04',NULL),(30,'test','test','test','2022-03-24 17:25:10',NULL),(32,'tt','tt','tt','2022-03-24 17:26:58',NULL),(33,'tt','ttss@aaa','aa','2022-03-25 17:29:26',NULL),(34,'tt','tt22@aa','ss','2022-03-25 17:35:21',NULL),(35,'sa','as@aa','sada','2022-03-25 17:36:23',NULL),(36,'aa','ass@a','sad','2022-03-25 17:36:34',NULL),(37,'aa','s@aa','ss','2022-03-25 17:38:35',NULL),(39,'ss','s@aaa','Ss','2022-03-25 17:39:41',NULL),(40,'aa','aa@aa','2','2022-03-25 17:45:30',NULL),(55,'aa','aa@a','ss','2022-03-25 18:19:40',NULL),(56,'aa','dd@aa','aa','2022-03-25 18:21:05',NULL),(57,'aa','asa@a','sdas','2022-03-25 18:22:01',NULL);
+INSERT INTO `user` VALUES (24,'sad','123','231','2022-03-24 15:40:10',NULL),(28,'test','j0930495159@gmail.com','test','2022-03-24 17:24:42',NULL),(29,'test','test@test','test','2022-03-24 17:25:04',NULL),(30,'test','test','test','2022-03-24 17:25:10',NULL),(32,'tt','tt','tt','2022-03-24 17:26:58',NULL),(33,'tt','ttss@aaa','aa','2022-03-25 17:29:26',NULL),(34,'tt','tt22@aa','ss','2022-03-25 17:35:21',NULL),(35,'sa','as@aa','sada','2022-03-25 17:36:23',NULL),(36,'aa','ass@a','sad','2022-03-25 17:36:34',NULL),(37,'aa','s@aa','ss','2022-03-25 17:38:35',NULL),(39,'ss','s@aaa','Ss','2022-03-25 17:39:41',NULL),(40,'aa','aa@aa','2','2022-03-25 17:45:30',NULL),(55,'aa','aa@a','ss','2022-03-25 18:19:40',NULL),(56,'aa','dd@aa','aa','2022-03-25 18:21:05',NULL),(57,'aa','asa@a','sdas','2022-03-25 18:22:01',NULL),(61,'彭彭彭','ply5@ply.com','$2b$12$Ohuj/lpMQAyX2R8ejMMfT.btWOy5UIXgDjMTwlkXPWlBCu05DSqgW','2022-03-27 17:12:28',NULL),(62,'123','123@','$2b$12$/e5F9Rz5N8ltaopa0UBXCOHsapf7/W5Xiy6W.R3Mah4i0TwTb950i','2022-03-28 12:46:21',NULL),(64,'test','test@gmail.com','$2b$12$1iVigEb6mLoIcp.5y6EPkOdgyd37skElw4jihmB1B9lmfat/Mk0KO','2022-04-02 14:30:17',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -113,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-26 16:04:49
+-- Dump completed on 2022-04-03  9:14:17

@@ -10,7 +10,7 @@ def get_user_info(id) -> dict or None:
     sql_params = {"_id": id}
 
     with db.DB() as _db:
-        res = _db.fetch_db_response_column_name(sql_cmd, sql_params)
+        res = _db.fetch_db_response_column_name(sql_cmd, sql_params, is_fetch_one=True)
 
     return next(iter(res)) if len(res) > 0 else None
 
@@ -39,7 +39,7 @@ def get_user_info_by_email(email) -> dict or None:
     sql_params = {"_email": email}
 
     with db.DB() as _db:
-        res = _db.fetch_db_response_column_name(sql_cmd, sql_params)
+        res = _db.fetch_db_response_column_name(sql_cmd, sql_params, is_fetch_one=True)
 
     return next(iter(res)) if len(res) > 0 else None
 

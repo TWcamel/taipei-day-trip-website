@@ -4,6 +4,7 @@ from api.home import day_trip_home
 from api.attractions import day_trip_attractions
 from api.booking import day_trip_booking
 from api.user import day_trip_user
+from api.order import day_trip_orders
 from time import time
 
 config = configparser.ConfigParser()
@@ -19,6 +20,7 @@ app.register_blueprint(day_trip_home)
 app.register_blueprint(day_trip_attractions)
 app.register_blueprint(day_trip_booking)
 app.register_blueprint(day_trip_user)
+app.register_blueprint(day_trip_orders)
 
 
 if __name__ == "__main__":

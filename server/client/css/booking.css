@@ -57,6 +57,7 @@
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: 75%;
+    justify-content: flex-end;
 }
 
 #booking-container,

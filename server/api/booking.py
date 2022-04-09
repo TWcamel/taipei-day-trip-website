@@ -28,7 +28,6 @@ def get_booking_from_attraction():
     ):
         return {"error": True, "message": "You need to log in first"}, 403
 
-    # TODO: change this to booking page info
     user_id = session["id"]
 
     try:
@@ -57,7 +56,7 @@ def get_booking_from_attraction():
         ]
 
         if len(res) == 1:
-            res = res[0]['data']
+            res = res[0]["data"]
 
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -75,7 +74,6 @@ def new_booking():
     ):
         return {"error": True, "message": "You need to log in first"}, 403
 
-    # TODO: change this to request body
     attraction_id = request.json["attractionId"]
     booking_type = request.json["time"]
     booking_price = request.json["price"]
@@ -129,7 +127,6 @@ def delete_booking():
     ):
         return {"error": True, "message": "You need to log in first"}, 403
 
-    # TODO: change this to booking page info
     booking_id = request.json["bookingId"]
 
     try:

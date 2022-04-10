@@ -133,22 +133,16 @@
         flex-wrap: wrap;
     }
 
-    #booking-section {
-        grid-template-columns: 1fr;
-    }
-
     #booking-container,
-    .booking-info-container {
-        padding: 1.2rem 5rem;
+    #booking-info-section,
+    .contact-view-container,
+    .card-view-container,
+    .price-view-container {
+        width: 90% !important;
     }
 }
 
 @media screen and (max-width: 800px) {
-    #booking-container,
-    .booking-info-container {
-        padding: 1.2rem 2rem;
-    }
-
     .booking-info-img {
         width: 100%;
         min-height: 25rem;

@@ -55,20 +55,23 @@ let tapPay = {
     },
 
     createPriceAndOrderBtn: () => {
+        const tapPayContainer = document.querySelector('.tap-pay-container');
         const price = booking.totalPrice.get();
         const priceContainer = tapPay.createPriceContainer(price);
-        let tapPayContainer = document.createElement('div');
-        tapPayContainer.classList.add('tap-pay-btn-container');
-        tapPayContainer.classList.add('justfy-end');
+        let tapPayBtnContainer = document.createElement('div');
+        tapPayBtnContainer.classList.add('tap-pay-btn-container');
         const tapPayBtn = tapPay.createTapPayButton();
-        const footer = document.querySelector('#footer');
-        tapPay.insertPositionToDom(priceContainer, 'beforeBegin', footer);
         tapPay.insertPositionToDom(
+            priceContainer,
+            'beforeEnd',
             tapPayContainer,
+        );
+        tapPay.insertPositionToDom(
+            tapPayBtnContainer,
             'beforeEnd',
             priceContainer,
         );
-        tapPay.insertPositionToDom(tapPayBtn, 'beforeEnd', tapPayContainer);
+        tapPay.insertPositionToDom(tapPayBtn, 'beforeEnd', tapPayBtnContainer);
     },
     createTapPayContainer: () => {
         let container = document.createElement('div');
@@ -155,6 +158,7 @@ let tapPay = {
     createDivider: () => {
         let divider = document.createElement('hr');
         divider.classList.add('order-divider');
+        divider.classList.add('divider');
         return divider;
     },
     setCardViewStyle: () => {

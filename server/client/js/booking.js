@@ -128,7 +128,7 @@ let booking = {
             bookingInfoSec = document.createElement('div');
             bookingInfoSec.setAttribute('id', 'booking-info-section');
             bookingInfoSec.innerHTML += `
-              <div class="booking-info-container mt-mi-2">
+              <div class="booking-info-container">
               </div>
             `;
             const bookingSec = document.querySelector('#booking-section');
@@ -141,7 +141,7 @@ let booking = {
                 : '下午五點到晚上十點';
         const date = booking.formatDate(bookingInfo.date);
         container.innerHTML += `
-          <div class="booking-info-attractoin-container mt-2" id="booking-info-attraction-container-id-${
+          <div class="booking-info-attractoin-container" id="booking-info-attraction-container-id-${
               bookingInfo.booking_id
           }">
             <img class="booking-info-img" src="${bookingInfo.attraction.image}">
@@ -301,7 +301,7 @@ let booking = {
         const bookingInfoSec = document.createElement('div');
         bookingInfoSec.classList.add('booking-info-container');
         bookingInfoSec.innerHTML = `
-          <div class="booking-info-attractoin-container mt-2">
+          <div class="booking-info-attractoin-container">
             <div class="booking-info-detail">
               <div class="booking-text-block">
                 <h2 class="emphasize-font">您尚未有任何預約</h4>

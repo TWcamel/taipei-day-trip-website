@@ -49,15 +49,19 @@
     animation-iteration-count: infinite;
 }
 
-#booking-section,
-.booking-info-container {
+#booking-section {
     margin-top: calc(var(--nav-bar-height) + 1rem);
     width: 100%;
-    justify-content: center;
     align-items: center;
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-columns: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-info-container {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 #booking-container,
@@ -109,6 +113,13 @@
 .booking-info-delete {
     color: var(--red-color);
     cursor: pointer;
+}
+
+.tap-pay-container {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 @media screen and (max-width: 1200px) {

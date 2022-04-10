@@ -36,6 +36,7 @@ let tapPay = {
             tapPayContainer,
         );
         tapPay.createPriceAndOrderBtn();
+        tapPay.monitorContactInfoIsAllowed();
     },
     createPriceContainer: (_price) => {
         const priceContainer = document.createElement('div');
@@ -79,7 +80,16 @@ let tapPay = {
         button.classList.add('tap-pay-button');
         button.classList.add('justfy-end');
         button.innerHTML = '確認訂購並付款';
-        button.onclick = tapPay.tapPayButtonClicked();
+        button.setAttribute('type', 'submit');
+        button.setAttribute('disabled', 'disabled');
+        TPDirect.card.onUpdate((update) => {
+            update.canGetPrime === true
+                ? tapPay.tapPayBtnCanSubmit()
+                : tapPay.tapPayBtnAddDisabledIfNotExists();
+        });
+        button.onclick = () => {
+            tapPay.tapPayButtonClickedHandler();
+        };
         return button;
     },
     insertPositionToDom: (element, position, reference) => {
@@ -119,6 +129,16 @@ let tapPay = {
         `;
         return view;
     },
+    monitorContactInfoIsAllowed: () => {
+        const contactView = document.querySelector('.contact-view-container');
+        const contactViewInputs = contactView.querySelectorAll('input');
+        const contactViewInputsArray = Array.from(contactViewInputs);
+        contactViewInputsArray.forEach((input) => {
+            input.oninput = () => {
+                tapPay.tapPayBtnCanSubmit();
+            };
+        });
+    },
     createCardView: () => {
         let cardView = document.createElement('div');
         cardView.classList.add('card-view-container');
@@ -151,14 +171,38 @@ let tapPay = {
             isUsedCcv: true,
         });
     },
-    tapPayButtonClicked: () => {
-        TPDirect.card.onUpdate((update) => {
-            update.canGetPrime === true ? tapPay.sendCardInfoToServer() : null;
-        });
+    tapPayBtnAddDisabledIfNotExists: () => {
+        const tapPayBtn = document.querySelector('.tap-pay-button');
+        if (tapPayBtn.hasAttribute('disabled')) return;
+        tapPayBtn.setAttribute('disabled', 'disabled');
+    },
+    checkContactInfoIsAllowed: () => {
+        const contactInfo = tapPay.getContactInfo();
+        if (contactInfo.name && contactInfo.email && contactInfo.phone) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    tapPayBtnCanSubmit: () => {
+        if (tapPay.checkContactInfoIsAllowed()) {
+            tapPay.tapPayBtnRemoveDisabledIfNotExists();
+        } else {
+            tapPay.tapPayBtnAddDisabledIfNotExists();
+        }
+    },
+    tapPayBtnRemoveDisabledIfNotExists: () => {
+        const tapPayBtn = document.querySelector('.tap-pay-button');
+        if (!tapPayBtn.hasAttribute('disabled')) return;
+        tapPayBtn.removeAttribute('disabled');
+    },
+    tapPayButtonClickedHandler: () => {
+        tapPay.sendCardInfoToServer();
     },
     sendCardInfoToServer: () => {
         TPDirect.card.getPrime((result) => {
             if (result.status !== 0) {
+                console.error('get prime error:', result.status);
                 return;
             }
             const prime = result.card.prime;
@@ -171,18 +215,25 @@ let tapPay = {
                 merchant_id: tapPayConfig.MERCHANT_ID,
                 contact,
                 totalPrice: booking.totalPrice.get(),
+                booking_id: booking.id.get(),
             };
 
             (async () => {
                 try {
-                    const res = await fetch('/api/orders', {
-                        method: 'POST',
-                        headers: {
+                    const res = await requestWithHeader(
+                        '/api/orders',
+                        'POST',
+                        order,
+                        {
                             'Content-Type': 'application/json',
                             'x-api-key': tapPayConfig.PARTNER_KEY,
                         },
-                        body: JSON.stringify(order),
-                    });
+                    );
+                    if (res.OK) {
+                        tapPay.jumpToPaymentSuccessPage(
+                            `${res.message}`.split(':')[1],
+                        );
+                    }
                 } catch (err) {
                     console.log(err);
                     return false;
@@ -197,6 +248,9 @@ let tapPay = {
             phone: document.querySelector('input[name="phone"]').value,
         };
         return contactInfo;
+    },
+    jumpToPaymentSuccessPage: (order_id) => {
+        window.location.href = `/thankyou?order_id=${order_id}`;
     },
 };
 

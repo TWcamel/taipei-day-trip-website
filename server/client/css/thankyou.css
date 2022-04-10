@@ -1,0 +1,17 @@
+.thankyou-section {
+    margin-top: var(--nav-bar-height);
+    padding-top: calc(var(--nav-bar-height) * 0.8);
+    grid-template-columns: 45% 55%;
+    justify-content: center;
+    align-items: center;
+}
+
+.thankyou-section-container {
+    margin: 4rem auto 15rem auto;
+    min-height: 320px;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}

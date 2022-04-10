@@ -30,6 +30,13 @@
     color: var(--grey-500-color);
 }
 
+.tap-pay-button:disabled {
+    background-color: var(--grey-300-color);
+    color: var(--grey-500-color);
+    border: 1px solid var(--grey-300-color);
+    cursor: not-allowed;
+}
+
 .tap-pay-button {
     box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
     background-color: var(--cyan-color-dark);

@@ -4,10 +4,19 @@ let booking = {
     totalPrice: {
         value: 0,
         set: (value) => {
-            this.value = value;
+            booking.totalPrice.value = value;
         },
         get: () => {
-            return this.value;
+            return booking.totalPrice.value;
+        },
+    },
+    id: {
+        value: null,
+        set: (value) => {
+            booking.id.value = value;
+        },
+        get: () => {
+            return booking.id.value;
         },
     },
     getToday: () => {
@@ -109,6 +118,7 @@ let booking = {
           </div>
         `;
         const headerSec = document.querySelector('#header-section');
+        if (document.querySelector('#booking-section')) return;
         headerSec.insertAdjacentElement('afterend', bookingSection);
     },
 
@@ -287,28 +297,79 @@ let booking = {
         return false;
     },
 
+    createEmptyBookingInfoNotify: () => {
+        const bookingInfoSec = document.createElement('div');
+        bookingInfoSec.classList.add('booking-info-container');
+        bookingInfoSec.innerHTML = `
+          <div class="booking-info-attractoin-container mt-2">
+            <div class="booking-info-detail">
+              <div class="booking-text-block">
+                <h2 class="emphasize-font">您尚未有任何預約</h4>
+              </div>
+            </div>
+          </div>
+        `;
+        return bookingInfoSec;
+    },
+
+    showEmptyBookingInfoNotify: () => {
+        const bookingInfoSec = document.querySelector(
+            '.booking-info-container',
+        );
+        bookingInfoContainer.setAttribute('style', 'display: block');
+    },
+
+    hideEmptyBookingInfoNotify: () => {
+        const bookingInfoSec = document.querySelector(
+            '.booking-info-container',
+        );
+        bookingInfoContainer.setAttribute('style', 'display: none');
+    },
+
+    checkIfEmptyBookingInfoExists: () => {
+        const bookingInfoSec = document.querySelector(
+            '.booking-info-container',
+        );
+        return bookingInfoSec === null ? false : true;
+    },
+
     renderBookingInfo: async () => {
         if (booking.checkCurrentLocationIsBookingPage()) {
             let price = 0;
+            let bookingId = [];
             const userBookingInfo = await booking.getUserBookingInfo();
             const userInfo = await booking.getUserInfo();
             if (userInfo.data === null) {
                 booking.jumpToIndexPage();
                 return;
             }
-            if (userBookingInfo.error === true) {
+
+            if (userBookingInfo.message === 'No booking found') {
+                const bookingInfoSec = booking.createEmptyBookingInfoNotify();
+                const headerSec = document.querySelector('#header-section');
+                if (!booking.checkIfEmptyBookingInfoExists())
+                    headerSec.insertAdjacentElement('afterend', bookingInfoSec);
+                return;
             }
+
+            if (booking.checkIfEmptyBookingInfoExists())
+                booking.hideEmptyBookingInfoNotify();
+
             if (userBookingInfo.data.length > 1) {
-                booking.createBookingSection(userInfo.data.name);
                 userBookingInfo.data.forEach((item, idx) => {
-                    price += item.data.price;
+                    booking.createBookingSection(userInfo.data.name);
                     booking.createBookingInfoSection(item.data);
+                    price += item.data.price;
+                    bookingId.push(item.data.booking_id);
                 });
             } else if (userBookingInfo.data) {
                 booking.createBookingSection(userInfo.data.name);
                 booking.createBookingInfoSection(userBookingInfo.data);
+                price += userBookingInfo.data.price;
+                bookingId.push(userBookingInfo.data.booking_id);
             }
             booking.totalPrice.set(price);
+            booking.id.set(bookingId);
         }
     },
 };

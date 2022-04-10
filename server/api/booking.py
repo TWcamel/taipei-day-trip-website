@@ -14,11 +14,6 @@ def booking():
     return render_template("booking.html")
 
 
-@day_trip_booking.route("/thankyou")
-def thankyou():
-    return render_template("thankyou.html")
-
-
 @response.json_response
 @day_trip_booking.route("/api/booking", methods=["GET"])
 def get_booking_from_attraction():

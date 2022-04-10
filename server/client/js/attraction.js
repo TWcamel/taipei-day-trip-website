@@ -2,7 +2,8 @@ let initAttractionApp;
 (initAttractionApp = () => {
     let attraction = {
         init: () => {
-            !navbar.checkIfNavbarExist() && navbar.insertHeaderAtFirstDomInBody();
+            !navbar.checkIfNavbarExist() &&
+                navbar.insertHeaderAtFirstDomInBody();
             attraction.createAttractionPage();
         },
         getAttractionContainer: () => {
@@ -58,8 +59,8 @@ let initAttractionApp;
                 const dot = `
                     <span id="carousel-dot-id-${idx}" class="carousel-dot 
                 ${
-    idx === 0 ? 'carousel-dot-active' : ''
-    }" onclick="afterInitAttractionApp.jumpToImg(${idx})"> </span>
+                    idx === 0 ? 'carousel-dot-active' : ''
+                }" onclick="afterInitAttractionApp.jumpToImg(${idx})"> </span>
                 `;
                 dotContainer.insertAdjacentHTML('beforeend', dot);
             });

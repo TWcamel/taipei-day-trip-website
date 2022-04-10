@@ -2,30 +2,6 @@ import database.db as db
 from utils.read_json_file import read_attractions_json_file
 
 
-def create_attractions_table() -> int:
-    affected_rows = 0
-    with db.DB() as _db:
-        sql_cmd = """
-        CREATE TABLE attractions (
-           id bigint NOT NULL AUTO_INCREMENT,
-           name varchar(255),
-           category varchar(255),
-           description text,
-           address varchar(255),
-           transport text,
-           mrt varchar(255),
-           latitude varchar(255),
-           longitude varchar(255),
-           update_time timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-           PRIMARY KEY (id)
-        ) ENGINE=InnoDB AUTO_INCREMENT=320 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci
- 
-        """
-        affected_rows += _db.crud(sql_cmd=sql_cmd)
-
-    return affected_rows
-
-
 def from_json_file_insert_attractions_to_db() -> int:
     attractions = read_attractions_json_file("taipei-attractions.json")
     with db.DB() as _db:

@@ -46,30 +46,6 @@ let thankyou = {
                         </div>
                     </div>
                 </div>
-                <div class="thankyou-section-container-right">
-                    <div class="thankyou-section-container-left-top-title">
-                        <h1>Order Summary</h1>
-                    </div>
-                    <div class="thankyou-section-container-left-bottom-content">
-                        <div class="thankyou-section-container-left-bottom-content-order-summary">
-                            <div class="thankyou-section-container-left-bottom-content-order-summary-item">
-                                <p>${thankyou.orderSummaryItem}</p>
-                            </div>
-                            <div class="thankyou-section-container-left-bottom-content-order-summary-item">
-                                <p>${thankyou.orderSummaryItem}</p>
-                            </div>
-                            <div class="thankyou-section-container-left-bottom-content-order-summary-item">
-                                <p>${thankyou.orderSummaryItem}</p>
-                            </div>
-                            <div class="thankyou-section-container-left-bottom-content-order-summary-item">
-                                <p>${thankyou.orderSummaryItem}</p>
-                            </div>
-                            <div class="thankyou-section-container-left-bottom-content-order-summary-item">
-                                <p>${thankyou.orderSummaryItem}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         `;
         const headerSec = document.querySelector('#header-section');

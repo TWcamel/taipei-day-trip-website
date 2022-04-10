@@ -141,7 +141,7 @@ let booking = {
                 : '下午五點到晚上十點';
         const date = booking.formatDate(bookingInfo.date);
         container.innerHTML += `
-          <div class="booking-info-attractoin-container" id="booking-info-attraction-container-id-${
+          <div class="booking-info-attractoin-container mt-2" id="booking-info-attraction-container-id-${
               bookingInfo.booking_id
           }">
             <img class="booking-info-img" src="${bookingInfo.attraction.image}">

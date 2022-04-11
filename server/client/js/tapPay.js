@@ -212,7 +212,6 @@ let tapPay = {
             const prime = result.card.prime;
             const contact = tapPay.getContactInfo();
 
-            // TODO: make frontend page more readable
             const order = {
                 prime: prime,
                 partner_key: tapPayConfig.PARTNER_KEY,

@@ -106,7 +106,7 @@ let thankyou = {
     checkUserLogin: async () => {
         const userInfo = await thankyou.getUserInfo();
         if (userInfo.data === null) {
-            //thankyou.jumpToIndexPage();
+            thankyou.jumpToIndexPage();
             return;
         }
     },
@@ -181,42 +181,6 @@ let thankyou = {
             </div>
         `;
         return imgContainer;
-    },
-
-    imgCarousel: () => {
-        const imgs = document.querySelectorAll('.thankyou-imgs');
-        imgs.forEach((img) => {
-            img.addEventListener('click', (e) => {
-                const imgSrc = e.target.src;
-                const imgModal = thankyou.createImgModal(imgSrc);
-                document.body.insertAdjacentElement('afterbegin', imgModal);
-                thankyou.closeImgModal();
-            });
-        });
-    },
-
-    createImgModal: (imgSrc) => {
-        const imgModal = document.createElement('div');
-        imgModal.classList.add('img-modal');
-        imgModal.innerHTML = `
-            <div class="img-modal-container">
-                <div class="img-modal-container-img">
-                    <img src="${imgSrc}" alt="">
-                </div>
-                <div class="img-modal-container-close">
-                    <p>lasd</p>
-                </div>
-            </div>
-        `;
-        return imgModal;
-    },
-
-    closeImgModal: () => {
-        const closeBtn = document.querySelector('.img-modal-container-close');
-        closeBtn.addEventListener('click', () => {
-            const imgModal = document.querySelector('.img-modal');
-            imgModal.remove();
-        });
     },
 };
 

@@ -9,13 +9,19 @@
 ## Booking
 
 -   [X] Shopping Cart
--   [] Check number of goods in the shore house before place an order
--   [] minus one after an order been placed
--   [] plus one after an order been deleted
+-   [X] Check number of goods in the store house before place an order -> no store house needed
+-   [X] minus one after an order been placed -> no store house needed
+-   [X] plus one after an order been deleted -> no store house needed
+-   [] check client's order is valid or not
+-   [] booking history 
+-   [] docker to taipei time zone
+-   [] JWT login user access
+-   [] unit test
+
+
+
 
 # ER Model
-
-![picture 2](images/b72deb5aae8410975d9a828281b236c72e1be04e2951bdb5cf0ba838589b53a5.png)
 
 # ref
 

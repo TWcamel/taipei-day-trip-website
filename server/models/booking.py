@@ -1,7 +1,7 @@
 import database.db as db
 
 
-def create_a_new_booking(booking_info) -> int or None:
+def create_a_new_booking(booking_info: str) -> int or None:
     price = booking_info["price"]
     attraction_id = booking_info["attraction_id"]
     type = booking_info["type"]
@@ -25,7 +25,7 @@ def create_a_new_booking(booking_info) -> int or None:
     return affected_rows
 
 
-def get_user_bookings(user_id) -> list[dict] or None:
+def get_user_bookings(user_id: str) -> list[dict] or None:
     with db.DB() as _db:
         sql_cmd = """
             SELECT T.*, Q.ID, Q.NAME, Q.ADDRESS, 
@@ -52,7 +52,7 @@ def get_user_bookings(user_id) -> list[dict] or None:
     return res if len(res) > 0 else None
 
 
-def delete_a_booking(booking_id) -> int:
+def delete_a_booking(booking_id: str) -> int:
     affected_rows = 0
     with db.DB() as _db:
         sql_cmd = """
@@ -66,7 +66,7 @@ def delete_a_booking(booking_id) -> int:
     return affected_rows
 
 
-def update_booking_to_finished(booking_id) -> int:
+def update_booking_to_finished(booking_id: str) -> int:
     affected_rows = 0
     with db.DB() as _db:
         sql_cmd = """
@@ -79,3 +79,30 @@ def update_booking_to_finished(booking_id) -> int:
         }
         affected_rows += _db.crud(sql_cmd=sql_cmd, params=sql_param)
     return affected_rows
+
+
+def get_attraction_by_finished_booking_id(booking_id: int) -> list[dict] or None:
+    with db.DB() as _db:
+        sql_cmd = """
+            SELECT T.*, Q.ID, Q.NAME, Q.ADDRESS, 
+                   (SELECT MAX(I.IMAGE)
+                    FROM attractions_image I 
+                    WHERE T.ATTRACTION_ID = I.ATTRACTIONS_ID 
+                    LIMIT 1) AS IMAGE
+            FROM (
+                SELECT attraction_id, date, type, price, create_time, id as booking_id
+                FROM booking 
+                WHERE ID = %(_BOOKING_ID)s
+                AND FINISHED = 'Y'
+            ) T, attractions Q
+            WHERE T.ATTRACTION_ID = Q.ID
+        """
+        sql_param = {
+            "_BOOKING_ID": booking_id,
+        }
+
+        res = _db.fetch_db_response_column_name(
+            sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False
+        )
+
+    return res if len(res) > 0 else None

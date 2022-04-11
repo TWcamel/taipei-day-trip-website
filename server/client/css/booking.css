@@ -71,8 +71,6 @@
 }
 
 .booking-info-container {
-    padding-top: calc(var(--nav-bar-height) * 0.8);
-    margin-top: var(--nav-bar-height);
     display: grid;
     grid-template: auto;
 }
@@ -121,6 +119,11 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+
+.booking-not-found {
+    margin-top: var(--nav-bar-height);
+    padding-top: calc(var(--nav-bar-height) * 0.8);
 }
 
 @media screen and (max-width: 1200px) {

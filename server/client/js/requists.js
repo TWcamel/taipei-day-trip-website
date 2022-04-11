@@ -33,8 +33,6 @@ let responseWithQueryString = async (url, method = 'GET', params) => {
     const searchParams = new URLSearchParams(params);
     url.search = searchParams.toString();
 
-    console.log(url);
-
     try {
         return await fetch(url, {
             method: method,

@@ -304,7 +304,7 @@ let booking = {
           <div class="booking-info-attractoin-container">
             <div class="booking-info-detail">
               <div class="booking-text-block">
-                <h2 class="emphasize-font">您尚未有任何預約</h4>
+                <h2 class="emphasize-font booking-not-found">您尚未有任何預約</h4>
               </div>
             </div>
           </div>

@@ -12,12 +12,12 @@
 -   [X] Check number of goods in the store house before place an order -> no store house needed
 -   [X] minus one after an order been placed -> no store house needed
 -   [X] plus one after an order been deleted -> no store house needed
--   [] check client's order is valid or not
--   [] booking history 
--   [] docker to taipei time zone
--   [] JWT login user access
--   [] unit test
--   [] image distribute to DNS
+-   [ ] check client's order is valid or not
+-   [ ] booking history 
+-   [ ] docker to taipei time zone
+-   [ ] JWT login user access
+-   [ ] unit test
+-   [ ] image distribute to DNS
 
 
 

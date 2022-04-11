@@ -71,14 +71,15 @@
 }
 
 .booking-info-container {
+    padding-top: calc(var(--nav-bar-height) * 0.8);
+    margin-top: var(--nav-bar-height);
     display: grid;
     grid-template: auto;
 }
 
 .booking-info-attractoin-container {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .booking-info-img {

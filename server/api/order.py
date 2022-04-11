@@ -20,6 +20,12 @@ def thankyou():
 @response.json_response
 @day_trip_orders.route("/api/orders", methods=["POST"])
 def make_an_order():
+    if not (
+        "id" in session
+        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    ):
+        return {"error": True, "message": "You are not logged in."}
+
     if header_content_type := request.headers.get("Content-Type", None) is None:
         return {"error": True, "message": "content-type header is missing"}, 406
 
@@ -96,10 +102,13 @@ def make_an_order():
 @response.json_response
 @day_trip_orders.route("/api/orders", methods=["GET"])
 def get_paid_orders():
+    if not (
+        "id" in session
+        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    ):
+        return {"error": True, "message": "You are not logged in."}
+
     if (order_id := request.args.get("order_id", None)) is not None:
-        print(order_id)
-        print(order_id[0])
-        print(tuple(order_id[0]))
         if (res := order_model.get_paid_orders_by_order_id(order_id)) is not None:
             return {"OK": True, "data": res}, 200
         else:

@@ -2,7 +2,7 @@
 
 -   [x] ER model
 -   [x] insert data to database
--   [ ] redis dockerfile
+-   [ ] redis dockerfile -> no need
 -   [ ] redis with mysql
 -   [ ] k8s workflow using git action
 
@@ -17,6 +17,7 @@
 -   [] docker to taipei time zone
 -   [] JWT login user access
 -   [] unit test
+-   [] image distribute to DNS
 
 
 

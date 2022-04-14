@@ -40,13 +40,13 @@ class DB:
     ) -> list:
         """Database query operation
 
-        Args:
-            sql_cmd (str): SQL command
-            params (dict): Parameters
-            is_fetch_one (bool): Whether to fetch one or all (default: True)
+        j      Args:
+                    sql_cmd (str): SQL command
+                    params (dict): Parameters
+                    is_fetch_one (bool): Whether to fetch one or all (default: True)
 
-        Returns:
-            list: Result
+                Returns:
+                    list: Result
         """
         self._cursor.execute(sql_cmd, params)
         return (

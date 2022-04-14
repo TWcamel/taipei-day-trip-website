@@ -4,24 +4,6 @@ import requests
 import base64
 
 
-def create_attractions_image_table() -> int:
-    with db.DB() as _db:
-        sql_cmd = """
-        CREATE TABLE IF NOT EXISTS attractions_image (
-            id BIGINT NOT NULL AUTO_INCREMENT,
-            image text,
-            attractions_id bigint DEFAULT NULL,
-            update_time timestamp NULL DEFAULT ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            FOREIGN KEY (attractions_id) REFERENCES attractions(id)
-        ) ENGINE=InnoDB AUTO_INCREMENT=320 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci
-
-        """
-        affected_rows = _db.crud(sql_cmd=sql_cmd)
-
-    return affected_rows
-
-
 def from_json_file_insert_into_attractions_image() -> int:
     attractions = read_attractions_json_file("taipei-attractions.json")
     with db.DB() as _db:

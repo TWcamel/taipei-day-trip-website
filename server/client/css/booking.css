@@ -52,11 +52,16 @@
 #booking-section {
     margin-top: calc(var(--nav-bar-height) + 1rem);
     width: 100%;
-    justify-content: center;
     align-items: center;
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-columns: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-info-container {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 #booking-container,
@@ -72,8 +77,7 @@
 
 .booking-info-attractoin-container {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .booking-info-img {
@@ -110,6 +114,18 @@
     cursor: pointer;
 }
 
+.tap-pay-container {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-not-found {
+    margin-top: var(--nav-bar-height);
+    padding-top: calc(var(--nav-bar-height) * 0.8);
+}
+
 @media screen and (max-width: 1200px) {
     .booking {
         justify-content: space-between;
@@ -121,22 +137,16 @@
         flex-wrap: wrap;
     }
 
-    #booking-section {
-        grid-template-columns: 1fr;
-    }
-
     #booking-container,
-    .booking-info-container {
-        padding: 1.2rem 5rem;
+    #booking-info-section,
+    .contact-view-container,
+    .card-view-container,
+    .price-view-container {
+        width: 90% !important;
     }
 }
 
 @media screen and (max-width: 800px) {
-    #booking-container,
-    .booking-info-container {
-        padding: 1.2rem 2rem;
-    }
-
     .booking-info-img {
         width: 100%;
         min-height: 25rem;

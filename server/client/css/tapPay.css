@@ -1,0 +1,66 @@
+.contact-view-container,
+.card-view-container {
+    padding: 0;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 75%;
+    max-width: 1200px;
+}
+
+.price-view-container {
+    padding: 0;
+    width: 100%;
+    align-items: center;
+    display: grid;
+    grid-auto-flow: row;
+    max-width: 1200px;
+    justify-content: end;
+}}
+.order-divider {
+    margin-top: calc(var(--nav-bar-height) - 0.5rem);
+    margin-bottom: calc(var(--nav-bar-height) - 0.5rem);
+}
+
+.contact-view-item {
+    line-height: 1.2rem;
+    padding: 0.5rem;
+}
+
+#card-view-ifram,
+.contact-view-item > input[type='text' i] {
+    box-shadow: 0 0 8px var(--grey-300-color);
+    border-radius: 5px;
+    border: 1px solid var(--grey-50-color);
+    padding: 0.7rem;
+    width: 20rem;
+    background-color: var(--white-color-transperent-9);
+    color: var(--grey-500-color);
+}
+
+.tap-pay-button:disabled {
+    background-color: var(--grey-300-color);
+    color: var(--grey-500-color);
+    border: 1px solid var(--grey-300-color);
+    cursor: not-allowed;
+}
+
+.tap-pay-button {
+    box-shadow: inset 0px 2px 3px 0px var(--cyan-color-normal);
+    background-color: var(--cyan-color-dark);
+    color: var(--white-color);
+    border: 1px solid var(--cyan-color-dark);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0.4rem 1.2rem;
+    display: block;
+    transition: all 0.2s ease;
+    width: 10rem;
+}
+
+.tap-pay-btn-container {
+    display: flex;
+}

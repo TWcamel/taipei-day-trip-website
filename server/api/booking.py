@@ -14,11 +14,6 @@ def booking():
     return render_template("booking.html")
 
 
-@day_trip_booking.route("/thankyou")
-def thankyou():
-    return render_template("thankyou.html")
-
-
 @response.json_response
 @day_trip_booking.route("/api/booking", methods=["GET"])
 def get_booking_from_attraction():
@@ -28,7 +23,6 @@ def get_booking_from_attraction():
     ):
         return {"error": True, "message": "You need to log in first"}, 403
 
-    # TODO: change this to booking page info
     user_id = session["id"]
 
     try:
@@ -57,7 +51,7 @@ def get_booking_from_attraction():
         ]
 
         if len(res) == 1:
-            res = res[0]['data']
+            res = res[0]["data"]
 
     except Exception as e:
         logging.error(traceback.format_exc())
@@ -75,7 +69,6 @@ def new_booking():
     ):
         return {"error": True, "message": "You need to log in first"}, 403
 
-    # TODO: change this to request body
     attraction_id = request.json["attractionId"]
     booking_type = request.json["time"]
     booking_price = request.json["price"]
@@ -129,7 +122,6 @@ def delete_booking():
     ):
         return {"error": True, "message": "You need to log in first"}, 403
 
-    # TODO: change this to booking page info
     booking_id = request.json["bookingId"]
 
     try:
@@ -141,3 +133,54 @@ def delete_booking():
         return {"error": True, "message": str(e)}, 500
 
     return {"error": True, "message": "No booking found"}, 400
+
+
+@response.json_response
+@day_trip_booking.route("/api/bookings", methods=["POST"])
+def get_attraction_by_finished_booking_id():
+    if not (
+        "id" in session
+        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    ):
+        return {"error": True, "message": "You need to log in first"}, 403
+
+    if not request.headers.get("Content-Type", None) == "application/json":
+        return {"error": True, "message": "Content-type is not acceptable"}, 406
+
+    booking_id = request.json["bookingId"]
+
+    try:
+        booking_info = booking_model.get_attraction_by_finished_booking_id(
+            booking_id=booking_id
+        )
+
+        if not booking_info:
+            return {"erorr": True, "message": "No booking found"}, 400
+
+        res = [
+            {
+                "data": {
+                    "attraction": {
+                        "id": booking_info["attraction_id"],
+                        "name": booking_info["NAME"],
+                        "address": booking_info["ADDRESS"],
+                        "image": booking_info["IMAGE"],
+                    },
+                    "date": booking_info["date"],
+                    "price": booking_info["price"],
+                    "time": booking_info["type"].split("-")[1],
+                    "claimTime": booking_info["create_time"],
+                    "booking_id": booking_info["booking_id"],
+                }
+            }
+            for booking_info in booking_info
+        ]
+
+        if len(res) == 1:
+            res = res[0]["data"]
+
+    except Exception as e:
+        logging.error(traceback.format_exc())
+        return {"error": True, "message": str(e)}, 500
+
+    return {"data": res}, 200

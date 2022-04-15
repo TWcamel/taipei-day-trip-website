@@ -9,10 +9,16 @@
 
 ## Functionalities
 
--   [ ] check client's order is valid or not
+-   [ ] Unit test
+-   [ ] Image distribute to DNS
+
+## User
+
 -   [ ] JWT login user access
--   [ ] unit test
--   [ ] image distribute to DNS
+
+## Orders
+
+-   [ ] check client's order is valid or not
 
 ## Booking
 
@@ -21,7 +27,7 @@
 -   [x] minus one after an order been placed -> no store house needed
 -   [x] plus one after an order been deleted -> no store house needed
 -   [x] booking history
--   [x] orders history for frontend page
+-   [ ] orders history for frontend page
 
 # ER Model
 

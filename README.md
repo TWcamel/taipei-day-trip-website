@@ -2,25 +2,26 @@
 
 -   [x] ER model
 -   [x] insert data to database
--   [ ] redis dockerfile -> no need
--   [ ] redis with mysql
--   [ ] k8s workflow using git action
+-   [x] redis dockerfile -> no need
+-   [x] redis with mysql -> no need
+-   [x] k8s workflow using git action -> no need
+-   [x] docker to taipei time zone
 
-## Booking
+## Functionalities
 
--   [X] Shopping Cart
--   [X] Check number of goods in the store house before place an order -> no store house needed
--   [X] minus one after an order been placed -> no store house needed
--   [X] plus one after an order been deleted -> no store house needed
 -   [ ] check client's order is valid or not
--   [ ] booking history 
--   [ ] docker to taipei time zone
 -   [ ] JWT login user access
 -   [ ] unit test
 -   [ ] image distribute to DNS
 
+## Booking
 
-
+-   [x] Shopping Cart
+-   [x] Check number of goods in the store house before place an order -> no store house needed
+-   [x] minus one after an order been placed -> no store house needed
+-   [x] plus one after an order been deleted -> no store house needed
+-   [x] booking history
+-   [x] orders history for frontend page
 
 # ER Model
 

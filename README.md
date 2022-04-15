@@ -10,7 +10,7 @@
 ## Functionalities
 
 -   [ ] Unit test
--   [ ] Image distribute to DNS
+-   [ ] Image distribute to CDN
 
 ## User
 

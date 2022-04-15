@@ -32,6 +32,7 @@ class DB:
             exc_val (object): Exception value
             exc_tb (traceback): Exception traceback
         """
+        self._cnx.rollback()
         self._cursor.close()
         self._cnx.close()
 

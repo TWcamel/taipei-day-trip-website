@@ -202,7 +202,7 @@ let booking = {
         }
         if (booking.checkIfOrderDateIsChoose()) {
             booking.newOrder();
-            //booking.jumpToBookingPage();
+            booking.jumpToBookingPage();
         }
     },
 
@@ -226,7 +226,6 @@ let booking = {
 
     newOrder: async () => {
         const bookingInfo = booking.getBookingInfo();
-        console.log(bookingInfo);
         try {
             const res = await jsonRequests(
                 (url = '/api/booking'),

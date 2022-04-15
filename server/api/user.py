@@ -85,7 +85,7 @@ def user_signup():
 
         if name and email and password:
 
-            if not verify.is_valid_email_address(email):
+            if not verify.verify_email_address(email):
                 return {"error": True, "message": "Invalid email address"}, 400
 
             password = hu.hash_data(password)

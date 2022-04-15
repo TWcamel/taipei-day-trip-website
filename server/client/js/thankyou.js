@@ -19,7 +19,6 @@ let thankyou = {
                 attractionId: detail.data.attraction.id,
             });
         });
-        await thankyou.imgCarousel();
         let thankyouSection = document.createElement('div');
         thankyouSection.classList.add('thankyou-section');
         thankyouSection.innerHTML = `

@@ -139,10 +139,10 @@ def delete_booking():
 @day_trip_booking.route("/api/bookings", methods=["POST"])
 def get_attraction_by_finished_booking_id():
     if not (
-        "id" in session
-        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+       "id" in session
+       and session.get("user_status", "not_yet_log_in") == "already_logged_in"
     ):
-        return {"error": True, "message": "You need to log in first"}, 403
+       return {"error": True, "message": "You need to log in first"}, 403
 
     if not request.headers.get("Content-Type", None) == "application/json":
         return {"error": True, "message": "Content-type is not acceptable"}, 406

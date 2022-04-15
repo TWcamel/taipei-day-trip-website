@@ -5,8 +5,10 @@ import logging
 import traceback
 import mysql.connector as mysql
 import utils.hash_utils as hu
+import utils.verify as verify
 
 day_trip_user = Blueprint("day_trip_user", __name__, template_folder="../client")
+
 
 @response.json_response
 @day_trip_user.route("/api/user", methods=["GET"])
@@ -82,6 +84,9 @@ def user_signup():
         )
 
         if name and email and password:
+
+            if not verify.is_valid_email_address(email):
+                return {"error": True, "message": "Invalid email address"}, 400
 
             password = hu.hash_data(password)
 

@@ -1,7 +1,6 @@
 from flask import Blueprint, request, session, render_template
 import utils.response as response
 from models import booking as booking_model
-from models import user as user_model
 import logging
 import traceback
 import utils.verify as verify
@@ -79,7 +78,6 @@ def new_booking():
     booking_type = request.json["time"]
     booking_price = request.json["price"]
     booking_date = request.json["date"]
-    user_id = session["id"]
 
     booking_info = {
         "attraction_id": attraction_id,

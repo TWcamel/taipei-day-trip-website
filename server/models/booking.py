@@ -106,3 +106,19 @@ def get_attraction_by_finished_booking_id(booking_id: int) -> list[dict] or None
         )
 
     return res if len(res) > 0 else None
+
+
+def get_price_by_booking_id(booking_id: int) -> int:
+    with db.DB() as _db:
+        sql_cmd = """
+            SELECT PRICE
+            FROM booking
+            WHERE ID = %(_BOOKING_ID)s
+        """
+        sql_param = {
+            "_BOOKING_ID": booking_id,
+        }
+
+        res = _db.fetch_db(sql_cmd=sql_cmd, params=sql_param, is_fetch_one=True)
+
+    return int(next(iter(tuple(next(iter(res))))))

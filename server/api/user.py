@@ -55,15 +55,15 @@ def user_login():
                         "already_logged_in",
                     )
                     return {"ok": True}, 200
-            else:
-                return {"error": True, "message": "User not found"}, 401
 
         elif not email or not password:
-            {"error": True, "message": "Missing credentials"}, 401
+            return {"error": True, "message": "Missing credentials"}, 401
 
     except:
         logging.error(traceback.format_exc())
         return {"error": True, "message": "Internal Server Error"}, 500
+
+    return {"error": True, "message": "User not found"}, 404
 
 
 @response.json_response

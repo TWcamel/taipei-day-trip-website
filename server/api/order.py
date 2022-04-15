@@ -7,6 +7,7 @@ from models import booking as booking_model
 import utils.requests as requests
 import json
 import utils.hash_utils as hu
+from utils import verify as verify
 
 
 day_trip_orders = Blueprint("day_trip_orders", __name__, template_folder="../client")
@@ -44,13 +45,26 @@ def make_an_order():
 
         order_counts = len(request.json["booking_id"])
 
-        if (order_counts) == 1:
-            order_info["booking_id"] = request.json["booking_id"][0]
-            order_model.make_an_new_order(order_info)
-        elif (order_counts) > 1:
-            for booking_id in request.json["booking_id"]:
-                order_info["booking_id"] = booking_id
+        try:
+            if (
+                verfied_price := verify.verify_orders_price(
+                    request.json["booking_id"], order_info["price"]
+                )
+            ) is False:
+                return {
+                    "error": True,
+                    "message": "The price is not matched with the prime.",
+                }
+            if (order_counts) == 1:
+                order_info["booking_id"] = request.json["booking_id"][0]
                 order_model.make_an_new_order(order_info)
+            elif (order_counts) > 1:
+                for booking_id in request.json["booking_id"]:
+                    order_info["booking_id"] = booking_id
+                    order_model.make_an_new_order(order_info)
+        except Exception as e:
+            logging.error(traceback.format_exc())
+            return {"error": True, "message": "Something went wrong."}, 500
 
         _data = {
             "prime": prime,
@@ -66,7 +80,7 @@ def make_an_order():
             "remember": True,
         }
 
-        res = requests.Threaded(
+        tappay_res = requests.Threaded(
             url="https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime",
             method="POST",
             headers={
@@ -76,27 +90,35 @@ def make_an_order():
             data=json.dumps(_data, indent=4, sort_keys=True),
         ).run()
 
-        if res["msg"] == "Success":
-            order_info["result"] = "Y"
-            order_id = order_model.get_order_id_by_prime(prime)
-            order_info["order_id"] = hu.to_uuid64(f"{order_id}")
-            if (affected_rows := order_model.update_order_by_prime(order_info)) > 0:
-                if order_counts == 1:
-                    booking_model.update_booking_to_finished(order_info["booking_id"])
-                elif order_counts > 1:
-                    for booking_id in request.json["booking_id"]:
-                        booking_model.update_booking_to_finished(booking_id)
-                return {
-                    "OK": True,
-                    "message": f"Your order id is: {order_model.get_order_id_by_prime(prime)}",
-                }, 200
-            else:
-                return {"error": True, "message": "order update failed"}, 500
-
+        try:
+            if tappay_res["msg"] == "Success":
+                order_info["result"] = "Y"
+                order_id = order_model.get_order_id_by_prime(prime)
+                order_info["order_id"] = hu.to_uuid64(f"{order_id}")
+                if (affected_rows := order_model.update_order_by_prime(order_info)) > 0:
+                    if order_counts == 1:
+                        booking_model.update_booking_to_finished(
+                            order_info["booking_id"]
+                        )
+                    elif order_counts > 1:
+                        for booking_id in request.json["booking_id"]:
+                            booking_model.update_booking_to_finished(booking_id)
+                    return {
+                        "OK": True,
+                        "message": f"Your order id is: {order_model.get_order_id_by_prime(prime)}",
+                    }, 200
+                else:
+                    return {
+                        "error": True,
+                        "message": "invalid order info, please check it again",
+                    }, 400
+        except Exception as e:
+            logging.error(traceback.format_exc())
+            return {"error": True, "message": "order update failed"}, 500
     else:
         return {"error": True, "message": "prime is missing"}, 400
 
-    return {"status": "ok"}, 200
+    return {"ok": True, "message": "order has made successfully"}, 200
 
 
 @response.json_response

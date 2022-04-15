@@ -18,7 +18,7 @@
 
 ## Orders
 
--   [ ] check client's order is valid or not
+-   [x] check client's order is valid or not
 
 ## Booking
 

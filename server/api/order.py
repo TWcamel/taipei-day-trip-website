@@ -1,4 +1,5 @@
 from flask import Blueprint, request, session, render_template
+from api.booking import booking
 import utils.response as response
 import logging
 import traceback
@@ -8,6 +9,7 @@ import utils.requests as requests
 import json
 import utils.hash_utils as hu
 from utils import verify as verify
+from utils import regexp as regexp
 
 
 day_trip_orders = Blueprint("day_trip_orders", __name__, template_folder="../client")
@@ -136,3 +138,29 @@ def get_paid_orders():
         else:
             return {"error": True, "message": "order not found"}, 404
     return {"error": True, "message": "order_id is missing"}, 400
+
+
+@response.json_response
+@day_trip_orders.route("/api/orders", methods=["PATCH"])
+def get_user_order_history():
+    if not (
+        "id" in session
+        and session.get("user_status", "not_yet_log_in") == "already_logged_in"
+    ):
+        return {"error": True, "message": "You are not logged in."}
+
+    user_id = session["id"]
+
+    booking_id = booking_model.get_booking_list_by_user_id(user_id=user_id)
+
+    booking_id = [_["id"] for _ in booking_id] if booking_id is not None else [-1]
+
+    try:
+        list_order = order_model.get_user_history_valid_orders(
+            list_of_booking_id=booking_id, user_id=user_id
+        )
+    except Exception as e:
+        logging.error(traceback.format_exc())
+        return {"error": True, "message": f"Something went wrong: {e}"}, 500
+
+    return {"OK": True, "data": list_order}, 200

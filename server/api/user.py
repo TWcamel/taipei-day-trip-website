@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session
+from flask import Blueprint, request, session, render_template
 import utils.response as response
 from models import user
 import logging
@@ -8,6 +8,11 @@ import utils.hash_utils as hu
 import utils.verify as verify
 
 day_trip_user = Blueprint("day_trip_user", __name__, template_folder="../client")
+
+
+@day_trip_user.route("/user")
+def get_user_page():
+    return render_template("user.html")
 
 
 @response.json_response

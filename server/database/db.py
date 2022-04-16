@@ -72,7 +72,7 @@ class DB:
         return affected_rows
 
     def fetch_db_response_column_name(
-        self, sql_cmd: str, params: dict = {1: 1}, is_fetch_one: bool = True
+        self, sql_cmd: str, params: dict = {1: 1} or tuple, is_fetch_one: bool = True
     ) -> list[dict]:
         """Database query operation
 

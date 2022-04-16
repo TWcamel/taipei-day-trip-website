@@ -234,9 +234,9 @@ let tapPay = {
                         },
                     );
                     if (res.OK) {
-                        // tapPay.jumpToPaymentSuccessPage(
-                        //     `${res.message}`.split(':')[1],
-                        // );
+                         tapPay.jumpToPaymentSuccessPage(
+                             `${res.message}`.split(':')[1],
+                         );
                     }
                 } catch (err) {
                     console.log(err);

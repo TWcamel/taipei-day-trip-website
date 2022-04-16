@@ -71,3 +71,56 @@ def get_paid_orders_by_order_id(order_id: str) -> list or None:
             sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False
         )
     return res if len(res) > 0 else None
+
+
+def get_user_history_valid_orders(
+    list_of_booking_id: list, user_id: int
+) -> list[dict] or None:
+    with db.DB() as _db:
+        sql_cmd = f"""
+        SELECT
+        	Q.BOOKING_ID,
+        	Q.PRICE,
+        	Q.ORDER_ID,
+        	Q.CARD_NAME,
+        	Q.CARD_EMAIL,
+        	Q.CARD_PHONE,
+        	Q.UPDATE_TIME
+        FROM (
+        	SELECT
+        		T.ID,
+        		T.USER_ID,
+        		T.CREATE_TIME,
+        		T.PRICE,
+        		T.ATTRACTION_ID,
+        		T.TYPE,
+        		T.DATE
+        	FROM
+        		booking T
+        	WHERE 1 = 1
+                AND T.user_id = {user_id}
+        		AND T.FINISHED = 'Y'
+        		AND T.id in ({",".join(["%s"] * len(list_of_booking_id))})
+        		AND T.DATE >= DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d'), INTERVAL 0 DAY)) T, orders Q
+        WHERE
+        	1 = 1
+        	AND Q.BOOKING_ID = T.ID
+        	AND Q.RESULT = 'Y'
+        """
+        sql_param = list_of_booking_id
+        res = _db.fetch_db_response_column_name(
+            sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False
+        )
+
+    return res if len(res) > 0 else None
+
+
+def get_user_orders_history(user_id: int) -> list or None:
+    with db.DB() as _db:
+        sql_cmd = """
+        SELECT ORDER_ID FROM orders
+        WHERE user_id = %(_user_id)s
+        """
+        sql_param = {"_user_id": user_id}
+        res = _db.fetch_db(sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False)
+    return res if len(res) > 0 else None

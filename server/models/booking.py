@@ -122,3 +122,21 @@ def get_price_by_booking_id(booking_id: int) -> int:
         res = _db.fetch_db(sql_cmd=sql_cmd, params=sql_param, is_fetch_one=True)
 
     return int(next(iter(tuple(next(iter(res))))))
+
+
+def get_booking_list_by_user_id(user_id: int) -> list[dict] or None:
+    with db.DB() as _db:
+        sql_cmd = """
+            SELECT id
+            FROM booking
+            WHERE USER_ID = %(_USER_ID)s
+        """
+        sql_param = {
+            "_USER_ID": user_id,
+        }
+
+        res = _db.fetch_db_response_column_name(
+            sql_cmd=sql_cmd, params=sql_param, is_fetch_one=False
+        )
+
+    return res if len(res) > 0 else None

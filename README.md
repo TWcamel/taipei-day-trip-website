@@ -9,11 +9,11 @@
 
 ## Functionalities
 
--   [ ] Unit test
--   [ ] Image distribute to CDN
+-   [ ] Image distribute to CDN (EC2 and RDS)
 
 ## User
 
+-   [x] user's order history
 -   [ ] JWT login user access
 
 ## Orders
@@ -23,15 +23,19 @@
 ## Booking
 
 -   [x] Shopping Cart
+-   [x] booking history
+-   [x] orders history for frontend page
 -   [x] Check number of goods in the store house before place an order -> no store house needed
 -   [x] minus one after an order been placed -> no store house needed
 -   [x] plus one after an order been deleted -> no store house needed
--   [x] booking history
--   [ ] orders history for frontend page
+
+## Test
+
+-   [ ] Unit test
 
 # ER Model
 
-![picture 1](images/e5543779fffa284fd4ed14fb0ed222f9084cc17c50e5b7c7a6532463de7c95da.png)  
+![picture 1](images/e5543779fffa284fd4ed14fb0ed222f9084cc17c50e5b7c7a6532463de7c95da.png)
 
 # ref
 

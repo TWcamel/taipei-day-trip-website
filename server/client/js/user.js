@@ -9,8 +9,7 @@ let user = {
     checkUserLogin: async () => {
         const userInfo = await user.getUserInfo();
         if (userInfo.data === null) {
-            // TODO: uncommand once finish user page
-            //user.jumpToIndexPage();
+            user.jumpToIndexPage();
             return;
         }
     },

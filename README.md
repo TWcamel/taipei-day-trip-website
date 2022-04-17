@@ -1,3 +1,7 @@
+- [How to start](#how-to-start)
+  - [Depandancies](#depandancies)
+  - [Enjoy!](#enjoy)
+  - [ER Model](#er-model)
 - [TODO](#todo)
   - [Functionalities](#functionalities)
   - [User](#user)
@@ -5,8 +9,34 @@
   - [Booking](#booking)
   - [Follow-up implementation](#follow-up-implementation)
 - [Reference](#reference)
-  - [ER Model](#er-model)
+  - [TapPay API](#tappay-api)
   - [Useful links](#useful-links)
+
+# How to start
+
+## Depandancies
+
+-   Docker
+-   Docker-compose
+-   watchman-make
+-   [TapPay API](#tappay-api)
+
+## Enjoy!
+
+make sure you have modify `.env.example`, `server/config.example/`, `server/client/config` files and just `make start` then you can start to develop your Taipei day trip app!
+
+```bash
+$ git clone https://github.com/TWcamel/taipei-day-trip-website.git
+$ cd taipei-day-trip-website
+$ cp .env.example .env #change docker variables for your app
+$ cp -r server/config.example server/config #change mysql variables for your app
+$ cp -r server/client/config.example server/client/config #change TapPay API variables for your app
+$ make start
+```
+
+## ER Model
+
+![picture 1](images/e5543779fffa284fd4ed14fb0ed222f9084cc17c50e5b7c7a6532463de7c95da.png)
 
 # TODO
 
@@ -39,9 +69,9 @@
 
 # Reference
 
-## ER Model
+## TapPay API
 
-![picture 1](images/e5543779fffa284fd4ed14fb0ed222f9084cc17c50e5b7c7a6532463de7c95da.png)
+-   [official website](https://www.tappaysdk.com/zh/)
 
 ## Useful links
 

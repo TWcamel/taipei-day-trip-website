@@ -343,7 +343,7 @@ modal = {
                         );
                     else
                         modal.appendSiblingAfterDom(
-                            '<p class="modal-signup-form-btn-message">電子郵件已經被註冊過了</p>',
+                            '<p class="modal-signup-form-btn-message">輸入錯誤，或電子郵件已經被註冊過了</p>',
                             '#user-signup-submit-btn',
                         );
                 }

@@ -9,6 +9,7 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
             LANG: C.UTF-8
+            TZ: 'Asia/Taipei'
         command:
             [
                 'mysqld',
@@ -29,9 +30,11 @@ services:
         build:
             context: ./server
             dockerfile: dockerfile.flask
+        environment:
+            TZ: 'Asia/Taipei'
         volumes:
-            - "./server:/app/server"
-            - ".server/client/:/app/client"
+            - './server:/app/server'
+            - '.server/client/:/app/client'
         networks:
             - ${DAY_TRIP_NETWORK}
         restart: always
@@ -43,8 +46,9 @@ services:
         environment:
             FLASK_PORT: ${FLASK_PORT}
             NGINX_EXPOSE_PORT: ${NGINX_EXPOSE_PORT}
+            TZ: 'Asia/Taipei'
         ports:
-            - "${FLASK_PORT}:${NGINX_EXPOSE_PORT}"
+            - '${FLASK_PORT}:${NGINX_EXPOSE_PORT}'
         networks:
             - ${DAY_TRIP_NETWORK}
         restart: always
@@ -56,4 +60,3 @@ volumes:
 
 networks:
     day-trip-network:
-

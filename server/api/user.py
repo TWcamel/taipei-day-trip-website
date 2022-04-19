@@ -1,12 +1,19 @@
-from flask import Blueprint, request, session
+from flask import Blueprint, request, session, render_template
 import utils.response as response
 from models import user
 import logging
 import traceback
 import mysql.connector as mysql
 import utils.hash_utils as hu
+import utils.verify as verify
 
 day_trip_user = Blueprint("day_trip_user", __name__, template_folder="../client")
+
+
+@day_trip_user.route("/user")
+def get_user_page():
+    return render_template("user.html")
+
 
 @response.json_response
 @day_trip_user.route("/api/user", methods=["GET"])
@@ -53,15 +60,15 @@ def user_login():
                         "already_logged_in",
                     )
                     return {"ok": True}, 200
-            else:
-                return {"error": True, "message": "User not found"}, 401
 
         elif not email or not password:
-            {"error": True, "message": "Missing credentials"}, 401
+            return {"error": True, "message": "Missing credentials"}, 401
 
     except:
         logging.error(traceback.format_exc())
         return {"error": True, "message": "Internal Server Error"}, 500
+
+    return {"error": True, "message": "User not found"}, 404
 
 
 @response.json_response
@@ -82,6 +89,9 @@ def user_signup():
         )
 
         if name and email and password:
+
+            if not verify.verify_email_address(email):
+                return {"error": True, "message": "Invalid email address"}, 400
 
             password = hu.hash_data(password)
 

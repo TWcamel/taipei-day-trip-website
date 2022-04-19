@@ -41,7 +41,7 @@ let navbar = {
     changeNavItemsBaseOnUserLoggedInStatus: (isLoggedIn) => {
         return ` ${
             isLoggedIn === true
-                ? '<li><a href="javascript:;" onclick="navbar.navToBookingPage()">預定行程</a></li><li><a href="javascript:;" onclick="">會員頁面</a></li>'
+                ? '<li><a href="javascript:;" onclick="navbar.navToBookingPage()">預定行程</a></li><li><a href="javascript:;" onclick="navbar.navToUserPage()">會員頁面</a></li>'
                 : '<li><a href="javascript:;" onclick="modal.modalPopUp()">預定行程</a></li>'
         } <li> ${
             isLoggedIn === true
@@ -59,5 +59,8 @@ let navbar = {
 
     navToBookingPage: () => {
         window.location.href = '/booking';
+    },
+    navToUserPage: () => {
+        window.location.href = '/user';
     },
 };

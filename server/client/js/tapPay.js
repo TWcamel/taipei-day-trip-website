@@ -222,6 +222,7 @@ let tapPay = {
             };
 
             (async () => {
+                console.log(order);
                 try {
                     const res = await requestWithHeader(
                         '/api/orders',
@@ -233,9 +234,9 @@ let tapPay = {
                         },
                     );
                     if (res.OK) {
-                        tapPay.jumpToPaymentSuccessPage(
-                            `${res.message}`.split(':')[1],
-                        );
+                         tapPay.jumpToPaymentSuccessPage(
+                             `${res.message}`.split(':')[1],
+                         );
                     }
                 } catch (err) {
                     console.log(err);

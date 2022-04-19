@@ -1,9 +1,9 @@
 from flask import Blueprint, request, session, render_template
 import utils.response as response
 from models import booking as booking_model
-from models import user as user_model
 import logging
 import traceback
+import utils.verify as verify
 
 
 day_trip_booking = Blueprint("day_trip_booking", __name__, template_folder="../client")
@@ -69,11 +69,15 @@ def new_booking():
     ):
         return {"error": True, "message": "You need to log in first"}, 403
 
+    header_content_type = request.headers.get("Content-Type", None)
+
+    if header_content_type != "application/json":
+        return {"error": True, "message": "Content-type is not acceptable"}, 406
+
     attraction_id = request.json["attractionId"]
     booking_type = request.json["time"]
     booking_price = request.json["price"]
     booking_date = request.json["date"]
-    user_id = session["id"]
 
     booking_info = {
         "attraction_id": attraction_id,
@@ -83,10 +87,8 @@ def new_booking():
         "user_id": session["id"],
     }
 
-    header_content_type = request.headers.get("Content-Type", None)
-
-    if header_content_type != "application/json":
-        return {"error": True, "message": "Content-type is not acceptable"}, 406
+    if not verify.verify_booking_info(booking_info):
+        return {"error": True, "message": "Invalid booking info"}, 400
 
     if (
         not booking_info["attraction_id"]

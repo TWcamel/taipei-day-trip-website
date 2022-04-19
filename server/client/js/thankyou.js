@@ -11,7 +11,6 @@ let thankyou = {
             let detail = await thankyou.getOrderDetailByBookingId(
                 order['BOOKING_ID'],
             );
-            console.log(detail);
             await thankyou.insertImgIntoThankyouRightSection({
                 img: detail.data.attraction.image,
                 name: detail.data.attraction.name,
@@ -19,7 +18,6 @@ let thankyou = {
                 attractionId: detail.data.attraction.id,
             });
         });
-        await thankyou.imgCarousel();
         let thankyouSection = document.createElement('div');
         thankyouSection.classList.add('thankyou-section');
         thankyouSection.innerHTML = `
@@ -86,7 +84,7 @@ let thankyou = {
         if (queryString.indexOf('?') === 0) {
             queryString = queryString.substring(1);
         }
-        return queryString.split('=%20')[1];
+        return queryString.indexOf('%20') > -1 ? queryString.split('=%20')[1] : queryString.split('=')[1];
     },
 
     getPaidOrderByOrderId: async () => {
